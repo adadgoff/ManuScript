@@ -6,5 +6,5 @@ from app.database import Base
 class LessonsInfo(Base):
     __tablename__ = "LessonsInfo"
 
-    LessonId = Column(Integer, primary_key=True, nullable=False)
+    LessonId = Column(Integer, primary_key=True, nullable=False, unique=True)
     LessonName = Column(String, nullable=False)

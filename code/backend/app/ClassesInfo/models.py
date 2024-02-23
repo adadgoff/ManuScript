@@ -6,7 +6,7 @@ from app.database import Base
 class ClassesInfo(Base):
     __tablename__ = "ClassesInfo"
 
-    ClassId = Column(Integer, primary_key=True, nullable=False)
+    ClassId = Column(Integer, primary_key=True, nullable=False, unique=True)
     ClassName = Column(String, nullable=False)
     ClassDescription = Column(String, nullable=True)
     ClassLogotypeLink = Column(String, nullable=True)
