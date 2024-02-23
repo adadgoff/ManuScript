@@ -6,14 +6,25 @@ class SUser(BaseModel):
     SurnameName: str
     HashedPassword: str
 
-    class Config:
-        from_attributes = True
+    # class Config:
+    #     from_attributes = True
 
 
-class SUserRegister(BaseModel):
+class SUserLogin(BaseModel):
+    Email: EmailStr
+    Password: str
+
+    # class Config:
+    #     from_attributes = True
+
+
+class SUserRegistry(BaseModel):
     Email: EmailStr
     SurnameName: str
     Password: str
+
+    # class Config:
+    #     from_attributes = True
 
 
 class SUserResponse(BaseModel):

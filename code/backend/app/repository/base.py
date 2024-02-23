@@ -11,6 +11,7 @@ class BaseRepository:
         async with async_session_maker() as session:
             query = select(cls.model).filter_by(**filter_by)
             result = await session.execute(query)
+            # return result.scalars().one_or_none()
             return result.mappings().one_or_none()
 
     @classmethod
@@ -18,6 +19,7 @@ class BaseRepository:
         async with async_session_maker() as session:
             query = select(cls.model).filter_by(**filter_by)
             result = await session.execute(query)
+            # return result.scalars().all()
             return result.mappings().all()
 
     @classmethod
