@@ -1,16 +1,20 @@
 import asyncio
-import os
-import sys
 
-from src.app.utils.test_db import create_tables, insert_data
+import uvicorn
+from fastapi import FastAPI
 
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from db.utils import test_connection, create_tables
+
+app = FastAPI(
+    title="ManuScriptCrossPlatform",
+)
 
 
-async def main():
+async def work_with_db():
+    await test_connection()
     await create_tables()
-    await insert_data()
 
 
-if __name__ == '__main__':
-    asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(work_with_db())
+    uvicorn.run("main:app", reload=True, host="localhost", port=8000)
