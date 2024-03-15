@@ -40,3 +40,13 @@ from base64 import b64encode
 
 print(b64encode(token_bytes(32)).decode())
 ```
+
+# .env
+```
+DB_HOST=localhost
+# TODO: change in prod.
+DB_PORT=5433
+DB_USER=postgres
+DB_PASS=postgres
+DB_NAME=ManuScriptDB
+```
