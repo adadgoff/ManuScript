@@ -23,3 +23,6 @@ class StepModel(Base):
     # many to one. child to parent = steps to lesson.
     lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id", ondelete="CASCADE"))
     lesson: Mapped["LessonModel"] = relationship(back_populates="steps")
+
+    # many to many. child to parent = steps to users.
+    users: Mapped[list["UserModel"]] = relationship(secondary="user_steps", back_populates="steps")

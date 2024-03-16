@@ -3,6 +3,7 @@
 
 # —труктура проекта
 ```
+ѕодробное описание структуры проекта можно найти здесь:
 https://github.com/zhanymkanov/fastapi-best-practices/issues/4
 ```
 ```

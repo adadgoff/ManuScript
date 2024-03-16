@@ -1,6 +1,6 @@
-import enum
+from enum import Enum
 
 
-class StepType(enum.Enum):
+class StepType(Enum):
     INFO = "INFO",
     TASK = "TASK",

@@ -16,3 +16,6 @@ class NotificationModel(Base):
     # many to one. child to parent = notifications to classroom.
     classroom_id: Mapped[int] = mapped_column(ForeignKey("classrooms.id", ondelete="CASCADE"))
     classroom: Mapped["ClassroomModel"] = relationship(back_populates="notifications")
+
+    # many to many. child to parent = notifications to users.
+    users: Mapped["UserModel"] = relationship(secondary="user_notifications", back_populates="notifications")
