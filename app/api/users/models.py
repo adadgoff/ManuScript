@@ -1,0 +1,20 @@
+from uuid import UUID, uuid4
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.api.db.base import Base, str_320, str_50, str_100
+
+
+class UserModel(Base):
+    __tablename__ = "users"
+
+    uuid: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    email: Mapped[str_320] = mapped_column(unique=True)
+    username: Mapped[str_50] = mapped_column()
+    password: Mapped[str_100] = mapped_column()
+
+    # one to one. parent to child = user to image.
+    icon: Mapped["ImageModel"] = relationship(back_populates="user")
+
+    # one to many. parent to child = user to comments.
+    comments: Mapped[list["CommentModel"]] = relationship(back_populates="user")

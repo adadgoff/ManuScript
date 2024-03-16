@@ -3,14 +3,18 @@ from typing import Annotated
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
 
+str_50 = Annotated[str, 50]
+str_100 = Annotated[str, 100]
+str_320 = Annotated[str, 320]
 str_1023 = Annotated[str, 1023]
-str_email = Annotated[str, 320]
 
 
 class Base(DeclarativeBase):
     type_annotation_map = {
+        str_50: String(50),
+        str_100: String(100),
+        str_320: String(320),
         str_1023: String(1023),
-        str_email: String(320),
     }
 
     repr_cols_num = 3

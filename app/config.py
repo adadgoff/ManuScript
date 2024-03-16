@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     def DATABASE_MAX_OVERFLOW(self) -> int:
         return 10
 
-    model_config = SettingsConfigDict(env_file="../../.env")
+    model_config = SettingsConfigDict(env_file="../.env")
 
 
 settings = Settings()
