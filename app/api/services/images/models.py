@@ -19,3 +19,7 @@ class ImageModel(Base):
     # many to one. child to parent = images to comment.
     comment_id: Mapped[int] = mapped_column(ForeignKey("comments.id", ondelete="CASCADE"))
     comment: Mapped["CommentModel"] = relationship(back_populates="images")
+
+    # many to one. child to parent = images to comment.
+    step_id: Mapped[int] = mapped_column(ForeignKey("steps.id", ondelete="CASCADE"))
+    step: Mapped["StepModel"] = relationship(back_populates="images")

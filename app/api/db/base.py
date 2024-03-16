@@ -6,7 +6,7 @@ from sqlalchemy.orm import DeclarativeBase
 str_50 = Annotated[str, 50]
 str_100 = Annotated[str, 100]
 str_320 = Annotated[str, 320]
-str_1023 = Annotated[str, 1023]
+str_2047 = Annotated[str, 2047]
 
 
 class Base(DeclarativeBase):
@@ -14,7 +14,7 @@ class Base(DeclarativeBase):
         str_50: String(50),
         str_100: String(100),
         str_320: String(320),
-        str_1023: String(1023),
+        str_2047: String(1023),
     }
 
     repr_cols_num = 3

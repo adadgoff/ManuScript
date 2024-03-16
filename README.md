@@ -14,6 +14,7 @@ https://github.com/zhanymkanov/fastapi-best-practices/issues/4
 |   |   |-- db                  # работа с базой данных (движок, создатель сессий);
 |   |   |-- extensions          # расширения (метрики, логи, кэширование);
 |   |   |-- modules             # бизнес-логика для приложения;
+|   |   |   |-- many_to_many    # вспомогательные модели для связи многие ко многим;
 |   |   |-- requirements        #
 |   |   |-- services            # внешние сервисы;
 |   |   |   |-- ml              #
@@ -26,28 +27,29 @@ https://github.com/zhanymkanov/fastapi-best-practices/issues/4
 |   |   |-- static              #
 |   |-- scripts                 #
 |   |-- tests                   #
-
-
-|   |-- .env                    #
-|   |-- .gitignore              #
-|   |-- docker-composer.yml     #
-|   |-- Dockerfile              #
-|   |-- LICENSE                 #
-|   |-- notes.md                #
-|   |-- README.md               #
+|-- .env                    #
+|-- .gitignore              #
+|-- docker-composer.yml     #
+|-- Dockerfile              #
+|-- LICENSE                 #
+|-- notes.md                #
+|-- README.md               #
 ```
 
 # Пример `modules`
 ```
-?   ??? modules
-?   ?   ??? module_a
-?   ?   ?   ??? routes.py
-?   ?   ?   ??? services.py
-?   ?   ?   ??? orm.py # the sqlalchemy classes
-?   ?   ?   ??? models.py # "pure" modules (are also pydantic)
-?   ?   ?   ??? schemas.py # the pydantic API schemas
-?   ?   ?   ??? adapters.py
-?   ?   ?   ??? builders.py
-?   ?   ?   ??? interfaces.py
-?   ?   ?   ??? repository.py
+|   |-- modules
+|   |   |-- module_a
+|   |   |   |-- routes.py
+|   |   |   |-- services.py
+|   |   |   |-- orm.py # the sqlalchemy classes
+|   |   |   |-- models.py # "pure" modules (are also pydantic)
+|   |   |   |-- schemas.py # the pydantic API schemas
+|   |   |   |-- adapters.py
+|   |   |   |-- builders.py
+|   |   |   |-- interfaces.py
+|   |   |   |-- repository.py
 ```
+
+# Задачи
+- [ ] Проверить удаление зависимых элементов.

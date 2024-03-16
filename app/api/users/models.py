@@ -18,3 +18,9 @@ class UserModel(Base):
 
     # one to many. parent to child = user to comments.
     comments: Mapped[list["CommentModel"]] = relationship(back_populates="user")
+
+    # many to many. child to parent = teachers to classes.
+    teacher_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="teachers", back_populates="teachers")
+
+    # many to many. child to parent = students to classes.
+    student_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="students", back_populates="students")
