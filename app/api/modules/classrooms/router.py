@@ -1,8 +1,9 @@
 from fastapi import APIRouter, status
 
+from app.api.auth.access_control import access_control
 from app.api.modules.classrooms.exceptions import ClassroomNotFoundException
 from app.api.modules.classrooms.repository import ClassroomRepository
-from app.api.modules.classrooms.schemas import SClassroomInfo
+from app.api.modules.classrooms.schemas import SClassroomGet, SClassroomPost
 
 router = APIRouter(
     prefix="/classrooms",
@@ -11,20 +12,20 @@ router = APIRouter(
 
 @router.get(
     path="/{classroom_id}",
-    response_model=SClassroomInfo,
+    response_model=SClassroomGet,
     status_code=status.HTTP_200_OK,
     summary="Get classroom information.",
     description="Get classroom by id. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException",
     tags=["Student"],
     responses={
         status.HTTP_200_OK: {
-            "model": SClassroomInfo,
+            "model": SClassroomGet,
             "description": "Classroom found.",
         },
-        # ClassroomNotFoundException.status_code: {
-        #     "model": None,
-        #     "description": ClassroomNotFoundException.detail,
-        # }
+        ClassroomNotFoundException.status_code: {
+            "model": None,
+            "description": ClassroomNotFoundException.detail,
+        }
     }
 )
 async def get_test(classroom_id: int):
@@ -34,24 +35,25 @@ async def get_test(classroom_id: int):
     return classroom.ClassroomModel
 
 
-# @router.post(
-#     path="/classroom/create",
-#     response_model=SClassroomInfo,
-#     status_code=status.HTTP_200_OK,
-#     summary="Get classroom information.",
-#     description="Get a classroom by id. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException",
-#     tags=["Student"],
-#     responses={
-#         status.HTTP_200_OK: {
-#             "model": SClassroomInfo,
-#             "description": "Classroom created successfully.",
-#         },
-#         # TODO: maybe handle unexpected exceptions?
-#     }
-# )
-# async def create_classroom(title: str, description: str):
-#     classroom = await ClassroomRepository.add(
-#         title=title,
-#         description=description,
-#     )
-#     return classroom
+# TODO: implement access only authenticated users.
+@router.post(
+    path="/classroom/create",
+    response_model=SClassroomGet,
+    status_code=status.HTTP_200_OK,
+    summary="Get classroom information.",
+    description="Get a classroom by id. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException",
+    tags=["Student"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SClassroomGet,
+            "description": "Classroom created successfully.",
+        },
+        # TODO: maybe handle unexpected exceptions?
+    }
+)
+async def create_classroom(data: SClassroomPost):
+    classroom = await ClassroomRepository.add(
+        title=data.title,
+        description=data.description,
+    )
+    return classroom

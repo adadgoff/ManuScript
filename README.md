@@ -90,6 +90,7 @@ https://github.com/zhanymkanov/fastapi-best-practices?tab=readme-ov-file#1-proje
 ```
 
 # Задачи
+- [ ] Работать с `dto`'шками;
 - [ ] Проверить удаление зависимых элементов;
 - [ ] Подключить версионирование;
 - [ ] Накатить тесты;

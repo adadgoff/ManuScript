@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Response
 
 from app.api.auth.exceptions import UserAlreadyExistsException
-from app.api.auth.helper import authenticate_user, get_password_hash, create_access_token
-from app.api.auth.schemas import SUserRegister, SUserLogin
+from app.api.auth.hasher import authenticate_user, get_password_hash, create_access_token
+from app.api.auth.schemas import SAuthRegister, SAuthLogin
 from app.api.users.repository import UserRepository
 
 router = APIRouter(
@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 @router.post("/registration")
-async def register(user_data: SUserRegister):
+async def register(user_data: SAuthRegister):
     existing_user = await UserRepository.find_one_or_none(email=user_data.email)
     if existing_user:
         raise UserAlreadyExistsException
@@ -21,7 +21,7 @@ async def register(user_data: SUserRegister):
 
 
 @router.post("/login")
-async def login(response: Response, user_data: SUserLogin):
+async def login(response: Response, user_data: SAuthLogin):
     user = await authenticate_user(user_data.email, user_data.password)
     access_token = create_access_token({"sub": str(user.UserModel.uuid)})
     response.set_cookie("access_token", access_token, httponly=True)

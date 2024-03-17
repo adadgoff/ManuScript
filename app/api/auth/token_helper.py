@@ -1,14 +1,13 @@
 from datetime import datetime, timedelta
 
+from fastapi import Request
 from jose import jwt
-from passlib.context import CryptContext
 from pydantic import EmailStr
 
-from app.api.auth.exceptions import IncorrectEmailOrPasswordException
+from app.api.auth.exceptions import UserIncorrectEmailOrPasswordException
+from app.api.auth.hasher import verify_password
 from app.api.users.repository import UserRepository
 from app.config import settings
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def create_access_token(data: dict) -> str:
@@ -19,16 +18,15 @@ def create_access_token(data: dict) -> str:
     return encoded_jwt
 
 
-def get_password_hash(password) -> str:
-    return pwd_context.hash(password)
-
-
-def verify_password(plain_password, hashed_password) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+def get_access_token(request: Request):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise
+    return token
 
 
 async def authenticate_user(email: EmailStr, password: str):
     user = await UserRepository.find_one_or_none(email=email)
     if not (user and verify_password(password, user.UserModel.password)):
-        raise IncorrectEmailOrPasswordException
+        raise UserIncorrectEmailOrPasswordException
     return user

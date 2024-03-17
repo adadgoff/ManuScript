@@ -3,8 +3,7 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
-class SClassroomInfo(BaseModel):
-    id: int
+class SClassroomPost(BaseModel):
     title: str
     description: str
 
@@ -16,3 +15,7 @@ class SClassroomInfo(BaseModel):
     # notifications: list[int]
 
     # TODO: teachers, students etc.
+
+
+class SClassroomGet(SClassroomPost):
+    id: int

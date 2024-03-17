@@ -8,5 +8,5 @@ class ClassroomException(BaseHTTPException):
 
 
 class ClassroomNotFoundException(ClassroomException):
-    status_code = status.HTTP_404_NOT_FOUND,
+    status_code = status.HTTP_404_NOT_FOUND
     detail = "Classroom not found."

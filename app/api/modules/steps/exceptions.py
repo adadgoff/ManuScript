@@ -1,7 +1,9 @@
-from fastapi import HTTPException, status
+from fastapi import status
+
+from app.api.core.base_http_exception import BaseHTTPException
 
 
-class StepException(HTTPException):
+class StepException(BaseHTTPException):
     pass
 
 
