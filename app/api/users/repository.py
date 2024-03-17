@@ -5,4 +5,3 @@ from app.api.users.models import UserModel
 class UserRepository(BaseRepository):
     model = UserModel
 
-

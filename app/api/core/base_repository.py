@@ -22,8 +22,7 @@ class BaseRepository:
 
     @classmethod
     async def add(cls, **data):
+        query = insert(cls.model).values(**data)
         async with async_session_factory() as session:
-            query = insert(cls.model).values(**data)
-            added = await session.execute(query)
+            await session.execute(query)
             await session.commit()
-            return added

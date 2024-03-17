@@ -1,10 +1,13 @@
 from datetime import datetime, timedelta
+from uuid import UUID
 
+from fastapi import Depends
 from fastapi import Request
-from jose import jwt
+from jose import jwt, ExpiredSignatureError, JWTError
 from pydantic import EmailStr
 
-from app.api.auth.exceptions import UserIncorrectEmailOrPasswordException
+from app.api.auth.exceptions import TokenExpiredException, TokenIncorrectFormatException, UserAbsentException
+from app.api.auth.exceptions import UserIncorrectEmailOrPasswordException, TokenAbsentException
 from app.api.auth.hasher import verify_password
 from app.api.users.repository import UserRepository
 from app.config import settings
@@ -21,7 +24,7 @@ def create_access_token(data: dict) -> str:
 def get_access_token(request: Request):
     token = request.cookies.get("access_token")
     if not token:
-        raise
+        raise TokenAbsentException
     return token
 
 
@@ -30,3 +33,23 @@ async def authenticate_user(email: EmailStr, password: str):
     if not (user and verify_password(password, user.UserModel.password)):
         raise UserIncorrectEmailOrPasswordException
     return user
+
+
+async def get_current_user(token: str = Depends(get_access_token)):
+    try:
+        # key "exp" is automatically checked by the jwt.decode command, so you don't need to check it separately.
+        payload = jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
+    except ExpiredSignatureError:
+        raise TokenExpiredException
+    except JWTError:
+        raise TokenIncorrectFormatException
+
+    user_uuid: str = payload.get("sub")
+    if not user_uuid:
+        raise UserAbsentException
+
+    user = await UserRepository.find_one_or_none(uuid=UUID(user_uuid))
+    if not user:
+        raise UserAbsentException
+
+    return user.UserModel

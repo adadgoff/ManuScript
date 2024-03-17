@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Response
 
 from app.api.auth.exceptions import UserAlreadyExistsException
-from app.api.auth.hasher import authenticate_user, get_password_hash, create_access_token
+from app.api.auth.hasher import get_password_hash
 from app.api.auth.schemas import SAuthRegister, SAuthLogin
+from app.api.auth.token_helper import authenticate_user, create_access_token
 from app.api.users.repository import UserRepository
 
 router = APIRouter(
