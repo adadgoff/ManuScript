@@ -26,7 +26,8 @@ class UserModel(Base):
     student_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="students", back_populates="students")
 
     # many to many. parent to child = users to notifications.
-    notifications: Mapped[list["NotificationModel"]] = relationship(secondary="user_notifications", back_populates="users")
+    notifications: Mapped[list["NotificationModel"]] = relationship(secondary="user_notifications",
+                                                                    back_populates="users")
 
     # many to many. parent to child = users to steps.
     steps: Mapped[list["StepModel"]] = relationship(secondary="user_steps", back_populates="users")

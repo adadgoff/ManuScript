@@ -8,6 +8,10 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
 
+    ACCESS_TOKEN_EXPIRE_DAYS: int
+    ALGORITHM: str
+    SECRET_KEY: str
+
     @property
     def DATABASE_URL(self) -> str:
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"

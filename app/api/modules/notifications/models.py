@@ -18,4 +18,4 @@ class NotificationModel(Base):
     classroom: Mapped["ClassroomModel"] = relationship(back_populates="notifications")
 
     # many to many. child to parent = notifications to users.
-    users: Mapped["UserModel"] = relationship(secondary="user_notifications", back_populates="notifications")
+    users: Mapped["UserModel"] = relationship(secondary="users_notifications", back_populates="notifications")
