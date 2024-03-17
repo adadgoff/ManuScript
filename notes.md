@@ -48,7 +48,11 @@ print(b64encode(token_bytes(32)).decode())
 DB_HOST=localhost
 # TODO: change in prod.
 DB_PORT=5433
+DB_NAME=ManuScriptDB
 DB_USER=postgres
 DB_PASS=postgres
-DB_NAME=ManuScriptDB
+
+ACCESS_TOKEN_EXPIRE_DAYS=30
+ALGORITHM=HS256
+SECRET_KEY=e9Tm9zvNIUeNvF71i5faISdxA9t25HXPSPy36wK702E=
 ```

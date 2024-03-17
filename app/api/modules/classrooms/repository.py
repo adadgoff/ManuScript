@@ -10,13 +10,9 @@ class ClassroomRepository(BaseRepository):
 
     @classmethod
     async def create(cls, data: SClassroomPost, user: UserModel):
-        classroom = ClassroomModel(title=data.title, description=data.description)
         async with async_session_factory() as session:
+            classroom = ClassroomModel(title=data.title, description=data.description)
+            user.teacher_classrooms.append(classroom)
             classroom.teachers.append(user)
             session.add(classroom)
-            await session.commit()
-
-        async with async_session_factory() as session:
-            user.teacher_classrooms.append(classroom)
-            session.add_all(user)
             await session.commit()
