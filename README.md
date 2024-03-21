@@ -100,3 +100,4 @@ https://github.com/zhanymkanov/fastapi-best-practices?tab=readme-ov-file#1-proje
 - [ ] Подключить версионирование;
 - [ ] Накатить тесты;
 - [ ] Переименовать `datetime` с постфиксом `_at`;
+- [ ] Переименовать схемы `in`/`out` в конце;

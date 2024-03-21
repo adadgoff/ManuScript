@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class StepType(Enum):
+class StepType(str, Enum):
     INFO = "INFO",
     TASK = "TASK",

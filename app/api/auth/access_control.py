@@ -1,12 +1,5 @@
 # import functools
 #
-# from fastapi import Depends
-#
-# from app.api.auth.enums.user_access import UserAccess
-# from app.api.auth.exceptions import UserAccessIncorrectTypeException, AccessDeniedException
-# from app.api.auth.token_helper import get_current_user
-# from app.api.users.models import UserModel
-#
 #
 # class access_control:  # noqa
 #     def __init__(self, accesses: tuple[UserAccess]):

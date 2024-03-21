@@ -16,6 +16,10 @@ class ImageModel(Base):
     user_uuid: Mapped[UUID] = mapped_column(ForeignKey("users.uuid", ondelete="CASCADE"))
     user: Mapped["UserModel"] = relationship(back_populates="icon")
 
+    # one to one. child to parent = image to classroom.
+    classroom_id: Mapped[int] = mapped_column(ForeignKey("classrooms.id", ondelete="CASCADE"))
+    classroom: Mapped["ClassroomModel"] = relationship(back_populates="icon")
+
     # many to one. child to parent = images to comment.
     comment_id: Mapped[int] = mapped_column(ForeignKey("comments.id", ondelete="CASCADE"))
     comment: Mapped["CommentModel"] = relationship(back_populates="images")

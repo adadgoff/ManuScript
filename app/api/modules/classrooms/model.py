@@ -10,6 +10,9 @@ class ClassroomModel(Base):
     title: Mapped[str_50]
     description: Mapped[str_100]
 
+    # one to one. parent to child = classroom to image.
+    icon: Mapped["ImageModel"] = relationship(back_populates="classroom")
+
     # one to many. parent to child = class to modules.
     modules: Mapped[list["ModuleModel"]] = relationship(back_populates="classroom")
 

@@ -4,8 +4,8 @@ from fastapi import APIRouter
 from starlette import status
 
 from app.api.users.exceptions import UserNotFoundException
-from app.api.users.repository import UserRepository
 from app.api.users.schemas import SUserInfo
+from app.api.users.service import UserService
 
 router = APIRouter(
     prefix="/user",
@@ -18,7 +18,7 @@ router = APIRouter(
     status_code=status.HTTP_200_OK,
     summary="Get user information.",
     description="Get user information by uuid. If user with user_uuid not found/exist, raise UserNotFoundException.",
-    tags=["Student"],
+    tags=["User"],
     responses={
         status.HTTP_200_OK: {
             "model": SUserInfo,
@@ -31,7 +31,7 @@ router = APIRouter(
     }
 )
 async def get_user(user_uuid: UUID):
-    user = await UserRepository.find_one_or_none(uuid=user_uuid)
+    user = await UserService.read_one_or_none(uuid=user_uuid)
     if not user:
         raise UserNotFoundException
     return user.UserModel

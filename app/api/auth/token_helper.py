@@ -1,15 +1,14 @@
 from datetime import datetime, timedelta
 from uuid import UUID
 
-from fastapi import Depends
-from fastapi import Request
+from fastapi import Depends, Request
 from jose import jwt, ExpiredSignatureError, JWTError
 from pydantic import EmailStr
 
 from app.api.auth.exceptions import TokenExpiredException, TokenIncorrectFormatException, UserAbsentException
 from app.api.auth.exceptions import UserIncorrectEmailOrPasswordException, TokenAbsentException
 from app.api.auth.hasher import verify_password
-from app.api.users.repository import UserRepository
+from app.api.users.service import UserService
 from app.config import settings
 
 
@@ -29,7 +28,7 @@ def get_access_token(request: Request):
 
 
 async def authenticate_user(email: EmailStr, password: str):
-    user = await UserRepository.find_one_or_none(email=email)
+    user = await UserService.read_one_or_none(email=email)
     if not (user and verify_password(password, user.UserModel.password)):
         raise UserIncorrectEmailOrPasswordException
     return user
@@ -48,7 +47,7 @@ async def get_current_user(token: str = Depends(get_access_token)):
     if not user_uuid:
         raise UserAbsentException
 
-    user = await UserRepository.find_one_or_none(uuid=UUID(user_uuid))
+    user = await UserService.read_one_or_none(uuid=UUID(user_uuid))
     if not user:
         raise UserAbsentException
 

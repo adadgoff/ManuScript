@@ -1,8 +1,15 @@
 from pydantic import BaseModel, EmailStr
 
 
-class SAuthLogin(BaseModel):
+class SAuthAccessToken(BaseModel):
+    access_token: str
+
+
+class SAuthEmail(BaseModel):
     email: EmailStr
+
+
+class SAuthLogin(SAuthEmail):
     password: str
 
 

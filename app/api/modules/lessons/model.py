@@ -9,7 +9,7 @@ class LessonModel(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str_50]
-    order: Mapped[int]
+    order: Mapped[int] = mapped_column(default=-1)
 
     # one to many. parent to child = lesson to steps.
     steps: Mapped[list["StepModel"]] = relationship(back_populates="lesson")

@@ -10,7 +10,7 @@ class ModuleModel(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str_50]
     description: Mapped[str_100]
-    order: Mapped[int]
+    order: Mapped[int] = mapped_column(default=-1)
 
     # one to many. parent to child = module to lessons.
     lessons: Mapped[list["LessonModel"]] = relationship(back_populates="module")

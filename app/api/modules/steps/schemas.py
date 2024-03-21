@@ -1,13 +1,37 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 from app.api.modules.enums.StepType import StepType
 
 
-class SStepInfo(BaseModel):
+class SStepGetIn(BaseModel):
+    id: int
+
+
+class SStepGetOut(BaseModel):
     id: int
     type: StepType
     text: str
     answer: str | None
     order: int
+    image_uuids: list[UUID]
 
-# TODO: version with comments.
+
+class SStepPostIn(BaseModel):
+    type: StepType
+    lesson_id: int
+
+
+class SStepPostOut(BaseModel):
+    id: int
+    type: StepType
+    lesson_id: int
+
+
+class SStepDeleteIn(BaseModel):
+    id: int
+
+
+class SStepDeleteOut(BaseModel):
+    id: int

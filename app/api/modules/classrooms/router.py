@@ -2,27 +2,28 @@ from fastapi import APIRouter, status, Depends
 
 from app.api.auth.token_helper import get_current_user
 from app.api.modules.classrooms.exceptions import ClassroomNotFoundException
-from app.api.modules.classrooms.repository import ClassroomRepository
-from app.api.modules.classrooms.schemas import SClassroomGet, SClassroomPost
-from app.api.modules.teachers.repository import TeacherRepository
-from app.api.users.models import UserModel
+from app.api.modules.classrooms.schemas import SClassroomGetOut, \
+    SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn
+from app.api.modules.classrooms.service import ClassroomService
+from app.api.users.exceptions import UserNotFoundException
+from app.api.users.model import UserModel
 
 router = APIRouter(
-    prefix="/classrooms",
+    prefix="/classroom",
 )
 
 
 @router.get(
     path="/{classroom_id}",
-    response_model=SClassroomGet,
+    response_model=SClassroomGetOut,
     status_code=status.HTTP_200_OK,
     summary="Get classroom information.",
     description="Get classroom by id. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException",
-    tags=["Student"],
+    tags=["Classroom"],
     responses={
         status.HTTP_200_OK: {
-            "model": SClassroomGet,
-            "description": "Classroom found.",
+            "model": SClassroomGetOut,
+            "description": "Classroom found successfully.",
         },
         ClassroomNotFoundException.status_code: {
             "model": None,
@@ -30,32 +31,60 @@ router = APIRouter(
         }
     }
 )
-async def get_test(classroom_id: int):
-    classroom = await ClassroomRepository.find_one_or_none(id=classroom_id)
+async def get_classroom(classroom_id: int):
+    classroom = await ClassroomService.read_one_or_none(id=classroom_id)
     if not classroom:
         raise ClassroomNotFoundException
     return classroom.ClassroomModel
 
 
-# TODO: implement access only authenticated users.
 @router.post(
-    path="/classroom/create",
-    response_model=None,#SClassroomGet,
+    path="/create",
+    response_model=SClassroomPostOut,
     status_code=status.HTTP_200_OK,
-    summary="Get classroom information.",
-    description="Get a classroom by id. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException",
-    tags=["Student"],
+    summary="Create a new classroom.",
+    description="Create a classroom and return it to the client.",
+    tags=["Classroom"],
     responses={
         status.HTTP_200_OK: {
-            "model": SClassroomGet,
+            "model": SClassroomPostOut,
             "description": "Classroom created successfully.",
         },
-        # TODO: maybe handle unexpected exceptions?
+        UserNotFoundException.status_code: {
+            "model": None,
+            "description": UserNotFoundException.detail,
+        }
     }
 )
-async def create_classroom(
-        data: SClassroomPost,
-        user: UserModel = Depends(get_current_user),
-):
-    classroom = await ClassroomRepository.create(data, user)
-    print(classroom)
+async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get_current_user)):
+    classroom = await ClassroomService.create_one(
+        title=data.title,
+        description=data.description,
+        user=user,
+    )
+    return classroom
+
+
+@router.delete(
+    path="/delete",
+    response_model=SClassroomDeleteOut,
+    status_code=status.HTTP_200_OK,
+    summary="Delete a classroom.",
+    description="Delete a classroom and return id of deleted classroom to the client.",
+    tags=["Classroom"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SClassroomDeleteOut,
+            "description": "Deleted classroom."
+        },
+        ClassroomNotFoundException.status_code: {
+            "model": None,
+            "description": ClassroomNotFoundException.detail,
+        }
+    }
+)
+async def delete_classroom(data: SClassroomDeleteIn):
+    classroom = await ClassroomService.delete_one(id=data.id)
+    if not classroom:
+        raise ClassroomNotFoundException
+    return classroom

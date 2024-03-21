@@ -12,7 +12,7 @@ class StepModel(Base):
     type: Mapped[StepType]
     text: Mapped[str_2047]
     answer: Mapped[str_50 | None]
-    order: Mapped[int]
+    order: Mapped[int] = mapped_column(default=-1)
 
     # one to many. parent to child = step to images.
     images: Mapped[list["ImageModel"]] = relationship(back_populates="step")
