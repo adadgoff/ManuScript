@@ -11,29 +11,57 @@ router = APIRouter(
 )
 
 
+# @router.get(
+#     path="/{module_id}",
+#     response_model=SModuleGetOut,
+#     status_code=status.HTTP_200_OK,
+#     summary="Get module information.",
+#     description="Get module by id. If lesson with module_id not found/exist, raise ModuleNotFoundException",
+#     tags=["Module"],
+#     responses={
+#         status.HTTP_200_OK: {
+#             "model": SModuleGetOut,
+#             "description": "Module found.",
+#         },
+#         ModuleNotFoundException.status_code: {
+#             "model": SModuleGetOut,
+#             "description": ModuleNotFoundException.detail,
+#         }
+#     }
+# )
+# async def get_module(module_id: int):
+#     module = await ModuleService.read_one_or_none(id=module_id)
+#     if not module:
+#         raise ModuleNotFoundException
+#     return module.ModuleModel
+
+
 @router.get(
-    path="/{module_id}",
-    response_model=SModuleGetOut,
+    path="/{classroom_id}",
+    response_model=list[SModuleGetOut],
     status_code=status.HTTP_200_OK,
-    summary="Get module information.",
-    description="Get module by id. If lesson with module_id not found/exist, raise ModuleNotFoundException",
+    summary="Get modules information by classroom_id.",
+    description="Get modules by classroom_id. If lesson with classroom_id not found/exist, raise ModuleNotFoundException",
     tags=["Module"],
     responses={
         status.HTTP_200_OK: {
-            "model": SModuleGetOut,
-            "description": "Module found.",
+            "model": list[SModuleGetOut],
+            "description": "Modules found.",
         },
-        ModuleNotFoundException: {
-            "model": SModuleGetOut,
-            "description": ModuleNotFoundException.detail,
+        ClassroomNotFoundException.status_code: {
+            "model": None,
+            "description": ClassroomNotFoundException.detail,
         }
     }
 )
-async def get_module(module_id: int):
-    module = await ModuleService.read_one_or_none(id=module_id)
-    if not module:
-        raise ModuleNotFoundException
-    return module.ModuleModel
+async def get_modules_in_classroom(classroom_id: int):
+    classroom = await ClassroomService.read_one_or_none(id=classroom_id)
+    if not classroom:
+        raise ClassroomNotFoundException
+    modules = [
+        model.ModuleModel for model in await ModuleService.read_all(classroom_id=classroom_id)
+    ]
+    return modules
 
 
 @router.post(
@@ -48,7 +76,7 @@ async def get_module(module_id: int):
             "model": SModulePostOut,
             "description": "Module created successfully.",
         },
-        ClassroomNotFoundException: {
+        ClassroomNotFoundException.status_code: {
             "model": None,
             "description": ClassroomNotFoundException.detail,
         }

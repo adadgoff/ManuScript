@@ -1,7 +1,6 @@
 from app.api.core.base_repository import BaseRepository
 from app.api.db.async_session_factory import async_session_factory
 from app.api.modules.classrooms.model import ClassroomModel
-from app.api.modules.teachers.model import TeacherModel
 from app.api.users.model import UserModel
 
 

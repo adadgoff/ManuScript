@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+
+import { useTranslation } from "react-i18next";
+import i18next from "./src/services/i18next";
+import { AuthProvider } from "./src/context/AuthContext";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  const changeLng = lng => {
+    i18next.changeLanguage(lng);
+    setCurrentLanguage(lng);
+  }
+
+  const { t } = useTranslation();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <NavigationContainer>
+        
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

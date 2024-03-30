@@ -5,6 +5,8 @@ from app.api.modules.classrooms.exceptions import ClassroomNotFoundException
 from app.api.modules.classrooms.schemas import SClassroomGetOut, \
     SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn
 from app.api.modules.classrooms.service import ClassroomService
+from app.api.modules.students.service import StudentService
+from app.api.modules.teachers.service import TeacherService
 from app.api.users.exceptions import UserNotFoundException
 from app.api.users.model import UserModel
 
@@ -36,6 +38,61 @@ async def get_classroom(classroom_id: int):
     if not classroom:
         raise ClassroomNotFoundException
     return classroom.ClassroomModel
+
+
+@router.get(
+    path="/my_student_classrooms",
+    response_model=list[SClassroomGetOut],
+    status_code=status.HTTP_200_OK,
+    summary="Get user classrooms.",
+    description="Get user classrooms.",
+    tags=["Classroom"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": list[SClassroomGetOut],
+            "description": "Student classrooms found successfully.",
+        },
+        UserNotFoundException.status_code: {
+            "model": None,
+            "description": UserNotFoundException.detail,
+        }
+    }
+)
+async def get_my_student_classrooms(user: UserModel = Depends(get_current_user)):
+    my_student_classroom_ids = [
+        model.StudentModel.classroom_id for model in await StudentService.read_all(user_uuid=user.uuid)
+    ]
+    student_classrooms = [
+        (await ClassroomService.read_one_or_none(id=classroom_id)).ClassroomModel
+        for classroom_id in my_student_classroom_ids
+    ]
+    return student_classrooms
+
+
+@router.get(
+    path="/my_teacher_classrooms",
+    response_model=list[SClassroomGetOut],
+    status_code=status.HTTP_200_OK,
+    summary="Get user classrooms.",
+    description="Get user classrooms.",
+    tags=["Classroom"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": list[SClassroomGetOut],
+            "description": "Teacher classrooms found successfully.",
+        },
+        UserNotFoundException.status_code: {
+            "model": None,
+            "description": UserNotFoundException.detail,
+        }
+    }
+)
+async def get_my_teacher_classrooms(user: UserModel = Depends(get_current_user)):
+    my_teacher_classroom_ids = [model.TeacherModel.classroom_id for model in
+                                await TeacherService.read_all(user_uuid=user.uuid)]
+    teacher_classrooms = [(await ClassroomService.read_one_or_none(id=classroom_id)).ClassroomModel for classroom_id in
+                          my_teacher_classroom_ids]
+    return teacher_classrooms
 
 
 @router.post(

@@ -26,7 +26,7 @@ class BaseRepository(AbstractRepository):
 
     @classmethod
     async def read_all(cls, **filter_by) -> Sequence[RowMapping]:
-        async with async_session_factory() as session:
+        async with async_session_factory(expire_on_commit=False) as session:
             query = select(cls.model).filter_by(**filter_by)
             result = await session.execute(query)
             return result.mappings().all()
