@@ -2,6 +2,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, EmailStr
 
+
 # TODO: Implement good schemas.
 class SUserInfo(BaseModel):
     uuid: UUID

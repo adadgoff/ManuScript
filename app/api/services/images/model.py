@@ -17,13 +17,13 @@ class ImageModel(Base):
     user: Mapped["UserModel"] = relationship(back_populates="icon")
 
     # one to one. child to parent = image to classroom.
-    classroom_id: Mapped[int] = mapped_column(ForeignKey("classrooms.id", ondelete="CASCADE"))
+    classroom_id: Mapped[int | None] = mapped_column(ForeignKey("classrooms.id", ondelete="CASCADE"))
     classroom: Mapped["ClassroomModel"] = relationship(back_populates="icon")
 
     # many to one. child to parent = images to comment.
-    comment_id: Mapped[int] = mapped_column(ForeignKey("comments.id", ondelete="CASCADE"))
+    comment_id: Mapped[int | None] = mapped_column(ForeignKey("comments.id", ondelete="CASCADE"))
     comment: Mapped["CommentModel"] = relationship(back_populates="images")
 
     # many to one. child to parent = images to comment.
-    step_id: Mapped[int] = mapped_column(ForeignKey("steps.id", ondelete="CASCADE"))
+    step_id: Mapped[int | None] = mapped_column(ForeignKey("steps.id", ondelete="CASCADE"))
     step: Mapped["StepModel"] = relationship(back_populates="images")

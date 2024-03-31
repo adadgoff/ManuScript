@@ -44,7 +44,7 @@ async def get_classroom(classroom_id: int):
     path="/my_student_classrooms",
     response_model=list[SClassroomGetOut],
     status_code=status.HTTP_200_OK,
-    summary="Get user classrooms.",
+    summary="Get user student classrooms.",
     description="Get user classrooms.",
     tags=["Classroom"],
     responses={
@@ -73,7 +73,7 @@ async def get_my_student_classrooms(user: UserModel = Depends(get_current_user))
     path="/my_teacher_classrooms",
     response_model=list[SClassroomGetOut],
     status_code=status.HTTP_200_OK,
-    summary="Get user classrooms.",
+    summary="Get user teacher classrooms.",
     description="Get user classrooms.",
     tags=["Classroom"],
     responses={
@@ -88,10 +88,13 @@ async def get_my_student_classrooms(user: UserModel = Depends(get_current_user))
     }
 )
 async def get_my_teacher_classrooms(user: UserModel = Depends(get_current_user)):
-    my_teacher_classroom_ids = [model.TeacherModel.classroom_id for model in
-                                await TeacherService.read_all(user_uuid=user.uuid)]
-    teacher_classrooms = [(await ClassroomService.read_one_or_none(id=classroom_id)).ClassroomModel for classroom_id in
-                          my_teacher_classroom_ids]
+    my_teacher_classroom_ids = [
+        model.TeacherModel.classroom_id for model in await TeacherService.read_all(user_uuid=user.uuid)
+    ]
+    teacher_classrooms = [
+        (await ClassroomService.read_one_or_none(id=classroom_id)).ClassroomModel
+        for classroom_id in my_teacher_classroom_ids
+    ]
     return teacher_classrooms
 
 

@@ -38,6 +38,11 @@ async def input_example_data():
         classroomA.students = [userK, userL]
         session.add_all([classroomA])
 
+        ClassroomB = ClassroomModel(title="Art classroom 2", description="Second good classroom")
+        ClassroomB.teachers = [userA]
+        ClassroomB.students = [userK, userL]
+        session.add_all([ClassroomB])
+
         module1 = ModuleModel(title="Module1", description="Отдыхаем", order=1)
         module2 = ModuleModel(title="Module2", description="Ничего не делаем", order=2)
         classroomA.modules = [module1, module2]

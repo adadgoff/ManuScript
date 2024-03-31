@@ -27,5 +27,6 @@ class SModulePostOut(BaseModel):
 class SModuleDeleteIn(BaseModel):
     id: int
 
+
 class SModuleDeleteOut(BaseModel):
     id: int
