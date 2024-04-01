@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class SImageGetOut(BaseModel):
-    uuid: UUID | None
+    uuid: UUID
 
 
 class SImagePostOut(BaseModel):
