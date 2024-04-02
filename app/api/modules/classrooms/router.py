@@ -3,7 +3,7 @@ from fastapi import APIRouter, status, Depends
 from app.api.auth.token_helper import get_current_user
 from app.api.modules.classrooms.exceptions import ClassroomNotFoundException
 from app.api.modules.classrooms.schemas import SClassroomGetOut, \
-    SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn
+    SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn, SClassroomInfoGetOut
 from app.api.modules.classrooms.service import ClassroomService
 from app.api.modules.students.service import StudentService
 from app.api.modules.teachers.service import TeacherService
@@ -75,15 +75,15 @@ async def get_my_teacher_classrooms(user: UserModel = Depends(get_current_user))
 
 @router.get(
     path="/{classroom_id}",
-    response_model=SClassroomGetOut,
+    response_model=SClassroomInfoGetOut,
     status_code=status.HTTP_200_OK,
-    summary="Get classroom information.",
-    description="Get classroom by id. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException",
+    summary="Get classroom info.",
+    description="Get classroom info. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException. info = [classroom + modules with lessons].",
     tags=["Classroom"],
     responses={
         status.HTTP_200_OK: {
-            "model": SClassroomGetOut,
-            "description": "Classroom found successfully.",
+            "model": SClassroomInfoGetOut,
+            "description": "Modules found.",
         },
         ClassroomNotFoundException.status_code: {
             "model": None,
@@ -91,12 +91,12 @@ async def get_my_teacher_classrooms(user: UserModel = Depends(get_current_user))
         }
     }
 )
-async def get_classroom(classroom_id: int):
-    classroom = await ClassroomService.read_one_or_none(id=classroom_id)
+async def get_classroom_info(classroom_id: int):
+    classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(classroom_id)
     if not classroom:
         raise ClassroomNotFoundException
-
-    return classroom.ClassroomModel
+    q = classroom.ClassroomModel
+    return q
 
 
 @router.post(

@@ -33,4 +33,3 @@ bootstrap
 # Задачи
 - [ ] Переделать `Error` и `About`;
 - [ ] Декомпозировать `Login.jsx` и `Register.jsx`;
-- [ ] Сделать `ClassroomList.jsx` где параметры: `isTeacher/isStudent` + `название title для страницы`

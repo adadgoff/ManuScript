@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload
 from app.api.core.base_repository import BaseRepository
 from app.api.db.async_session_factory import async_session_factory
 from app.api.modules.classrooms.model import ClassroomModel
+from app.api.modules.modules.model import ModuleModel
 from app.api.users.model import UserModel
 
 
@@ -23,13 +24,18 @@ class ClassroomRepository(BaseRepository):
             return classroom
 
     @classmethod
-    async def read_all_with_icon(cls, ids):
+    async def read_one_or_none_with_icon_and_modules(cls, classroom_id: int):
+        async with async_session_factory(expire_on_commit=False) as session:
+            query = select(ClassroomModel).filter_by(id=classroom_id).options(
+                joinedload(ClassroomModel.icon),
+                joinedload(ClassroomModel.modules).joinedload(ModuleModel.lessons),
+            )
+            result = await session.execute(query)
+            return result.unique().mappings().one_or_none()
+
+    @classmethod
+    async def read_all_with_icon(cls, ids: list[int]):
         async with async_session_factory(expire_on_commit=False) as session:
             query = select(ClassroomModel).filter(ClassroomModel.id.in_(ids)).options(joinedload(ClassroomModel.icon))
             result = await session.execute(query)
-            return result.mappings().all()
-
-    # @classmethod  # TODO: fix!!!
-    # async def delete_one(cls, id: int) -> ClassroomModel:
-    #     async with async_session_factory(expire_on_commit=False) as session:
-    #
+            return result.unique().mappings().all()

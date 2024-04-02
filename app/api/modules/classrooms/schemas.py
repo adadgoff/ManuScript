@@ -1,10 +1,7 @@
 from pydantic import BaseModel
 
+from app.api.modules.modules.schemas import SModuleGetOut
 from app.api.services.images.schemas import SImageGetOut
-
-
-class SClassroomGetIn(BaseModel):
-    id: int
 
 
 class SClassroomGetOut(BaseModel):
@@ -12,6 +9,10 @@ class SClassroomGetOut(BaseModel):
     title: str
     description: str
     icon: SImageGetOut | None
+
+
+class SClassroomInfoGetOut(SClassroomGetOut):
+    modules: list[SModuleGetOut]
 
 
 class SClassroomPostIn(BaseModel):
