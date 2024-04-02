@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "./Loader.module.css"
+import { Spinner } from "react-bootstrap";
 
 const Loader = () => {
   return (
-    <div className={ classes }/>
+    <Spinner animation="grow" variant="primary"/>
   );
 };
 

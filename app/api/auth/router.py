@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post(
-    path="/registration",
+    path="/register",
     response_model=SAuthEmail,
     status_code=status.HTTP_201_CREATED,
     summary="Register a new user.",

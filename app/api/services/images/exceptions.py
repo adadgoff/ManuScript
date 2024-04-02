@@ -9,7 +9,7 @@ class ImageException(BaseHTTPException):
 
 class ImageNotFoundException(ImageException):
     status_code = status.HTTP_404_NOT_FOUND
-    detail = "Classroom not found."
+    detail = "Image not found."
 
 
 class ImageIncorrectExtensionException(ImageException):

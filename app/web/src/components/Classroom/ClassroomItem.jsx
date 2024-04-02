@@ -1,18 +1,27 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import classes from "./ClassroomItem.module.css"
+import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
 
-const ClassroomItem = (id, title, description, iconUuid) => {
-  const router = useNavigate()
+const ClassroomItem = ({ children, ...props }) => {
+  const PATH = "http://localhost:8000/api/images";
+  const TITLE_LENGTH = 50;
+  const DESCRIPTION_LENGTH = 70;
+
+  const truncateStr = (str, length) => {
+    if (str.length >= length) {
+      return str.substring(0, length) + "...";
+    }
+    return str;
+  }
 
   return (
-    <div className={ classes.post }>
-      <img className={classes.postImage} src={}/>
-      <div className={ classes.postTitle }>
-        { description }
-      </div>
-
-    </div>
+    <Card className="my-3 p-2" style={ { flexDirection: "row", cursor: "pointer" } }>
+      <CardImg src={ `${ PATH }/${ props.icon.uuid }` } alt="Icon"
+               style={ { height: "80px", width: "80px", alignContent: "center", } }/>
+      <CardBody className="p-1">
+        <CardTitle>{ truncateStr(props.title, TITLE_LENGTH) }</CardTitle>
+        <CardText>{ truncateStr(props.description, DESCRIPTION_LENGTH) }</CardText>
+      </CardBody>
+    </Card>
   );
 };
 
