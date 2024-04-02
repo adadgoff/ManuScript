@@ -1,15 +1,15 @@
 import { API_PATH } from "../SETTINGS";
 
-const PREFIX = "classroom/"
+const PREFIX = "classroom"
 
 class ClassroomService {
   static async getStudentClassrooms() {
-    const response = await fetch(`${ API_PATH }${ PREFIX }/my_student_classrooms`);
+    const response = await fetch(`${ API_PATH }/${ PREFIX }/my_student_classrooms`);
     return response.data;
   }
 
   static async getTeacherClassrooms() {
-    const response = await fetch(`${ API_PATH }${ PREFIX }/my_teacher_classrooms`);
+    const response = await fetch(`${ API_PATH }/${ PREFIX }/my_teacher_classrooms`);
     return response.data;
   }
 

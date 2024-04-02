@@ -31,7 +31,7 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      const response = await AuthService.Login(email, password);
+      const response = await AuthService.login(email, password);
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData.detail);

@@ -32,4 +32,7 @@ bootstrap
 
 # Задачи
 - [ ] Переделать `Error` и `About`;
-- [ ] Декомпозировать `Login.jsx` и `Register.jsx`;
+
+# Вопросы
+- [ ] норм декомпозиция?
+- [ ] unauthorized при Learn/Teach как прокидывать token?

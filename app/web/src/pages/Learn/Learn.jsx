@@ -5,8 +5,18 @@ import ClassroomList from "../../components/Classroom/ClassroomList";
 const Learn = () => {
   const [classrooms, setClassrooms] = useState([])
 
-  useEffect(async () => {
-    console.log(await ClassroomService.getStudentClassrooms());
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await ClassroomService.getStudentClassrooms();
+        console.log(response)
+        setClassrooms(response.data);
+      } catch (error) {
+        console.log("Error fetching classrooms:", error);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
