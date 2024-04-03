@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
+import { DEFAULT_IMAGE_UUID } from "../../consts/links";
 import { API_PATH } from "../../SETTINGS";
 
 const ClassroomItem = ({ children, ...props }) => {
@@ -17,7 +18,7 @@ const ClassroomItem = ({ children, ...props }) => {
   return (
     <Card className="my-3 p-2" style={ { flexDirection: "row", cursor: "pointer" } }>
       <CardImg
-        src={ `${ PATH }/${ props.icon.uuid }` }
+        src={ `${ PATH }/${ props.icon ? props.icon.uuid : DEFAULT_IMAGE_UUID }` }
         alt="Icon"
         style={ { height: "80px", width: "80px", alignContent: "center", } }
       />

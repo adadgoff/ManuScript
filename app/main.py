@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.auth.router import router as router_auth
 from app.api.db.test import init_db, input_example_data
@@ -41,8 +41,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers",
-                   "Access-Control-Allow-Origin",
-                   "Authorization"],
+                   "Access-Control-Allow-Origin", "Authorization"],
 )
 
 

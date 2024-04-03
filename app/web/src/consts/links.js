@@ -1,0 +1,1 @@
+export const DEFAULT_IMAGE_UUID = "3342be25-236f-4594-a82d-2247a4e054c8";

@@ -4,6 +4,7 @@ class AuthService {
   static async login(email, password) {
     return await fetch(`${API_PATH}/login`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,6 +18,7 @@ class AuthService {
   static async register(email, username, password) {
     return await fetch(`${API_PATH}/register`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

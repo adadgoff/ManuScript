@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import ClassroomService from "../../API/ClassroomService";
+import ClassroomService from "../../../API/ClassroomService";
 
 // const Classroom = (classroomId) => {
 const Classroom = () => {

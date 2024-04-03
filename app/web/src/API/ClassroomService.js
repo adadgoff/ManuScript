@@ -4,13 +4,20 @@ const PREFIX = "classroom"
 
 class ClassroomService {
   static async getStudentClassrooms() {
-    const response = await fetch(`${ API_PATH }/${ PREFIX }/my_student_classrooms`);
-    return response.data;
+    const response = await fetch(`${ API_PATH }/${ PREFIX }/my_student_classrooms`, {
+      method: "GET",
+      credentials: "include",
+    });
+    return response.json();
   }
 
   static async getTeacherClassrooms() {
-    const response = await fetch(`${ API_PATH }/${ PREFIX }/my_teacher_classrooms`);
-    return response.data;
+    const response = await fetch(
+      `${ API_PATH }/${ PREFIX }/my_teacher_classrooms`, {
+        method: "GET",
+        credentials: "include",
+      });
+    return response.json();
   }
 
   static async getClassroomInfo(classroomId) {

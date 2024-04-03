@@ -1,10 +1,10 @@
 import React from "react";
 import { Alert, Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/UI/Loader/Loader";
+import Loader from "../../../components/UI/Loader/Loader";
+import { EMAIL_REGEX } from "../../../helpers/checkEmail";
 
-// TODO: is it good decomposition?
-const LoginForm = ({ ...props }) => {
+const RegisterForm = ({ ...props }) => {
   const navigate = useNavigate();
 
   return (
@@ -15,7 +15,7 @@ const LoginForm = ({ ...props }) => {
 
       <div
         className="text-bg-info text-center text-white rounded p-3 mb-3 fs-4 fw-medium">
-        Вход в систему
+        Регистрация
       </div>
 
       <Form noValidate validated={ props.validated } onSubmit={ props.handleSubmit }>
@@ -23,10 +23,22 @@ const LoginForm = ({ ...props }) => {
           <Form.Control
             required
             type="email"
+            pattern={ EMAIL_REGEX.source }
             placeholder="user@example.com"
             onChange={ (event) => props.setEmail(event.target.value) }
             disabled={ props.isLoading }
           />
+        </FloatingLabel>
+
+        <FloatingLabel controlId="floatingUsername" label="Имя пользователя" className="mb-3">
+          <Form.Control
+            required
+            type="text"
+            placeholder="username"
+            onChange={ (event) => props.setUsername(event.target.value) }
+            disabled={ props.isLoading }
+          />
+          <Form.Control.Feedback>Верный формат</Form.Control.Feedback>
         </FloatingLabel>
 
         <FloatingLabel controlId="floatingPassword" label="Пароль" className="mb-3">
@@ -34,27 +46,28 @@ const LoginForm = ({ ...props }) => {
             required
             type="password"
             placeholder="password"
+            minLength={ 5 }
             onChange={ (event) => props.setPassword(event.target.value) }
             disabled={ props.isLoading }
           />
         </FloatingLabel>
         <Button
           type="submit"
-          className="btn-success w-100"
+          className="w-100"
           disabled={ props.isLoading }
-        >Войти в систему</Button>
+        >Создать аккаунт</Button>
       </Form>
 
       <hr className="my-4"/>
 
       <Button
         type="submit"
-        className="btn-primary w-100"
+        className="btn-success w-100"
         disabled={ props.isLoading }
-        onClick={ () => navigate("/register") }
-      >Нет аккаунта? Создать</Button>
+        onClick={ () => navigate("/login") }
+      >Уже есть аккаунт? Войти в систему</Button>
     </Container>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

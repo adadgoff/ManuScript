@@ -28,11 +28,9 @@ npm start
 npm install react-router-dom            # Маршруты.
 npm i i18next react-i18next --save      # Многоязычность.
 bootstrap
+
 ```
 
 # Задачи
 - [ ] Переделать `Error` и `About`;
-
-# Вопросы
-- [ ] норм декомпозиция?
-- [ ] unauthorized при Learn/Teach как прокидывать token?
+- [ ] Исправить баг, что пишется "Тут пока что пусто"

@@ -11,4 +11,4 @@ export const useSortedSearchedClassrooms = ((classrooms, search) => {
   return useMemo(() => {
     return sortedClassrooms.filter(classroom => classroom.title.toLowerCase().includes(search.toLowerCase()));
   }, [search, sortedClassrooms]);
-})
+});

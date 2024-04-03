@@ -1,9 +1,10 @@
-import About from "../pages/About/About";
-import Error from "../pages/Error/Error";
-import Learn from "../pages/Learn/Learn";
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
-import Teach from "../pages/Teach/Teach";
+import Learn from "../pages/private/Learn/Learn";
+import Teach from "../pages/private/Teach/Teach";
+import About from "../pages/public/About/About";
+import Error from "../pages/public/Error/Error";
+import Login from "../pages/public/Login/Login";
+import Register from "../pages/public/Register/Register";
+import Test from "../pages/public/Test/Test";
 
 export const privateRoutes = [
   { path: "/learn", element: <Learn/> },
@@ -15,4 +16,8 @@ export const publicRoutes = [
   { path: "/login", element: <Login/> },
   { path: "/register", element: <Register/> },
   { path: "/*", element: <Error/> },
+]
+
+export const testRoutes = [
+  { path: "/test", element: <Test/> }
 ]

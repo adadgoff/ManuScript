@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { privateRoutes, publicRoutes } from "./routers";
+import { privateRoutes, publicRoutes, testRoutes } from "./routers";
 
 const AppRouter = () => {
   return (
@@ -13,6 +13,12 @@ const AppRouter = () => {
 
       {
         privateRoutes.map(route =>
+          <Route path={ route.path } element={ route.element } key={ route.path }/>
+        )
+      }
+
+      {
+        testRoutes.map(route =>
           <Route path={ route.path } element={ route.element } key={ route.path }/>
         )
       }
