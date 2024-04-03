@@ -7,7 +7,7 @@ import { TEACH_TITLE } from "./consts";
 const Teach = () => {
   const [classrooms, setClassrooms] = useState([]);
 
-  const [fetchClassrooms, isClassroomsLoading, classroomError] = useFetching(async () => {
+  const [fetchClassrooms, isFetchingLoading, fetchingError] = useFetching(async () => {
     const teacherClassrooms = await ClassroomService.getTeacherClassrooms();
     setClassrooms(teacherClassrooms);
   });
@@ -20,7 +20,7 @@ const Teach = () => {
     <ClassroomList
       title={ TEACH_TITLE }
       classrooms={ classrooms }
-      isLoading={ isClassroomsLoading }
+      isLoading={ isFetchingLoading }
     />
   );
 };

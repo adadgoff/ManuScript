@@ -1,0 +1,1 @@
+export const SORTING_TEXT = "Идёт сортировка";

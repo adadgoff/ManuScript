@@ -33,6 +33,7 @@ app.mount(path="/resources/static", app=StaticFiles(directory="resources/static"
 
 origins = [
     "http://localhost:3000",
+    "http://superkaa77.keenetic.pro:8000/",
 ]
 
 app.add_middleware(
