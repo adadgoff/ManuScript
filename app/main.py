@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.api.auth.router import router as router_auth
-from app.api.db.test import init_db, input_example_data
+from app.api.db.init_db import init_db, input_example_data
 from app.api.modules.classrooms.router import router as router_classrooms
 from app.api.modules.lessons.router import router as router_lessons
 from app.api.modules.modules.router import router as router_modules
@@ -33,7 +33,7 @@ app.mount(path="/resources/static", app=StaticFiles(directory="resources/static"
 
 origins = [
     "http://localhost:3000",
-    "http://superkaa77.keenetic.pro:8000/",
+    "http://kaa77.keenetic.pro:3000/",
 ]
 
 app.add_middleware(

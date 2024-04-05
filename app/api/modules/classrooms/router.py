@@ -1,14 +1,17 @@
 from fastapi import APIRouter, status, Depends
 
-from app.api.auth.token_helper import get_current_user
+from app.api.auth.exceptions import AccessDeniedException
+from app.api.auth.helpers.token_helper import get_current_user
+from app.api.modules.classrooms.access import check_rights
 from app.api.modules.classrooms.exceptions import ClassroomNotFoundException
 from app.api.modules.classrooms.schemas import SClassroomGetOut, \
-    SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn, SClassroomInfoGetOut
+    SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn, SClassroomGetOutWithModules
 from app.api.modules.classrooms.service import ClassroomService
 from app.api.modules.students.service import StudentService
 from app.api.modules.teachers.service import TeacherService
 from app.api.users.exceptions import UserNotFoundException
 from app.api.users.model import UserModel
+from app.api.users.service import UserService
 
 router = APIRouter(
     prefix="/classroom",
@@ -75,28 +78,36 @@ async def get_my_teacher_classrooms(user: UserModel = Depends(get_current_user))
 
 @router.get(
     path="/{classroom_id}",
-    response_model=SClassroomInfoGetOut,
+    response_model=SClassroomGetOutWithModules,
     status_code=status.HTTP_200_OK,
-    summary="Get classroom info.",
-    description="Get classroom info. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException. info = [classroom + modules with lessons].",
+    summary="Get classroom with modules and lessons.",
+    description="Get classroom with modules and lessons. If classroom with classroom_id not found/exist, raise ClassroomNotFoundException. info = [classroom + modules with lessons].",
     tags=["Classroom"],
     responses={
         status.HTTP_200_OK: {
-            "model": SClassroomInfoGetOut,
-            "description": "Modules found.",
+            "model": SClassroomGetOutWithModules,
+            "description": "Classroom found successfully.",
         },
         ClassroomNotFoundException.status_code: {
             "model": None,
             "description": ClassroomNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
         }
     }
 )
-async def get_classroom_info(classroom_id: int):
+async def get_classroom_with_modules_and_lessons(classroom_id: int, user: UserModel = Depends(get_current_user)):
     classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(classroom_id)
     if not classroom:
         raise ClassroomNotFoundException
-    q = classroom.ClassroomModel
-    return q
+
+    # TODO: better to change on maybe decorator and remove extra moves.
+    user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
+    check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=True, is_for_teachers=True)
+
+    return classroom.ClassroomModel
 
 
 @router.post(

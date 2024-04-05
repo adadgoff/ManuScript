@@ -1,5 +1,4 @@
-import { PASSWORD_MIN_LENGTH } from "../helpers/checkPassword";
-import { USERNAME_MAX_LENGTH } from "../helpers/checkUsername";
+import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "./auth";
 
 // ERRORS: LOGIN / REGISTER.
 export const EMAIL_ERROR = "Неверный формат электронной почты";
@@ -8,3 +7,4 @@ export const PASSWORD_ERROR = `Пароль должен состоять мин
 
 // ERRORS: LEARN / TEACH.
 export const FETCHING_CLASSROOMS_ERROR = "Error fetching classrooms:";
+

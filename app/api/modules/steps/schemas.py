@@ -15,6 +15,9 @@ class SStepGetOut(BaseModel):
     text: str
     answer: str | None
     order: int
+
+
+class SStepGetOutWithImages(BaseModel):
     image_uuids: list[UUID]
 
 

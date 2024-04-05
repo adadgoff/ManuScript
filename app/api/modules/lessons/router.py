@@ -1,9 +1,15 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 
-from app.api.modules.lessons.schemas import SLessonPostIn, SLessonPostOut
+from app.api.auth.exceptions import AccessDeniedException
+from app.api.auth.helpers.token_helper import get_current_user
+from app.api.modules.lessons.access import check_rights
+from app.api.modules.lessons.exceptions import LessonNotFoundException
+from app.api.modules.lessons.schemas import SLessonPostIn, SLessonPostOut, SLessonGetOutWithSteps
 from app.api.modules.lessons.service import LessonService
 from app.api.modules.modules.exceptions import ModuleNotFoundException
 from app.api.modules.modules.service import ModuleService
+from app.api.users.model import UserModel
+from app.api.users.service import UserService
 
 router = APIRouter(
     prefix="/lesson",
@@ -38,3 +44,38 @@ async def create_lesson(data: SLessonPostIn):
         module_id=module.Modulemodel.id,
     )
     return lesson
+
+
+# TODO: decide what's better schema or lesson_id?
+@router.get(
+    path="/{lesson_id}",
+    response_model=SLessonGetOutWithSteps,
+    status_code=status.HTTP_200_OK,
+    summary="Get lesson with steps.",
+    description="Get lesson with steps.",
+    tags=["Lesson"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SLessonGetOutWithSteps,
+            "description": "Lesson found successfully.",
+        },
+        LessonNotFoundException.status_code: {
+            "model": None,
+            "description": LessonNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
+        }
+    }
+)
+async def get_lesson_with_steps(lesson_id: int, user: UserModel = Depends(get_current_user)):
+    lesson = await LessonService.read_one_or_none_with_steps(id=lesson_id)
+    if not lesson:
+        raise LessonNotFoundException
+
+    # TODO: better to change on maybe decorator and remove extra moves.
+    user = await UserService.read_one_or_none_with_classrooms_modules_and_lessons(uuid=user.uuid)
+    check_rights(lesson.LessonModel, user.UserModel, is_for_students=True, is_for_teachers=True)
+
+    return lesson.LessonModel

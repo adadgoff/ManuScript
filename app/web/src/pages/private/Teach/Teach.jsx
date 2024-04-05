@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ClassroomService from "../../../API/ClassroomService";
-import ClassroomList from "../../../components/Classroom/ClassroomList";
 import { useFetching } from "../../../hooks/useFetching";
-import { TEACH_TITLE } from "./consts";
+import { TEACH_TITLE } from "./constants";
+import ClassroomList from "./TeacherClassroom/ClassroomList";
 
 const Teach = () => {
   const [classrooms, setClassrooms] = useState([]);

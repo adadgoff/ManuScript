@@ -7,7 +7,7 @@ from pydantic import EmailStr
 
 from app.api.auth.exceptions import TokenExpiredException, TokenIncorrectFormatException, UserAbsentException
 from app.api.auth.exceptions import UserIncorrectEmailOrPasswordException, TokenAbsentException
-from app.api.auth.hasher import verify_password
+from app.api.auth.helpers.hasher_helper import verify_password
 from app.api.users.service import UserService
 from app.config import settings
 

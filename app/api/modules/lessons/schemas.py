@@ -1,14 +1,21 @@
 from pydantic import BaseModel
 
+from app.api.modules.steps.schemas import SStepGetOut
 
-class SLessonGetIn(BaseModel):
-    id: int
+
+# TODO: decide what's better.
+# class SLessonGetIn(BaseModel):
+#     id: int
 
 
 class SLessonGetOut(BaseModel):
     id: int
     title: str
     order: int
+
+
+class SLessonGetOutWithSteps(SLessonGetOut):
+    steps: list[SStepGetOut]
 
 
 class SLessonPostIn(BaseModel):

@@ -1,11 +1,10 @@
-from fastapi import APIRouter, Response, Depends
+from fastapi import APIRouter, Response
 from starlette import status
 
 from app.api.auth.exceptions import UserAlreadyExistsException, UserIncorrectEmailOrPasswordException
-from app.api.auth.hasher import get_password_hash
+from app.api.auth.helpers.hasher_helper import get_password_hash
 from app.api.auth.schemas import SAuthRegister, SAuthLogin, SAuthEmail, SAuthAccessToken
-from app.api.auth.token_helper import authenticate_user, create_access_token, get_current_user
-from app.api.users.model import UserModel
+from app.api.auth.helpers.token_helper import authenticate_user, create_access_token
 from app.api.users.service import UserService
 
 router = APIRouter()
@@ -81,9 +80,9 @@ async def login(response: Response, user_data: SAuthLogin):
 async def logout(response: Response):
     return response.delete_cookie("access_token")
 
-
-@router.get(
-    path="/check",
-)
-async def is_logged_in(user: UserModel = Depends(get_current_user)) -> bool:
-    return bool(user)
+# TODO: delete this code.
+# @router.get(
+#     path="/auth",
+# )
+# async def is_logged_in(user: UserModel = Depends(get_current_user)) -> bool:
+#     return bool(user)

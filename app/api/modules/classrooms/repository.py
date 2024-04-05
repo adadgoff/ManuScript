@@ -23,6 +23,7 @@ class ClassroomRepository(BaseRepository):
             await session.commit()
             return classroom
 
+    # TODO: do with **filter_by.
     @classmethod
     async def read_one_or_none_with_icon_and_modules(cls, classroom_id: int):
         async with async_session_factory(expire_on_commit=False) as session:

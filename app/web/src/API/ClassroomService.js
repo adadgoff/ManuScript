@@ -1,29 +1,34 @@
+import { CLASSROOM_PREFIX } from "../constants/classrooms";
 import { API_PATH } from "../SETTINGS";
-
-const PREFIX = "classroom"
 
 class ClassroomService {
   static async getStudentClassrooms() {
-    const response = await fetch(`${ API_PATH }/${ PREFIX }/my_student_classrooms`, {
-      method: "GET",
-      credentials: "include",
-    });
+    const response = await fetch(`${ API_PATH }/${ CLASSROOM_PREFIX }/my_student_classrooms`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
     return response.json();
   }
 
   static async getTeacherClassrooms() {
     const response = await fetch(
-      `${ API_PATH }/${ PREFIX }/my_teacher_classrooms`, {
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/my_teacher_classrooms`, {
         method: "GET",
         credentials: "include",
-      });
+      }
+    );
     return response.json();
   }
 
-  static async getClassroomInfo(classroomId) {
-    // return await fetch(`${ API_PATH }/classroom/${ classroomId }`);
-    // const response = await fetch(`${ API_PATH }/classroom/${ 1 }`);
-    // console.log(response.data);
+  static async getClassroom(classroomId) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
   }
 }
 

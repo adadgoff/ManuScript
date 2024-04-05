@@ -1,4 +1,4 @@
-from app.api.auth.hasher import get_password_hash
+from app.api.auth.helpers.hasher_helper import get_password_hash
 from app.api.db.async_engine import async_engine
 from app.api.db.async_session_factory import async_session_factory
 from app.api.db.base import Base
@@ -14,7 +14,6 @@ from app.api.modules.students.model import StudentModel  # noqa
 from app.api.modules.teachers.model import TeacherModel  # noqa
 from app.api.modules.users_notifications.model import UserNotificationModel  # noqa
 from app.api.modules.users_steps.model import UserStepModel  # noqa
-
 from app.api.services.images.model import ImageModel  # noqa
 from app.api.users.model import UserModel  # noqa
 
@@ -26,6 +25,7 @@ async def init_db():
         await conn.run_sync(Base.metadata.create_all)
 
 
+# TODO: remove on prod.
 async def input_example_data():
     async with async_session_factory() as session:
         userK = UserModel(email="kdadgoff@mail.ru", username="KOKOS", password=get_password_hash("<PASSWORD>"))

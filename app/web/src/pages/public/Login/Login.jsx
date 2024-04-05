@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../../API/AuthService";
-import { EMAIL_ERROR, PASSWORD_ERROR } from "../../../consts/errors";
+import { EMAIL_ERROR, PASSWORD_ERROR } from "../../../constants/errors";
 import { checkEmail } from "../../../helpers/checkEmail";
-import { checkPassword, PASSWORD_MIN_LENGTH } from "../../../helpers/checkPassword";
+import { checkPassword } from "../../../helpers/checkPassword";
 import LoginForm from "./LoginForm";
 
 const Register = () => {

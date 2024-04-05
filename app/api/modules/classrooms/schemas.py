@@ -11,7 +11,7 @@ class SClassroomGetOut(BaseModel):
     icon: SImageGetOut | None
 
 
-class SClassroomInfoGetOut(SClassroomGetOut):
+class SClassroomGetOutWithModules(SClassroomGetOut):
     modules: list[SModuleGetOut]
 
 

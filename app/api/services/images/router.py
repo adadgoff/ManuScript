@@ -4,7 +4,7 @@ import aiofiles
 from fastapi import APIRouter, UploadFile, Depends, status
 from fastapi.responses import FileResponse
 
-from app.api.auth.token_helper import get_current_user
+from app.api.auth.helpers.token_helper import get_current_user
 from app.api.services.images.exceptions import ImageIncorrectExtensionException, ImageNotFoundException
 from app.api.services.images.schemas import SImagePostOut
 from app.api.services.images.service import ImageService

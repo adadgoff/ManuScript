@@ -2,9 +2,8 @@ import React from "react";
 import { Alert, Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/UI/Loader/Loader";
-import { EMAIL_REGEX } from "../../../helpers/checkEmail";
+import { EMAIL_REGEX } from "../../../constants/auth";
 
-// TODO: is it good decomposition?
 const LoginForm = ({ ...props }) => {
   const navigate = useNavigate();
 
