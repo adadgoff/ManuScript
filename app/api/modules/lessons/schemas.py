@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.api.modules.steps.schemas import SStepGetOut
+from app.api.modules.steps.schemas import SStepGetOutBase
 
 
 # TODO: decide what's better.
@@ -12,10 +12,11 @@ class SLessonGetOut(BaseModel):
     id: int
     title: str
     order: int
+    module_id: int
 
 
 class SLessonGetOutWithSteps(SLessonGetOut):
-    steps: list[SStepGetOut]
+    steps: list[SStepGetOutBase]
 
 
 class SLessonPostIn(BaseModel):

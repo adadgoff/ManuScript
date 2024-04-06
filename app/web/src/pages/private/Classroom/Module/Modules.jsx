@@ -5,8 +5,8 @@ import Module from "./Module";
 const Modules = ({ ...props }) => {
   return (
     <Container>
-      { props.modules && props.modules.map((module, index) =>
-        <Module key={ module.id } number={ index + 1 } module={ module }/>
+      { props.modules && props.modules.map(module =>
+        <Module key={ module.id } module={ module }/>
       ) }
     </Container>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 
-const StepEdit = () => {
+const LessonEdit = () => {
   return (
     <div>
 
@@ -8,4 +8,4 @@ const StepEdit = () => {
   );
 };
 
-export default StepEdit;
+export default LessonEdit;

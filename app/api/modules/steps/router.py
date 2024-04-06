@@ -1,11 +1,16 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 
+from app.api.auth.exceptions import AccessDeniedException
+from app.api.auth.helpers.token_helper import get_current_user
 from app.api.modules.lessons.exceptions import LessonNotFoundException
 from app.api.modules.lessons.service import LessonService
+from app.api.modules.steps.access import check_rights
 from app.api.modules.steps.exceptions import StepNotFoundException
-from app.api.modules.steps.schemas import SStepGetOut, SStepPostOut, SStepPostIn, SStepDeleteOut, \
-    SStepDeleteIn
+from app.api.modules.steps.schemas import SStepPostOut, SStepPostIn, SStepDeleteOut, \
+    SStepDeleteIn, SStepGetOut
 from app.api.modules.steps.service import StepService
+from app.api.users.model import UserModel
+from app.api.users.service import UserService
 
 router = APIRouter(
     prefix="/step",
@@ -27,13 +32,22 @@ router = APIRouter(
         StepNotFoundException.status_code: {
             "model": None,
             "description": StepNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
         }
     }
 )
-async def get_step(step_id: int):
+async def get_step(step_id: int, user: UserModel = Depends(get_current_user)):
     step = await StepService.read_one_or_none(id=step_id)
     if not step:
         raise StepNotFoundException
+
+    # TODO: better to change on maybe decorator and remove extra moves.
+    user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
+    check_rights(step.StepModel, user.UserModel, is_for_students=True, is_for_teachers=True)
+
     return step.StepModel
 
 

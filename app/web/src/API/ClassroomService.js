@@ -3,7 +3,8 @@ import { API_PATH } from "../SETTINGS";
 
 class ClassroomService {
   static async getStudentClassrooms() {
-    const response = await fetch(`${ API_PATH }/${ CLASSROOM_PREFIX }/my_student_classrooms`, {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/my_student_classrooms`, {
         method: "GET",
         credentials: "include",
       }

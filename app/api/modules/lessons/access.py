@@ -8,17 +8,22 @@ def check_rights(
         user: UserModel,
         is_for_students: bool = False,
         is_for_teachers: bool = False) -> bool:
-    # student_modules_lessons = (module.lessons for classroom in user.student_classrooms for module in classroom.modules)
-    # teacher_modules_lessons = (module.lessons for classroom in user.teacher_classrooms for module in classroom.modules)
-
-    student_modules_lessons_ids = (lesson_.id for classroom in user.student_classrooms for module in classroom.modules
-                                   for lesson_ in module.lessons)
-    teacher_modules_lessons_ids = (lesson_.id for classroom in user.teacher_classrooms for module in classroom.modules
-                                   for lesson_ in module.lessons)
+    student_lessons_ids = (
+        lesson_.id
+        for classroom in user.student_classrooms
+        for module in classroom.modules
+        for lesson_ in module.lessons
+    )
+    teacher_lessons_ids = (
+        lesson_.id
+        for classroom in user.teacher_classrooms
+        for module in classroom.modules
+        for lesson_ in module.lessons
+    )
 
     result = (
-            (is_for_students and lesson.id in student_modules_lessons_ids) or
-            (is_for_teachers and lesson.id in teacher_modules_lessons_ids)
+            (is_for_students and lesson.id in student_lessons_ids) or
+            (is_for_teachers and lesson.id in teacher_lessons_ids)
     )
 
     if not result:

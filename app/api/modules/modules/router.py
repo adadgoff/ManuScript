@@ -5,12 +5,37 @@ from app.api.modules.classrooms.service import ClassroomService
 from app.api.modules.lessons.schemas import SLessonGetOut
 from app.api.modules.lessons.service import LessonService
 from app.api.modules.modules.exceptions import ModuleNotFoundException
-from app.api.modules.modules.schemas import SModuleGetOut, SModulePostOut, SModulePostIn
+from app.api.modules.modules.schemas import SModulePostOut, SModulePostIn, SModuleGetOutBase
 from app.api.modules.modules.service import ModuleService
 
 router = APIRouter(
     prefix="/module",
 )
+
+
+@router.get(
+    path="/{module_id}/base",
+    response_model=SModuleGetOutBase,
+    status_code=status.HTTP_200_OK,
+    summary="Get module order.",
+    description="Helper handle for getting module order.",
+    tags=["Module"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SModuleGetOutBase,
+            "description": "Module found.",
+        },
+        ModuleNotFoundException.status_code: {
+            "model": None,
+            "description": ModuleNotFoundException.detail,
+        }
+    }
+)
+async def get_module_base(module_id: int):
+    module = await ModuleService.read_one_or_none(id=module_id)
+    if not module:
+        raise ModuleNotFoundException
+    return module.ModuleModel
 
 
 @router.get(
@@ -32,6 +57,7 @@ router = APIRouter(
     }
 )
 async def get_lessons_in_module(module_id: int):
+    # TODO: add access check.
     module = await ModuleService.read_one_or_none(id=module_id)
     if not module:
         raise ModuleNotFoundException

@@ -5,16 +5,15 @@ from pydantic import BaseModel
 from app.api.modules.enums.StepType import StepType
 
 
-class SStepGetIn(BaseModel):
+class SStepGetOutBase(BaseModel):
     id: int
+    order: int
 
 
-class SStepGetOut(BaseModel):
-    id: int
+class SStepGetOut(SStepGetOutBase):
     type: StepType
     text: str
     answer: str | None
-    order: int
 
 
 class SStepGetOutWithImages(BaseModel):

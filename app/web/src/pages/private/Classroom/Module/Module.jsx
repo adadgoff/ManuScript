@@ -2,17 +2,22 @@ import React from "react";
 import { Card, CardBody, CardText, CardTitle } from "react-bootstrap";
 import Lessons from "../Lesson/Lessons";
 
-const Module = ({ number, ...props }) => {
+const Module = ({ moduleOrder, ...props }) => {
   return (
-    <Card className="my-3">
-      <CardBody className="pb-2">
-        <CardTitle>{ number }. { props.module.title }</CardTitle>
+    <Card
+      // TODO: maybe use border.
+      border="info"
+      className="my-4"
+      style={ { borderWidth: "2px" } }>
+      <CardBody className="pb-1">
+        <CardTitle>{ props.module.order }. { props.module.title }</CardTitle>
         <CardText>{ props.module.description }</CardText>
 
+        {/*TODO: maybe use border. <hr className="my-3 border-primary"/>*/ }
         <hr className="my-3"/>
 
         <Lessons
-          moduleNumber={ number }
+          moduleOrder={ props.module.order }
           lessons={ props.module.lessons }
         />
       </CardBody>

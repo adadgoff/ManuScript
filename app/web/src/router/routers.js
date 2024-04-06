@@ -1,6 +1,6 @@
 import Learn from "../pages/private/Learn/Learn";
-import Step from "../pages/private/Step/Step";
-import StepEdit from "../pages/private/StepEdit/StepEdit";
+import Lesson from "../pages/private/Lesson/Lesson/Lesson";
+import LessonEdit from "../pages/private/LessonEdit/LessonEdit";
 import Classroom from "../pages/private/Classroom/Classroom/Classroom";
 import Teach from "../pages/private/Teach/Teach";
 import ClassroomEdit from "../pages/private/ClassroomEdit/ClassroomEdit";
@@ -15,8 +15,8 @@ export const privateRoutes = [
   { path: "/teach", element: <Teach/> },
   { path: "/classroom/:id", element: <Classroom/> },
   { path: "/classroom/:id/edit", element: <ClassroomEdit/> },
-  { path: "/step/:id", element: <Step/> },
-  { path: "/step/:id/edit", element: <StepEdit/> },
+  { path: "/lesson/:id", element: <Lesson/> },
+  { path: "/lesson/:id/edit", element: <LessonEdit/> },
 ]
 
 export const publicRoutes = [

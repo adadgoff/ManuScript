@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import LessonService from "../../../API/LessonService";
-import ModuleService from "../../../API/ModuleService";
-import { useFetching } from "../../../hooks/useFetching";
+import LessonService from "../../../../API/LessonService";
+import ModuleService from "../../../../API/ModuleService";
+import { useFetching } from "../../../../hooks/useFetching";
 import LessonForm from "./LessonForm";
 
 const Lesson = () => {
   const params = useParams();
-
   const [lesson, setLesson] = useState({});
   const [moduleOrder, setModuleOrder] = useState(-1);
-
   const navigate = useNavigate();
 
   const [fetchLesson, isFetchingLoading, fetchingError] = useFetching(

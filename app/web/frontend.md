@@ -27,10 +27,14 @@ npm start
 ```
 npm install react-router-dom            # Маршруты.
 npm i i18next react-i18next --save      # Многоязычность.
-bootstrap
-
+bootstrap                                   # Стили.
+npm install --save @tinymce/tinymce-react   # Текстовый редактор.
+axios                                   # HTTP-запросы.
 ```
 
 # Задачи
+
 - [ ] Переделать `Error` и `About`;
-- [ ] Разобраться с `{ replace: true }`
+- [ ] Разобраться с `{ replace: true }`;
+- [ ] Сделать `default_classroom_icon.png`;
+- [ ] 

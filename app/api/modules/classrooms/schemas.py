@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.api.modules.modules.schemas import SModuleGetOut
+from app.api.modules.modules.schemas import SModuleGetOutWithLessons
 from app.api.services.images.schemas import SImageGetOut
 
 
@@ -12,7 +12,7 @@ class SClassroomGetOut(BaseModel):
 
 
 class SClassroomGetOutWithModules(SClassroomGetOut):
-    modules: list[SModuleGetOut]
+    modules: list[SModuleGetOutWithLessons]
 
 
 class SClassroomPostIn(BaseModel):

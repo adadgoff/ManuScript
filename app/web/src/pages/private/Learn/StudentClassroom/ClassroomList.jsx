@@ -23,22 +23,22 @@ const ClassroomList = ({ ...props }) => {
       <h1 className={ TITLE_CLASS_NAME }>{ props.title }</h1>
 
       {
-        props.isLoading ? (
-          <Loader title={ LOADING_TEXT }/>
-        ) : isSorting ? (
-          <Loader title={ SORTING_TEXT }/>
-        ) : props.classrooms.length !== 0 ? (
-          sortedSearchedClassrooms.map(classroom => (
-            <ClassroomItem
-              onClick={ () => navigate(`/${ CLASSROOM_PREFIX }/${ classroom.id }`) }
-              title={ classroom.title }
-              description={ classroom.description }
-              icon={ classroom.icon }
-              key={ classroom.id }
-            />
-          ))
+        props.isLoading || isSorting ? (
+          <Loader title={ props.isLoading ? LOADING_TEXT : SORTING_TEXT }/>
         ) : (
-          <h2 className="text-center">{ EMPTY_TEXT }</h2>
+          props.classrooms.length !== 0 ? (
+            sortedSearchedClassrooms.map(classroom => (
+              <ClassroomItem
+                onClick={ () => navigate(`/${ CLASSROOM_PREFIX }/${ classroom.id }`) }
+                title={ classroom.title }
+                description={ classroom.description }
+                icon={ classroom.icon }
+                key={ classroom.id }
+              />
+            ))
+          ) : (
+            <h2 className="text-center">{ EMPTY_TEXT }</h2>
+          )
         )
       }
     </Container>

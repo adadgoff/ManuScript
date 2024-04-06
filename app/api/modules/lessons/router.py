@@ -75,7 +75,7 @@ async def get_lesson_with_steps(lesson_id: int, user: UserModel = Depends(get_cu
         raise LessonNotFoundException
 
     # TODO: better to change on maybe decorator and remove extra moves.
-    user = await UserService.read_one_or_none_with_classrooms_modules_and_lessons(uuid=user.uuid)
+    user = await UserService.read_one_or_none_with_lessons(uuid=user.uuid)
     check_rights(lesson.LessonModel, user.UserModel, is_for_students=True, is_for_teachers=True)
 
     return lesson.LessonModel

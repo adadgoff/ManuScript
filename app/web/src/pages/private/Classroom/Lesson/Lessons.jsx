@@ -2,13 +2,12 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Lesson from "./Lesson";
 
-const Lessons = ({ moduleNumber, ...props }) => {
+const Lessons = ({ moduleOrder, ...props }) => {
   return (
     <Container>
-      { props.lessons && props.lessons.map((lesson, index) =>
+      { props.lessons && props.lessons.map(lesson =>
         <Lesson
-          moduleNumber={ moduleNumber }
-          number={ index + 1 }
+          moduleOrder={ moduleOrder }
           lesson={ lesson }
           key={ lesson.id }
         />

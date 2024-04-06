@@ -3,11 +3,18 @@ from pydantic import BaseModel
 from app.api.modules.lessons.schemas import SLessonGetOut
 
 
-class SModuleGetOut(BaseModel):
+class SModuleGetOutBase(BaseModel):
+    order: int
+
+
+class SModuleGetOut(SModuleGetOutBase):
     id: int
     title: str
     description: str
     order: int
+
+
+class SModuleGetOutWithLessons(SModuleGetOut):
     lessons: list[SLessonGetOut]
 
 
