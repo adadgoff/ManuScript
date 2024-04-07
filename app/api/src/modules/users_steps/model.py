@@ -12,9 +12,9 @@ class UserStepModel(Base):
 
     user_uuid: Mapped[UUID] = mapped_column(ForeignKey("users.uuid"), primary_key=True)
     step_id: Mapped[UUID] = mapped_column(ForeignKey("steps.id"), primary_key=True)
-    user_text: Mapped[str_50]
-    status: Mapped[StepStatus] = mapped_column(default=StepStatus.EMPTY_OR_INCORRECT)
+    user_answer: Mapped[str_50]
+    status: Mapped[StepStatus] = mapped_column(default=StepStatus.EMPTY)
 
     # one to one. parent to child = user_step to image.
-    image_uuid: Mapped[UUID] = mapped_column(ForeignKey("images.uuid"))
-    image: Mapped["ImageModel"] = relationship("ImageModel", back_populates="user_step")
+    user_image_uuid: Mapped[UUID] = mapped_column(ForeignKey("images.uuid"))
+    user_image: Mapped["ImageModel"] = relationship("ImageModel", back_populates="user_step")

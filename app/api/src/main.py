@@ -1,5 +1,4 @@
 import asyncio
-import os
 
 import uvicorn
 from fastapi import FastAPI
@@ -8,12 +7,13 @@ from fastapi.staticfiles import StaticFiles
 
 from auth.router import router as router_auth
 from db.init_db import init_db, input_example_data
-from modules.classrooms.router import router as router_classrooms
-from modules.lessons.router import router as router_lessons
-from modules.modules.router import router as router_modules
-from modules.steps.router import router as router_steps
-from services.images.router import router as router_images
-from users.router import router as router_users
+from modules.classrooms.router import router as router_classroom
+from modules.lessons.router import router as router_lesson
+from modules.modules.router import router as router_module
+from modules.steps.router import router as router_step
+from modules.users_steps.router import router as router_user_step
+from services.images.router import router as router_image
+from users.router import router as router_user
 
 app = FastAPI(title="ManuScriptCrossPlatform", root_path="/api", version="0.1.0")
 # app = VersionedFastAPI(app, version_format="{major}", prefix_format="/api/v{major}")
@@ -22,13 +22,14 @@ app = FastAPI(title="ManuScriptCrossPlatform", root_path="/api", version="0.1.0"
 
 app.include_router(router_auth)
 
-app.include_router(router_classrooms)
-app.include_router(router_lessons)
-app.include_router(router_modules)
-app.include_router(router_steps)
+app.include_router(router_classroom)
+app.include_router(router_lesson)
+app.include_router(router_module)
+app.include_router(router_step)
+app.include_router(router_user_step)
 
-app.include_router(router_images)
-app.include_router(router_users)
+app.include_router(router_image)
+app.include_router(router_user)
 
 ################################################
 
@@ -36,8 +37,7 @@ app.mount(path="/static", app=StaticFiles(directory="../resources/static"), name
 
 origins = [
     "http://localhost:3000",
-    "http://kaa77.keenetic.pro",
-    "https://kaa77.keenetic.pro",
+    "http://kaa77.keenetic.pro:3000",
 ]
 
 app.add_middleware(
@@ -56,5 +56,5 @@ async def work_with_db():
 
 
 if __name__ == "__main__":
-    asyncio.run(work_with_db())  # бывает проблема с асинхронностью, если создавать одновременно БД.
-    # uvicorn.run("main:app", reload=False, host="localhost", port=8000)
+    # asyncio.run(work_with_db())  # бывает проблема с асинхронностью, если создавать одновременно БД.
+    uvicorn.run("main:app", reload=False, host="0.0.0.0", port=8000)

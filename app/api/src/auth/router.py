@@ -4,7 +4,7 @@ from starlette import status
 from src.auth.exceptions import UserAlreadyExistsException, UserIncorrectEmailOrPasswordException
 from src.auth.helpers.hasher_helper import get_password_hash
 from src.auth.helpers.token_helper import authenticate_user, create_access_token
-from src.auth.schemas import SAuthEmail, SAuthRegister, SAuthAccessToken, SAuthLogin
+from src.auth.schemas import SAuthAccessToken, SAuthEmail, SAuthLogin, SAuthRegister
 from src.users.service import UserService
 
 router = APIRouter()

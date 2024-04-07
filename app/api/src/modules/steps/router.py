@@ -44,7 +44,7 @@ async def get_step(step_id: int, user: UserModel = Depends(get_current_user)):
     if not step:
         raise StepNotFoundException
 
-    # TODO: better to change on maybe decorator and remove extra moves.
+    # TODO: better to change or maybe decorator and remove extra moves.
     user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
     check_rights(step.StepModel, user.UserModel, is_for_students=True, is_for_teachers=True)
 

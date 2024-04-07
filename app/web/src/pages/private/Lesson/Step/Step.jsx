@@ -4,8 +4,8 @@ import StepService from "../../../../API/Step/StepService";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { useFetching } from "../../../../hooks/useFetching";
-import StepInfo from "./StepType/StepInfo";
-import StepTask from "./StepType/StepTask";
+import StepInfo from "./StepTypes/StepInfo";
+import StepTask from "./StepTypes/StepTask";
 
 const Step = ({ ...props }) => {
   const [step, setStep] = useState({});

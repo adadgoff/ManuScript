@@ -1,6 +1,7 @@
 from enum import Enum
 
 
-class StepStatus(Enum):
-    EMPTY_OR_INCORRECT = 0,
-    CORRECT = 1,
+class StepStatus(str, Enum):
+    EMPTY = "EMPTY",
+    INCORRECT = "INCORRECT",
+    CORRECT = "CORRECT",
