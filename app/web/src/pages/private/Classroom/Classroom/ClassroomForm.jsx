@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Accordion, Container } from "react-bootstrap";
-import { LOADING_TEXT } from "../../../../components/UI/Loader/consts";
 import Loader from "../../../../components/UI/Loader/Loader";
-import { SORTING_TEXT } from "../../../../constants/classrooms";
+import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { useSortedClassroom } from "../../../../hooks/ClassroomHooks/useClassroom";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
 import Modules from "../Module/Modules";
 import ClassroomItem from "./ClassroomItem";
 
 const ClassroomForm = ({ ...props }) => {
-  const [open, setOpen] = useState(false);
   const [sortedClassroom, isSorting] = useSortedClassroom(props.classroom);
 
   return (

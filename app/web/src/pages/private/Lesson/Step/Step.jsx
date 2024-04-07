@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import StepService from "../../../../API/StepService";
+import StepService from "../../../../API/Step/StepService";
 import Loader from "../../../../components/UI/Loader/Loader";
-import { LOADING_TEXT } from "../../../../constants/utils";
+import { LOADING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { useFetching } from "../../../../hooks/useFetching";
-import StepInfo from "./StepInfo";
-import StepTask from "./StepTask";
+import StepInfo from "./StepType/StepInfo";
+import StepTask from "./StepType/StepTask";
 
 const Step = ({ ...props }) => {
   const [step, setStep] = useState({});
@@ -21,8 +21,6 @@ const Step = ({ ...props }) => {
   useEffect(() => {
     fetchStep();
   }, [props.step]);
-
-  console.log(step);
 
   return (
     <>

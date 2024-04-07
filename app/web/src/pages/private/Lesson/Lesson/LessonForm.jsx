@@ -1,9 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import BackButton from "../../../../components/BackButton/BackButton";
-import { LOADING_TEXT } from "../../../../components/UI/Loader/consts";
+import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import Loader from "../../../../components/UI/Loader/Loader";
-import { SORTING_TEXT } from "../../../../constants/classrooms";
 import { useSortedLesson } from "../../../../hooks/LessonHooks/useLesson";
 import { useCurrentStep } from "../../../../hooks/StepHooks/useStep";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
@@ -35,7 +34,7 @@ const LessonForm = ({ ...props }) => {
           { sortedLesson.steps.length ? (
             <Step step={ currentStep }/>
           ) : (
-            <h2 className="text-center">Шагов в уроке нет...</h2>
+            <h2 className="text-center border rounded p-3">Шагов в уроке нет...</h2>
           ) }
         </>
       ) }

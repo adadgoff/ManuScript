@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, FloatingLabel, Form } from "react-bootstrap";
-import { LOADING_TEXT } from "../../../../components/UI/Loader/consts";
 import Loader from "../../../../components/UI/Loader/Loader";
-import { EMPTY_TEXT, SORTING_TEXT, TITLE_HINT } from "../../../../constants/classrooms";
+import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
+import { CLASSROOM_EMPTY_TEXT, CLASSROOM_TITLE_HINT } from "../../../../constants/Classroom/ClassroomConstants";
 import { useSortedSearchedClassrooms } from "../../../../hooks/ClassroomHooks/useClassrooms";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
 import ClassroomItem from "./ClassroomItem";
@@ -14,7 +14,7 @@ const ClassroomList = ({ ...props }) => {
 
   return (
     <Container className="my-3">
-      <FloatingLabel controlId="searchInput" label={ TITLE_HINT } className="mb-3">
+      <FloatingLabel controlId="searchInput" label={ CLASSROOM_TITLE_HINT } className="mb-3">
         <Form.Control type="text" placeholder="" onChange={ (event) => setSearch(event.target.value) }/>
       </FloatingLabel>
 
@@ -36,7 +36,7 @@ const ClassroomList = ({ ...props }) => {
             />
           ))
         ) : (
-          <h2 className="text-center">{ EMPTY_TEXT }</h2>
+          <h2 className="text-center">{ CLASSROOM_EMPTY_TEXT }</h2>
         )
       }
     </Container>

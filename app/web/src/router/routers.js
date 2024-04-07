@@ -1,14 +1,15 @@
+import Classroom from "../pages/private/Classroom/Classroom/Classroom";
+import ClassroomEdit from "../pages/private/ClassroomEdit/ClassroomEdit";
 import Learn from "../pages/private/Learn/Learn";
 import Lesson from "../pages/private/Lesson/Lesson/Lesson";
 import LessonEdit from "../pages/private/LessonEdit/LessonEdit";
-import Classroom from "../pages/private/Classroom/Classroom/Classroom";
 import Teach from "../pages/private/Teach/Teach";
-import ClassroomEdit from "../pages/private/ClassroomEdit/ClassroomEdit";
 import About from "../pages/public/About/About";
 import Error from "../pages/public/Error/Error";
 import Login from "../pages/public/Login/Login";
 import Register from "../pages/public/Register/Register";
 import Test from "../pages/test/Test";
+import Test2 from "../pages/test/Test2";
 
 export const privateRoutes = [
   { path: "/learn", element: <Learn/> },
@@ -27,5 +28,6 @@ export const publicRoutes = [
 ]
 
 export const testRoutes = [
-  { path: "/test", element: <Test/> }
+  { path: "/test", element: <Test/> },
+  { path: "/test2", element: <Test2/> },
 ]

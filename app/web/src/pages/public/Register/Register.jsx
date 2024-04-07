@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthService from "../../../API/AuthService";
-import { EMAIL_ERROR, PASSWORD_ERROR, USERNAME_ERROR } from "../../../constants/errors";
+import AuthService from "../../../API/Auth/AuthService";
+import { EMAIL_ERROR, PASSWORD_ERROR, USERNAME_ERROR } from "../../../constants/Error/ErrorConstants";
 import { checkEmail } from "../../../helpers/checkEmail";
 import { checkPassword } from "../../../helpers/checkPassword";
 import { checkUsername } from "../../../helpers/checkUsername";

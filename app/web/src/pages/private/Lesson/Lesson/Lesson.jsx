@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import LessonService from "../../../../API/LessonService";
-import ModuleService from "../../../../API/ModuleService";
+import LessonService from "../../../../API/Lesson/LessonService";
+import ModuleService from "../../../../API/Module/ModuleService";
 import { useFetching } from "../../../../hooks/useFetching";
 import LessonForm from "./LessonForm";
 

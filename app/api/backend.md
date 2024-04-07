@@ -23,21 +23,25 @@ python -m venv venv
 
 # Использованные команды
 
-`pip install "fastapi[all]"`\
-`pip install sqlalchemy`\
-`pip install alembic`\
-`pip install asyncpg`\
-`pip install "pydantic-settings"`\
-`pip install passlib python-jose`\
-`pip install bcrypt`
+```
+pip install "fastapi[all]"
+pip install sqlalchemy
+pip install alembic
+pip install asyncpg`
+pip install "pydantic-settings"
+pip install passlib python-jose
+pip install bcrypt
 
-`pip freeze > requirements.txt`\
-`pip install -r requirements.txt`
+pip freeze > requirements.txt
+pip install -r requirements.txt
 
-`alembic init migrations`\
-`alembic revision --autogenerate -m "Initial migration"`\
-`alembic upgrade head`\
-`alembic downgrade -1`
+pip install easyocr
+
+alembic init migrations
+alembic revision --autogenerate -m "Initial migration"
+alembic upgrade head
+alembic downgrade -1
+```
 
 # Генерация секретного ключа
 
@@ -112,3 +116,4 @@ docker-compose up -d
 - [ ] что лучше schema или просто `"/id"`?
 - [ ] В чем разница между `.mappings()` и `.scalars()`?
 - [ ] Можно ли как-то упростить работу репозиториев и сервисов?
+- [ ] Декомпозировать `main` в `app` и `routers`;

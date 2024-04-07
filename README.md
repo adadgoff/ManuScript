@@ -57,3 +57,6 @@ https://github.com/zhanymkanov/fastapi-best-practices?tab=readme-ov-file#1-proje
 |   |   |   |-- interfaces.py
 |   |   |   |-- repository.py
 ```
+
+# Задачи
+- [ ] Перенести `web` в `client/web`;

@@ -1,16 +1,17 @@
 import React from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
-import { DEFAULT_IMAGE_UUID, IMAGES_PATH } from "../../../../constants/classrooms";
+import { IMAGE_PATH } from "../../../../API/Image/ImageConstants";
+import { CLASSROOM_DEFAULT_IMAGE_UUID } from "../../../../constants/Classroom/ClassroomConstants";
 import { CARD_IMG_STYLE } from "../../../../styles/Classroom/ClassroomStyles";
 
 const ClassroomItem = ({ classroom }) => {
   return (
     <Card
-      id="collapse-text"
+      className="p-2"
       style={ { flexDirection: "row" } }
     >
       <CardImg
-        src={ `${ IMAGES_PATH }/${ classroom.icon ? classroom.icon.uuid : DEFAULT_IMAGE_UUID }` }
+        src={ `${ IMAGE_PATH }/${ classroom.icon ? classroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
         alt="Icon"
         style={ CARD_IMG_STYLE }
       />

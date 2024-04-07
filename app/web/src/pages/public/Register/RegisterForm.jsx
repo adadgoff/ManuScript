@@ -2,14 +2,15 @@ import React from "react";
 import { Alert, Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/UI/Loader/Loader";
-import { EMAIL_REGEX } from "../../../constants/auth";
+import { LOADING_TEXT } from "../../../components/UI/Loader/LoaderConstants";
+import { EMAIL_REGEX } from "../../../constants/Auth/AuthConstants";
 
 const RegisterForm = ({ ...props }) => {
   const navigate = useNavigate();
 
   return (
     <Container className="my-3">
-      { props.isLoading && <Loader/> }
+      { props.isLoading && <Loader title={ LOADING_TEXT }/> }
 
       { props.error && <Alert variant="danger">{ props.error }</Alert> }
 

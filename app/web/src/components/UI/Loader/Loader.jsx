@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
-import { FRAMES_COUNT } from "./consts";
+import { FRAMES_COUNT } from "./LoaderConstants";
 
 const Loader = (props) => {
   const [loadingDots, setLoadingDots] = useState("");
