@@ -1,6 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
-import { TINY_MCE_API_KEY } from "../../../../constants/TextEditor/TextEditorConstants";
+import { TINY_MCE_API_KEY } from "../../../../../constants/TextEditor/TextEditorConstants";
 
 const StepText = ({ ...props }) => {
   return (

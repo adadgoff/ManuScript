@@ -5,7 +5,7 @@ from src.db.base import Base
 
 from src.modules.classrooms.model import ClassroomModel  # noqa
 from src.modules.comments.model import CommentModel  # noqa
-from src.modules.enums.StepType import StepType
+from src.modules.steps.StepType import StepType
 from src.modules.lessons.model import LessonModel  # noqa
 from src.modules.modules.model import ModuleModel  # noqa
 from src.modules.notifications.model import NotificationModel  # noqa

@@ -32,6 +32,15 @@ class BaseRepository(AbstractRepository):
             return result.mappings().all()
 
     @classmethod
+    async def update_one(cls, model, **data) -> dict:
+        async with async_session_factory(expire_on_commit=False) as session:
+            for key, value in data.items():
+                setattr(model, key, value)
+            session.add(model)
+            await session.commit()
+            return model
+
+    @classmethod
     async def delete_one(cls, **filter_by) -> dict:
         async with async_session_factory() as session:
             query = delete(cls.model).filter_by(**filter_by).returning(literal_column('*'))

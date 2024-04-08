@@ -1,12 +1,14 @@
-from uuid import uuid4
+import asyncio
+from uuid import UUID, uuid4
 
 import aiofiles
+import aiofiles.os
 from fastapi import UploadFile
+from sqlalchemy import RowMapping
 
 from src.core.base_service import BaseService
 from src.services.images.contants import ALLOWED_EXTENSIONS, DEFAULT_CHUNK_SIZE, PATH
-from src.services.images.exceptions import ImageIncorrectExtensionException
-from src.services.images.model import ImageModel
+from src.services.images.exceptions import ImageIncorrectExtensionException, ImageNotFoundException
 from src.services.images.repository import ImageRepository
 from src.users.model import UserModel
 
@@ -33,6 +35,21 @@ class ImageService(BaseService):
             uuid=img_uuid,
             extension=extension,
             user_uuid=user.uuid,
+        )
+
+        return image
+
+    @classmethod
+    async def delete_one(cls, img_uuid: UUID) -> RowMapping:
+        image = await cls.repository.read_one_or_none(uuid=img_uuid)
+        if not image:
+            raise ImageNotFoundException
+
+        img_path = f"{PATH}/{image.ImageModel.uuid}.{image.ImageModel.extension}"
+
+        await asyncio.gather(
+            aiofiles.os.remove(img_path),
+            cls.repository.delete_one(uuid=img_uuid),
         )
 
         return image

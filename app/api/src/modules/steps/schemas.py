@@ -2,7 +2,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from src.modules.enums.StepType import StepType
+from src.modules.steps.StepType import StepType
 
 
 class SStepGetOutBase(BaseModel):

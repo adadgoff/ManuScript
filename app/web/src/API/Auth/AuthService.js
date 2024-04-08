@@ -2,7 +2,7 @@ import { API_PATH } from "../../constants/API/APIConstants";
 
 class AuthService {
   static async login(email, password) {
-    return await fetch(`${ API_PATH }/login`, {
+    const response = await fetch(`${ API_PATH }/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -13,10 +13,11 @@ class AuthService {
         password: password,
       })
     });
+    return response.json();
   }
 
   static async register(email, username, password) {
-    return await fetch(`${ API_PATH }/register`, {
+    const response = await fetch(`${ API_PATH }/register`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -28,6 +29,7 @@ class AuthService {
         password: password,
       })
     });
+    return response.json();
   }
 }
 

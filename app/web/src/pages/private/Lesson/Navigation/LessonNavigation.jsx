@@ -16,9 +16,9 @@ const LessonNavigation = ({ ...props }) => {
           { BACK }
         </Button>
 
-        <text className="mx-3 fw-bold">
+        <span className="mx-3 fw-bold justify-content-center">
           { `Шаг ${ props.currentStep ? props.currentStep.order : "-" } из ${ props.steps.length ? props.steps.length : "-" }` }
-        </text>
+        </span>
 
         <Button
           onClick={ () => props.setCurrentStep(props.steps[props.currentStep.order]) }

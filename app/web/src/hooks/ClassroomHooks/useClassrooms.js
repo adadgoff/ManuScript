@@ -13,27 +13,6 @@ export const useSortedClassrooms = (classrooms) => {
   return [sortedClassrooms, isSorting];
 };
 
-// TODO: delete test method.
-// export const useSortedClassrooms = (classrooms) => {
-//   const [isSorting, setIsSorting] = useState(true);
-//
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//       setIsSorting(false);
-//     }, 5000);
-//
-//     return () => clearTimeout(timer);
-//   }, [classrooms]);
-//
-//   const sortedClassrooms = useMemo(() => {
-//     setIsSorting(true);
-//     const sortedClassrooms = [...classrooms].sort((a, b) => a.title.localeCompare(b.title));
-//     return sortedClassrooms;
-//   }, [classrooms]);
-//
-//   return [sortedClassrooms, isSorting];
-// };
-
 export const useSortedSearchedClassrooms = (classrooms, search) => {
   const [sortedClassrooms, isSorting] = useSortedClassrooms(classrooms);
 

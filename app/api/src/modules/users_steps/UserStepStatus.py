@@ -1,7 +1,6 @@
 from enum import Enum
 
 
-class StepStatus(str, Enum):
-    EMPTY = "EMPTY",
+class UserStepStatus(str, Enum):
     INCORRECT = "INCORRECT",
     CORRECT = "CORRECT",

@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.db.base import Base
-from src.modules.enums.NotificationStatus import NotificationStatus
+from src.modules.users_notifications.NotificationStatus import NotificationStatus
 
 
 class UserNotificationModel(Base):

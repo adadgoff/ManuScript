@@ -1,16 +1,31 @@
+import json
 from uuid import UUID
 
-from fastapi import UploadFile
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
-from src.modules.enums.StepStatus import StepStatus
+from src.modules.users_steps.UserStepStatus import UserStepStatus
+
+
+class SUserStepGetIn(BaseModel):
+    step_id: int
+
+
+class SUserStepGetOut(BaseModel):
+    user_answer: str
+    status: UserStepStatus
+    user_image_uuid: UUID
 
 
 class SUserStepPostIn(BaseModel):
-    user_uuid: UUID
-    answer_text: str
-    answer_img: UploadFile  # TODO: how to work with files?
     step_id: int
+    user_answer: str
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate_to_json(cls, value):
+        if isinstance(value, str):
+            return cls(**json.loads(value))
+        return value
 
 
 class SUserStepPostOut(BaseModel):
@@ -18,4 +33,4 @@ class SUserStepPostOut(BaseModel):
     step_id: int
     user_answer: str
     user_image_uuid: UUID
-    status: StepStatus
+    status: UserStepStatus

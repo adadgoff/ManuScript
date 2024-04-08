@@ -1,6 +1,6 @@
 import React from "react";
-import StepText from "../StepText";
-import StepType from "../StepType";
+import StepText from "../components/StepText";
+import StepType from "../components/StepType";
 
 const StepInfo = ({ ...props }) => {
   return (

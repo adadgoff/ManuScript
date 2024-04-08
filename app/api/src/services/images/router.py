@@ -66,3 +66,5 @@ async def get_image_by_uuid(image_uuid: UUID):
 )
 async def upload_image(file: UploadFile, user: UserModel = Depends(get_current_user)):
     return await ImageService.create_one(file, user)
+
+

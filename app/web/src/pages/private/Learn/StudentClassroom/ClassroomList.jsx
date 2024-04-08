@@ -15,8 +15,6 @@ const ClassroomList = ({ ...props }) => {
 
   const [sortedSearchedClassrooms, isSorting] = useSortedSearchedClassrooms(props.classrooms, search);
 
-  console.log(sortedSearchedClassrooms);
-
   return (
     <Container className="my-3">
       <FloatingLabel controlId="searchInput" label={ CLASSROOM_TITLE_HINT } className="mb-3">

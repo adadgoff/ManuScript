@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db.base import Base, str_50, str_16_383
-from src.modules.enums.StepType import StepType
+from src.modules.steps.StepType import StepType
 
 
 class StepModel(Base):
