@@ -39,18 +39,16 @@ const Register = () => {
 
     try {
       const registerResponse = await AuthService.register(email, username, password);
-      if (!registerResponse.ok) {
-        const errorData = await registerResponse.json();
-        setError(errorData.detail);
+      if (registerResponse.detail) {
+        setError(registerResponse.detail);
         return;
       }
       const loginResponse = await AuthService.login(email, password);
-      if (!loginResponse.ok) {
-        const errorData = await loginResponse.json();
-        setError(errorData.detail);
+      if (loginResponse.detail) {
+        setError(loginResponse.detail);
         return;
       }
-      navigate("/learn");
+      navigate("/learn", { replace: true });
     } catch (error) {
       console.error("Error:", error);
     } finally {

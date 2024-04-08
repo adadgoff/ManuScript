@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Container, FloatingLabel, Form } from "react-bootstrap";
+import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomConstants";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { CLASSROOM_EMPTY_TEXT, CLASSROOM_TITLE_HINT } from "../../../../constants/Classroom/ClassroomConstants";
@@ -9,6 +11,7 @@ import ClassroomItem from "./ClassroomItem";
 
 const ClassroomList = ({ ...props }) => {
   const [search, setSearch] = useState("")
+  const navigate = useNavigate();
 
   const [sortedSearchedClassrooms, isSorting] = useSortedSearchedClassrooms(props.classrooms, search);
 
@@ -20,15 +23,24 @@ const ClassroomList = ({ ...props }) => {
 
       <h1 className={ TITLE_CLASS_NAME }>{ props.title }</h1>
 
+      <hr className="my-4"/>
+
+      <Button
+        children="Создать учебный класс"
+        className="btn-success w-100 p-2 fw-medium fs-5"
+      />
+
+      <hr className="my-4"/>
+
       {
         props.isLoading ? (
           <Loader title={ LOADING_TEXT }/>
         ) : isSorting ? (
           <Loader title={ SORTING_TEXT }/>
-        ) : props.classrooms.length !== 0 ? (
+        ) : sortedSearchedClassrooms.length !== 0 ? (
           sortedSearchedClassrooms.map(classroom => (
             <ClassroomItem
-              // onClick={ }
+              onClick={ () => navigate(`/${ CLASSROOM_PREFIX }/${ classroom.id }`) }
               title={ classroom.title }
               description={ classroom.description }
               icon={ classroom.icon }
@@ -36,7 +48,7 @@ const ClassroomList = ({ ...props }) => {
             />
           ))
         ) : (
-          <h2 className="text-center">{ CLASSROOM_EMPTY_TEXT }</h2>
+          <h2 className="text-center border rounded p-3">{ CLASSROOM_EMPTY_TEXT }</h2>
         )
       }
     </Container>

@@ -10,10 +10,11 @@ import StatusAlert from "../components/StatusAlert";
 import StepText from "../components/StepText";
 import StepType from "../components/StepType";
 
-const StepTask = ({ ...props }) => {
+const StepTaskForm = ({ ...props }) => {
   const [userAnswer, setUserAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [sizeError, setSizeError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [userStep, setUserStep] = useState(null);
   const [fetchUserStep, isFetchingLoading, fetchingError] = useFetching(async () => {
@@ -21,8 +22,6 @@ const StepTask = ({ ...props }) => {
     setUserStep(userStep);
     setUserAnswer(userStep.user_answer ? userStep.user_answer : "");
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetchUserStep();
@@ -99,4 +98,4 @@ const StepTask = ({ ...props }) => {
   );
 };
 
-export default StepTask;
+export default StepTaskForm;

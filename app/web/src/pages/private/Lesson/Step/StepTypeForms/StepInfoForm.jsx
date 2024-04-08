@@ -2,7 +2,7 @@ import React from "react";
 import StepText from "../components/StepText";
 import StepType from "../components/StepType";
 
-const StepInfo = ({ ...props }) => {
+const StepInfoForm = ({ ...props }) => {
   return (
     <>
       <StepType step={props.step}/>
@@ -11,4 +11,4 @@ const StepInfo = ({ ...props }) => {
   );
 };
 
-export default StepInfo;
+export default StepInfoForm;

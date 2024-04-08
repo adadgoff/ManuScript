@@ -26,6 +26,7 @@ const ClassroomItem = ({ children, ...props }) => {
         alt="Icon"
         style={ CARD_IMG_STYLE }
       />
+
       <CardBody className={ CARD_BODY_CLASS_NAME }>
         <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TITLE_LENGTH) }</CardTitle>
         <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_DESCRIPTION_LENGTH) }</CardText>

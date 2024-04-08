@@ -7,10 +7,12 @@ import ClassroomList from "./TeacherClassroom/ClassroomList";
 const Teach = () => {
   const [classrooms, setClassrooms] = useState([]);
 
-  const [fetchClassrooms, isFetchingLoading, fetchingError] = useFetching(async () => {
-    const teacherClassrooms = await ClassroomService.getTeacherClassrooms();
-    setClassrooms(teacherClassrooms);
-  });
+  const [fetchClassrooms, isFetchingLoading, fetchingError] = useFetching(
+    async () => {
+      const teacherClassrooms = await ClassroomService.getTeacherClassrooms();
+      setClassrooms(teacherClassrooms);
+    }
+  );
 
   useEffect(() => {
     fetchClassrooms();

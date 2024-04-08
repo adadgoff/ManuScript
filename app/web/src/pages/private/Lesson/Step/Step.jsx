@@ -4,8 +4,8 @@ import StepService from "../../../../API/Step/StepService";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { useFetching } from "../../../../hooks/useFetching";
-import StepInfo from "./StepTypes/StepInfo";
-import StepTask from "./StepTypes/StepTask";
+import StepInfoForm from "./StepTypeForms/StepInfoForm";
+import StepTaskForm from "./StepTypeForms/StepTaskForm";
 
 const Step = ({ ...props }) => {
   const [step, setStep] = useState({});
@@ -31,9 +31,9 @@ const Step = ({ ...props }) => {
           <Loader title={ LOADING_TEXT }/>
         ) : (
           step.type === "INFO" ? (
-            <StepInfo step={ step }/>
+            <StepInfoForm step={ step }/>
           ) : (
-            <StepTask step={ step }/>
+            <StepTaskForm step={ step }/>
           )
         )
       ) }

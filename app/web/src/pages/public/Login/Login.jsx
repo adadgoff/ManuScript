@@ -33,9 +33,9 @@ const Register = () => {
 
     try {
       const response = await AuthService.login(email, password);
-      if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.detail);
+      console.log(response);
+      if (response.detail) {
+        setError(response.detail);
         return;
       }
       navigate("/learn", { replace: true });

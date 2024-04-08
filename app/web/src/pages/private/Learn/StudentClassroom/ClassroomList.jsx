@@ -27,7 +27,7 @@ const ClassroomList = ({ ...props }) => {
         props.isLoading || isSorting ? (
           <Loader title={ props.isLoading ? LOADING_TEXT : SORTING_TEXT }/>
         ) : (
-          props.classrooms.length !== 0 ? (
+          sortedSearchedClassrooms.length !== 0 ? (
             sortedSearchedClassrooms.map(classroom => (
               <ClassroomItem
                 onClick={ () => navigate(`/${ CLASSROOM_PREFIX }/${ classroom.id }`) }
@@ -38,7 +38,7 @@ const ClassroomList = ({ ...props }) => {
               />
             ))
           ) : (
-            <h2 className="text-center">{ CLASSROOM_EMPTY_TEXT }</h2>
+            <h2 className="text-center border rounded p-3">{ CLASSROOM_EMPTY_TEXT }</h2>
           )
         )
       }
