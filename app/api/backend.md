@@ -112,7 +112,6 @@ docker-compose up -d
 - [ ] Переименовать `datetime` с постфиксом `_at`;
 
 - [ ] `Role` -> `get_student / get_teacher` -> `constraint email / role`
-- [ ] `Base64 Str / Bytes`
 - [ ] `.mappings()` -> `.scalars()`
 
 - [ ] Декомпозировать `main` в `app` и `routers`;

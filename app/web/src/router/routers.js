@@ -1,4 +1,4 @@
-import Classroom from "../pages/private/Classroom/Classroom/Classroom";
+import Classroom from "../pages/private/Classroom/Classroom";
 import ClassroomEdit from "../pages/private/ClassroomEdit/ClassroomEdit";
 import Learn from "../pages/private/Learn/Learn";
 import Lesson from "../pages/private/Lesson/Lesson/Lesson";
@@ -10,6 +10,7 @@ import Login from "../pages/public/Login/Login";
 import Register from "../pages/public/Register/Register";
 import Test from "../pages/test/Test";
 import Test2 from "../pages/test/Test2";
+import Test3 from "../pages/test/test3";
 
 export const privateRoutes = [
   { path: "/learn", element: <Learn/> },
@@ -30,4 +31,5 @@ export const publicRoutes = [
 export const testRoutes = [
   { path: "/test", element: <Test/> },
   { path: "/test2", element: <Test2/> },
+  { path: "/test3", element: <Test3/> }
 ]

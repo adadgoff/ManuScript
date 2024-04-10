@@ -20,6 +20,13 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // TODO: implement with <Form.Feedback/>
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+
     if (!checkEmail(email)) {
       event.stopPropagation();
       setError(EMAIL_ERROR);

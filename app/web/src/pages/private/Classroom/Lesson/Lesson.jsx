@@ -7,7 +7,6 @@ const Lesson = ({ moduleOrder, number, ...props }) => {
 
   return (
     <Card
-      // TODO: maybe use border="info"
       className="p-2 my-3 bg-body-secondary"
       style={ { transition: "color 0.3s, text-decoration 0.3s", cursor: "pointer" } }
       onClick={ () => navigate(`/lesson/${ props.lesson.id }`) }

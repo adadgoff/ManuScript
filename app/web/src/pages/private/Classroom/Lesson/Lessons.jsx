@@ -1,10 +1,9 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import Lesson from "./Lesson";
 
 const Lessons = ({ moduleOrder, ...props }) => {
   return (
-    <Container>
+    <>
       { props.lessons && props.lessons.map(lesson =>
         <Lesson
           moduleOrder={ moduleOrder }
@@ -12,7 +11,7 @@ const Lessons = ({ moduleOrder, ...props }) => {
           key={ lesson.id }
         />
       ) }
-    </Container>
+    </>
   );
 };
 

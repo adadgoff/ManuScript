@@ -1,0 +1,2 @@
+export const MODULE_MAX_TITLE_LENGTH = 50;
+export const MODULE_MAX_DESCRIPTION_LENGTH = 100;

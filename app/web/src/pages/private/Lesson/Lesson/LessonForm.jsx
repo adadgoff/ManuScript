@@ -1,10 +1,10 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import BackButton from "../../../../components/BackButton/BackButton";
-import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import Loader from "../../../../components/UI/Loader/Loader";
-import { useSortedLesson } from "../../../../hooks/LessonHooks/useLesson";
-import { useCurrentStep } from "../../../../hooks/StepHooks/useStep";
+import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
+import { useSortedLesson } from "../../../../hooks/Lesson/useLesson";
+import { useCurrentStep } from "../../../../hooks/Step/useStep";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
 import LessonNavigation from "../Navigation/LessonNavigation";
 import Step from "../Step/Step";

@@ -1,11 +1,11 @@
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, Depends, status
 
 from src.auth.exceptions import AccessDeniedException
 from src.auth.helpers.token_helper import get_current_user
 from src.modules.classrooms.access import check_rights
 from src.modules.classrooms.exceptions import ClassroomNotFoundException
-from src.modules.classrooms.schemas import SClassroomGetOut, \
-    SClassroomPostOut, SClassroomPostIn, SClassroomDeleteOut, SClassroomDeleteIn, SClassroomGetOutWithModules
+from src.modules.classrooms.schemas import SClassroomDeleteIn, SClassroomDeleteOut, SClassroomGetOut, \
+    SClassroomGetOutWithModules, SClassroomPostIn, SClassroomPostOut
 from src.modules.classrooms.service import ClassroomService
 from src.modules.students.service import StudentService
 from src.modules.teachers.service import TeacherService
@@ -98,14 +98,46 @@ async def get_my_teacher_classrooms(user: UserModel = Depends(get_current_user))
         }
     }
 )
-async def get_classroom_with_modules_and_lessons(classroom_id: int, user: UserModel = Depends(get_current_user)):
-    classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(classroom_id)
+async def get_classroom_with_lessons(classroom_id: int, user: UserModel = Depends(get_current_user)):
+    classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(id=classroom_id)
     if not classroom:
         raise ClassroomNotFoundException
 
-    # TODO: better to change on maybe decorator and remove extra moves.
     user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
     check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=True, is_for_teachers=True)
+
+    return classroom.ClassroomModel
+
+
+@router.get(
+    path="/{classroom_id}/edit",
+    response_model=SClassroomGetOutWithModules,
+    status_code=status.HTTP_200_OK,
+    summary="Get classroom with modules and lessons only for teachers.",
+    description="Get classroom with modules and lessons only for teachers.",
+    tags=["Classroom"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SClassroomGetOutWithModules,
+            "description": "Classroom found successfully.",
+        },
+        ClassroomNotFoundException.status_code: {
+            "model": None,
+            "description": ClassroomNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
+        }
+    }
+)
+async def get_classroom_with_lessons_for_teachers(classroom_id: int, user: UserModel = Depends(get_current_user)):
+    classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(id=classroom_id)
+    if not classroom:
+        raise ClassroomNotFoundException
+
+    user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
+    check_rights(classroom.ClassroomModel, user.UserModel, is_for_teachers=True)
 
     return classroom.ClassroomModel
 

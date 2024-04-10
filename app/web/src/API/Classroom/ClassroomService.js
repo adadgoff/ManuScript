@@ -31,6 +31,16 @@ class ClassroomService {
     );
     return response.json();
   }
+
+  static async getClassroomEdit(classroomId) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/edit`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  }
 }
 
 export default ClassroomService;

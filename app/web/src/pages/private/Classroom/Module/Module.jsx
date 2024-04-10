@@ -5,10 +5,10 @@ import Lessons from "../Lesson/Lessons";
 const Module = ({ moduleOrder, ...props }) => {
   return (
     <Card
-      // TODO: maybe use border.
       border="info"
       className="my-4"
-      style={ { borderWidth: "2px" } }>
+      style={ { borderWidth: "2px" } }
+    >
       <CardBody className="pb-1">
         <CardTitle>{ props.module.order }. { props.module.title }</CardTitle>
         <CardText>{ props.module.description }</CardText>

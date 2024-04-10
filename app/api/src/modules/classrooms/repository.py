@@ -25,9 +25,9 @@ class ClassroomRepository(BaseRepository):
 
     # TODO: do with **filter_by.
     @classmethod
-    async def read_one_or_none_with_icon_and_modules(cls, classroom_id: int):
+    async def read_one_or_none_with_icon_and_modules(cls, **filter_by):
         async with async_session_factory(expire_on_commit=False) as session:
-            query = select(ClassroomModel).filter_by(id=classroom_id).options(
+            query = select(ClassroomModel).filter_by(**filter_by).options(
                 joinedload(ClassroomModel.icon),
                 joinedload(ClassroomModel.modules).joinedload(ModuleModel.lessons),
             )

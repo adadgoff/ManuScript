@@ -5,7 +5,7 @@ import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomConstants";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { CLASSROOM_EMPTY_TEXT, CLASSROOM_TITLE_HINT } from "../../../../constants/Classroom/ClassroomConstants";
-import { useSortedSearchedClassrooms } from "../../../../hooks/ClassroomHooks/useClassrooms";
+import { useSortedSearchedClassrooms } from "../../../../hooks/Classroom/useClassrooms";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
 import ClassroomItem from "./ClassroomItem";
 

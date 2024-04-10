@@ -6,15 +6,15 @@ import { CARD_IMG_STYLE } from "../../../../styles/Classroom/ClassroomStyles";
 
 const ClassroomItem = ({ classroom }) => {
   return (
-    <Card
-      className="p-2"
-      style={ { flexDirection: "row" } }
-    >
-      <CardImg
-        src={ `${ IMAGE_PATH }/${ classroom.icon ? classroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
-        alt="Icon"
-        style={ CARD_IMG_STYLE }
-      />
+    <Card className="p-2 flex-row">
+      <div className="d-flex align-items-center justify-content-center">
+        <CardImg
+          src={ `${ IMAGE_PATH }/${ classroom.icon ? classroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          alt="Icon"
+          style={ CARD_IMG_STYLE }
+        />
+      </div>
+
       <CardBody className="p-1">
         <CardTitle>{ `Описание "${ classroom.title }"` }</CardTitle>
         <CardText>{ classroom.description }</CardText>

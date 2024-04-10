@@ -21,11 +21,13 @@ const ClassroomItem = ({ children, ...props }) => {
       style={ CARD_STYLE }
       onClick={ props.onClick }
     >
-      <CardImg
-        src={ `${ IMAGE_PATH }/${ props.icon ? props.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
-        alt="Icon"
-        style={ CARD_IMG_STYLE }
-      />
+      <div className="d-flex align-items-center justify-content-center">
+        <CardImg
+          src={ `${ IMAGE_PATH }/${ props.icon ? props.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          alt="Icon"
+          style={ CARD_IMG_STYLE }
+        />
+      </div>
 
       <CardBody className={ CARD_BODY_CLASS_NAME }>
         <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TITLE_LENGTH) }</CardTitle>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ClassroomService from "../../../../API/Classroom/ClassroomService";
-import { useFetching } from "../../../../hooks/useFetching";
-import ClassroomForm from "./ClassroomForm";
+import ClassroomService from "../../../API/Classroom/ClassroomService";
+import { useFetching } from "../../../hooks/useFetching";
+import ClassroomForm from "./Classroom/ClassroomForm";
 
 const Classroom = () => {
   const params = useParams();
