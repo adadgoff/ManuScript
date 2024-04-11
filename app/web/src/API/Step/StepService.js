@@ -1,5 +1,5 @@
-import { API_PATH } from "../../constants/API/APIConstants";
-import { STEP_PREFIX } from "./StepConstants";
+import { API_PATH } from "../Paths";
+import { STEP_PREFIX } from "./StepPrefix";
 
 class StepService {
   static async getStep(stepId) {

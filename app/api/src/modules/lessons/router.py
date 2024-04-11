@@ -1,10 +1,10 @@
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, Depends, status
 
 from src.auth.exceptions import AccessDeniedException
 from src.auth.helpers.token_helper import get_current_user
 from src.modules.lessons.access import check_rights
 from src.modules.lessons.exceptions import LessonNotFoundException
-from src.modules.lessons.schemas import SLessonPostIn, SLessonPostOut, SLessonGetOutWithSteps
+from src.modules.lessons.schemas import SLessonDeleteOut, SLessonGetOutWithSteps, SLessonPostIn, SLessonPostOut
 from src.modules.lessons.service import LessonService
 from src.modules.modules.exceptions import ModuleNotFoundException
 from src.modules.modules.service import ModuleService
@@ -46,7 +46,6 @@ async def create_lesson(data: SLessonPostIn):
     return lesson
 
 
-# TODO: decide what's better schema or lesson_id?
 @router.get(
     path="/{lesson_id}",
     response_model=SLessonGetOutWithSteps,
@@ -74,8 +73,50 @@ async def get_lesson_with_steps(lesson_id: int, user: UserModel = Depends(get_cu
     if not lesson:
         raise LessonNotFoundException
 
-    # TODO: better to change on maybe decorator and remove extra moves.
     user = await UserService.read_one_or_none_with_lessons(uuid=user.uuid)
     check_rights(lesson.LessonModel, user.UserModel, is_for_students=True, is_for_teachers=True)
 
     return lesson.LessonModel
+
+
+@router.get(
+    path="/{lesson_id}/edit",
+    response_model=SLessonGetOutWithSteps,
+    status_code=status.HTTP_200_OK,
+    summary="Get lesson with modules and lessons only for teachers.",
+    description="Get lesson with modules and lessons only for teachers.",
+    tags=["Lesson"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SLessonGetOutWithSteps,
+            "description": "Lesson found successfully.",
+        },
+        LessonNotFoundException.status_code: {
+            "model": None,
+            "description": LessonNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
+        }
+    }
+)
+async def get_lesson_with_steps_for_teachers(lesson_id: int, user: UserModel = Depends(get_current_user)):
+    lesson = await LessonService.read_one_or_none_with_steps(id=lesson_id)
+    if not lesson:
+        raise LessonNotFoundException
+
+    user = await UserService.read_one_or_none_with_lessons(uuid=user.uuid)
+    check_rights(lesson.LessonModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    return lesson.LessonModel
+
+
+@router.delete(
+    path="/{lesson_id}/delete",
+    response_model=SLessonDeleteOut,
+    status_code=status.HTTP_200_OK,
+    summary="Delete a lesson"
+)
+async def delete_lesson(lesson_id: int):
+    pass

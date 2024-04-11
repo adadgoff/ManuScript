@@ -1,15 +1,5 @@
 # Заметки по бэкенд части проекта
 
-## Правила программистского клуба
-
-1. Использовать `snake_case`; все названия БД тоже; только классы в Python CamelCase
-2. Все комментарии, запросы, ответы, исключения в коде на английском языке;
-3. Названия классов в единственном числе, несмотря на название папок и файлов во множественном числе;
-4. В роутерах (контроллерах) и схемах названия связаны с запросами, а в сервисах и репозиториях названия связаны
-   с `CRUD`;
-5. Схемы лучше объявлять явно, без наследования и даже с дублированием кода. Читабельность и масштабируемость такого кода сильно улучшается;
-6. Не упоминать о программистском клубе...
-
 ## Виртуальное окружение
 
 ```
@@ -75,42 +65,7 @@ SECRET_KEY=e9Tm9zvNIUeNvF71i5faISdxA9t25HXPSPy36wK702E=
 docker-compose up -d
 ```
 
-# Заметки
-```
-Разные люди по-разному обозначают вещи.
-У меня: 
-- не ORM, а model;
-- не response_model, а schema;
-```
-
-# Пример контроллера
-```
-@router.get(
-    path="/{user_uuid}",
-    response_model=SUserInfo,  # default response pydantic model.
-    status_code=status.HTTP_200_OK,  # default status code.
-    summary="Get user information.",
-    description="Get user information by uuid. If user with user_uuid does not exist, raise UserNotFoundException.",
-    tags=["Student"],
-    responses={
-        status.HTTP_200_OK: {
-            "model": SUserInfo,
-            "description": "User found.",
-        },
-        UserNotFoundException.status_code: {
-            "model": None,
-            "description": UserNotFoundException.detail,
-        }
-    }
-)
-```
-
-# Задачи
-- [ ] Проверить удаление зависимых элементов;
-- [ ] Подключить версионирование;
-- [ ] Накатить тесты;
-- [ ] Переименовать `datetime` с постфиксом `_at`;
-
+# Возможные улучшения кода
 - [ ] `Role` -> `get_student / get_teacher` -> `constraint email / role`
 - [ ] `.mappings()` -> `.scalars()`
 

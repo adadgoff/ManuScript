@@ -29,7 +29,7 @@ const StepTaskForm = ({ ...props }) => {
     fetchUserStep();
   }, []);
 
-  const handlerFormSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     if (selectedFile.size > IMAGE_MAX_SIZE) {
@@ -59,7 +59,7 @@ const StepTaskForm = ({ ...props }) => {
   console.log(errorFileMessage);
 
   return (
-    <Form onSubmit={ handlerFormSubmit }>
+    <Form onSubmit={ handleFormSubmit }>
       <StepType step={ props.step }/>
       <StepText step={ props.step }/>
 

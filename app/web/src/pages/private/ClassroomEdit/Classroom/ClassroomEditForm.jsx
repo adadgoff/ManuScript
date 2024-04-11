@@ -5,11 +5,11 @@ import { COPYING_TEXT, LOADING_TEXT, SORTING_TEXT } from "../../../../components
 import { IMAGE_EXTENSION_ERROR, IMAGE_SIZE_ERROR } from "../../../../constants/Error/ErrorConstants";
 import { IMAGE_MAX_SIZE } from "../../../../constants/Image/ImageConstants";
 import { useUpdatedClassroom } from "../../../../hooks/Classroom/useClassroom";
+import DangerZoneAccordion from "../components/Classroom/ClassroomEditForm/DangerZoneAccordion";
+import SaveCancelMenu from "../components/Classroom/ClassroomEditForm/SaveCancelMenu";
+import StudentZoneAccordion from "../components/Classroom/ClassroomEditForm/StudentZoneAccordion";
 import ClassroomEditInfo from "./ClassroomEditInfo";
 import ClassroomEditSyllabus from "./ClassroomEditSyllabus";
-import DangerZoneAccordion from "./components/DangerZoneAccordion";
-import SaveCancelMenu from "./components/SaveCancelMenu";
-import StudentZoneAccordion from "./components/StudentZoneAccordion";
 
 const ClassroomEditForm = ({ ...props }) => {
   const [errorFileMessage, setErrorFileMessage] = useState("");
@@ -17,9 +17,6 @@ const ClassroomEditForm = ({ ...props }) => {
 
   const [validated, setValidated] = useState(false);
   const [updatedClassroom, sortedClassroom, isCopying, isSorting, setUpdatedClassroom] = useUpdatedClassroom(props.classroom);
-
-  // console.log(sortedClassroom);
-  console.log(updatedClassroom);  // Изменяю его!
 
   const handleSubmit = (event) => {
     console.log("submitting")
@@ -88,8 +85,7 @@ const ClassroomEditForm = ({ ...props }) => {
               updatedClassroom={ updatedClassroom }
               handleClassroomFileChange={ handleClassroomFileChange }
               handleClassroomDescriptionChange={ handleClassroomDescriptionChange }
-              handleClassroomTitleChange={ handleClassroomTitleChange }
-            />
+              handleClassroomTitleChange={ handleClassroomTitleChange }/>
 
             <ClassroomEditSyllabus updatedClassroom={ updatedClassroom }
                                    setUpdatedClassroom={ setUpdatedClassroom }/>
@@ -99,15 +95,14 @@ const ClassroomEditForm = ({ ...props }) => {
               updatedClassroom={ updatedClassroom }
               setUpdatedClassroom={ setUpdatedClassroom }
               selectedFile={ selectedFile }
-              setSelectedFile={ setSelectedFile }
-            />
+              setSelectedFile={ setSelectedFile }/>
           </Form>
 
           <div className="my-4 border border-info border-2"/>
 
           <StudentZoneAccordion/>
 
-          <DangerZoneAccordion/>
+          <DangerZoneAccordion classroom={ updatedClassroom }/>
         </Container>
       ) }
     </>

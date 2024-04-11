@@ -26,10 +26,6 @@ class SClassroomPostOut(BaseModel):
     description: str
 
 
-class SClassroomDeleteIn(BaseModel):
-    id: int
-
-
 class SClassroomDeleteOut(BaseModel):
     id: int
     title: str

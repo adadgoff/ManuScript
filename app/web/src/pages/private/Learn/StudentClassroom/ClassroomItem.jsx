@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
-import { IMAGE_PATH } from "../../../../API/Image/ImageConstants";
+import { IMAGE_PATH } from "../../../../API/Paths";
 import {
   CLASSROOM_DEFAULT_IMAGE_UUID,
-  CLASSROOM_DESCRIPTION_LENGTH,
-  CLASSROOM_TITLE_LENGTH
+  CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH,
+  CLASSROOM_TRUNCATE_TITLE_LENGTH
 } from "../../../../constants/Classroom/ClassroomConstants";
 import {
   CARD_BODY_CLASS_NAME,
@@ -30,8 +30,8 @@ const ClassroomItem = ({ children, ...props }) => {
       </div>
 
       <CardBody className={ CARD_BODY_CLASS_NAME }>
-        <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TITLE_LENGTH) }</CardTitle>
-        <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_DESCRIPTION_LENGTH) }</CardText>
+        <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TRUNCATE_TITLE_LENGTH) }</CardTitle>
+        <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH) }</CardText>
       </CardBody>
     </Card>
   );

@@ -1,12 +1,9 @@
 import React from "react";
-import { Accordion, Card, CardBody, CardImg, CardTitle, Form } from "react-bootstrap";
-import { IMAGE_PATH } from "../../../../API/Image/ImageConstants";
-import {
-  CLASSROOM_DEFAULT_IMAGE_UUID,
-  CLASSROOM_MAX_DESCRIPTION_LENGTH,
-  CLASSROOM_MAX_TITLE_LENGTH
-} from "../../../../constants/Classroom/ClassroomConstants";
-import ErrorFileAlert from "./components/ErrorFileAlert";
+import { Accordion, Card, CardBody, CardTitle } from "react-bootstrap";
+import ErrorFileAlert from "../components/Classroom/ClassroomEditForm/ErrorFileAlert";
+import ClassroomEditDescriptionForm from "../components/Classroom/ClassroomEditInfo/ClassroomEditDescriptionForm";
+import ClassroomEditIcon from "../components/Classroom/ClassroomEditInfo/ClassroomEditIcon";
+import ClassroomEditTitleForm from "../components/Classroom/ClassroomEditInfo/ClassroomEditTitleForm";
 
 const ClassroomEditInfo = (
   {
@@ -18,20 +15,8 @@ const ClassroomEditInfo = (
 ) => {
   return (
     <>
-      <Form.Text>{ `${ updatedClassroom.title.length } / ${ CLASSROOM_MAX_TITLE_LENGTH }` }</Form.Text>
-      <Form.Control
-        required
-        type="text"
-        size="lg"
-        minLength={ 1 }
-        maxLength={ CLASSROOM_MAX_TITLE_LENGTH }
-        className="border border-info rounded"
-        placeholder={ "Название учебного класса" }
-        onChange={ handleClassroomTitleChange }
-        value={ updatedClassroom.title }
-      />
-      <Form.Control.Feedback type="invalid" children={ "Название класса не должно быть пустым!" }/>
-
+      <ClassroomEditTitleForm updatedClassroom={ updatedClassroom }
+                              handleClassroomTitleChange={ handleClassroomTitleChange }/>
 
       <Accordion className="border border-info rounded mt-3 mb-4">
         <Accordion.Item eventKey="0">
@@ -41,35 +26,16 @@ const ClassroomEditInfo = (
                                                   setErrorFileMessage={ setErrorFileMessage }/> }
 
             <Card className="p-2 flex-row">
-              <div className="d-flex align-items-center justify-content-center">
-                <input type="file" id="fileInput" className="d-none" accept="image/*"
-                       onChange={ handleClassroomFileChange }/>
-                <label htmlFor="fileInput">
-                  <CardImg
-                    src={ selectedFile || `${ IMAGE_PATH }/${ updatedClassroom.icon ? updatedClassroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
-                    alt="Icon"
-                    className="p-0 btn-light border border-info rounded"
-                    style={ { height: "80px", width: "80px", alignContent: "center", cursor: "pointer" } }
-                    onClick={ () => {
-                    } }
-                  />
-                </label>
-              </div>
+              <ClassroomEditIcon
+                selectedFile={ selectedFile }
+                updatedClassroom={ updatedClassroom }
+                handleClassroomFileChange={ handleClassroomFileChange }/>
 
               <CardBody className="p-1">
                 <CardTitle>{ `Описание ${ updatedClassroom.title }` }</CardTitle>
-                <Form.Text>{ `${ updatedClassroom.description.length } / ${ CLASSROOM_MAX_DESCRIPTION_LENGTH }` }</Form.Text>
-                <Form.Control
-                  required
-                  type="text"
-                  minLength={ 1 }
-                  maxLength={ CLASSROOM_MAX_DESCRIPTION_LENGTH }
-                  className="border border-info rounded"
-                  placeholder={ "Описание учебного класса" }
-                  onChange={ handleClassroomDescriptionChange }
-                  value={ updatedClassroom.description }
-                />
-                <Form.Control.Feedback type="invalid" children={ "Описание класса не должно быть пустым!" }/>
+                <ClassroomEditDescriptionForm
+                  updatedClassroom={ updatedClassroom }
+                  handleClassroomDescriptionChange={ handleClassroomDescriptionChange }/>
               </CardBody>
             </Card>
           </Accordion.Body>

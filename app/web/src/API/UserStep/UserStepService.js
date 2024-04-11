@@ -1,5 +1,5 @@
-import { API_PATH } from "../../constants/API/APIConstants";
-import { USER_STEP_PREFIX } from "./UserStepContants";
+import { API_PATH } from "../Paths";
+import { USER_STEP_PREFIX } from "./UserStepPrefix";
 
 class UserStepService {
   static async getUserStep(stepId) {

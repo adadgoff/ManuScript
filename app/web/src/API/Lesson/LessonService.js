@@ -1,4 +1,4 @@
-import { API_PATH } from "../../constants/API/APIConstants";
+import { API_PATH } from "../Paths";
 import { LESSON_PREFIX } from "./LessonConstants";
 
 class LessonService {
@@ -10,7 +10,24 @@ class LessonService {
       }
     );
     return response.json();
-  }
+  };
+
+  static async getLessonEdit(lessonId) {
+    const response = await fetch(
+      `${ API_PATH }/${ LESSON_PREFIX }/${ lessonId }/edit`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
+  static async deleteLesson(lessonId) {
+    const response = await fetch(
+      `${ API_PATH }/${ LESSON_PREFIX }/$`
+    )
+    return response.json();
+  };
 }
 
 export default LessonService;

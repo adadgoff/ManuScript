@@ -36,16 +36,19 @@ const Test = () => {
         onInit={ (evt, editor) => editorRef.current = editor }
         init={ {
           plugins: [
-            "autoresize",
+            // "autoresize",
             "advlist", "autolink", "lists", "link", "image", "charmap", "preview",
             "anchor", "searchreplace", "visualblocks", "code", "fullscreen",
             "insertdatetime", "media", "table", "code", "help", "wordcount"
           ],
+
           toolbar:
             "undo redo | blocks | " +
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help",
+
+          branding: false,
         } }
         initialValue="Редактируйте содержимое шага :)"
       />

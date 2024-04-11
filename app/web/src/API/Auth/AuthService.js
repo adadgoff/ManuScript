@@ -1,4 +1,4 @@
-import { API_PATH } from "../../constants/API/APIConstants";
+import { API_PATH } from "../Paths";
 
 class AuthService {
   static async login(email, password) {

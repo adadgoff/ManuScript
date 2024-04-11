@@ -10,13 +10,13 @@ const ClassroomEditSyllabus = ({ updatedClassroom, setUpdatedClassroom }) => {
           <span className="fw-medium">Программа учебного класса</span>
         </Accordion.Header>
 
-        <Accordion.Body className="p-2">
+        <Accordion.Body className="p-2 pt-1">
           <Modules modules={ updatedClassroom.modules }
                    updatedClassroom={updatedClassroom}
                    setUpdatedClassroom={ setUpdatedClassroom }/>
         </Accordion.Body>
         <Accordion.Body>
-          <div className="my-4 border border-warning border"/>
+          <div className="mb-4 border border-warning border-2"/>
           <Button
             className="btn-success w-100 mb-2"
             children={ "Создать модуль" }/>

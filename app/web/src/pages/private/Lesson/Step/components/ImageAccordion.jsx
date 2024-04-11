@@ -1,6 +1,6 @@
 import React from "react";
 import { Accordion, Image } from "react-bootstrap";
-import { IMAGE_PATH } from "../../../../../API/Image/ImageConstants";
+import { IMAGE_PATH } from "../../../../../API/Paths";
 
 const ImageAccordion = ({ ...props }) => {
   return (

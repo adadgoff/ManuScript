@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
-import { IMAGE_PATH } from "../../../../API/Image/ImageConstants";
+import { IMAGE_PATH } from "../../../../API/Paths";
 import { CLASSROOM_DEFAULT_IMAGE_UUID } from "../../../../constants/Classroom/ClassroomConstants";
 import { CARD_IMG_STYLE } from "../../../../styles/Classroom/ClassroomStyles";
 

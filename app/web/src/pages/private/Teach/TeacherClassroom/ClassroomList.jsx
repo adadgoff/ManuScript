@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomConstants";
+import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomPrefix";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { CLASSROOM_EMPTY_TEXT, CLASSROOM_TITLE_HINT } from "../../../../constants/Classroom/ClassroomConstants";
 import { useSortedSearchedClassrooms } from "../../../../hooks/Classroom/useClassrooms";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
+import ClassroomCreateModal from "../components/ClassroomCreateModal";
 import ClassroomItem from "./ClassroomItem";
 
 const ClassroomList = ({ ...props }) => {
   const [search, setSearch] = useState("")
   const navigate = useNavigate();
+  const [modalShow, setModalShow] = React.useState(false);
 
   const [sortedSearchedClassrooms, isSorting] = useSortedSearchedClassrooms(props.classrooms, search);
 
   return (
     <Container className="my-3">
+      <ClassroomCreateModal
+        show={ modalShow }
+        onHide={ () => setModalShow(false) }/>
+
       <FloatingLabel controlId="searchInput" label={ CLASSROOM_TITLE_HINT } className="mb-3">
         <Form.Control type="text" placeholder="" onChange={ (event) => setSearch(event.target.value) }/>
       </FloatingLabel>
@@ -28,6 +34,7 @@ const ClassroomList = ({ ...props }) => {
       <Button
         children="Создать учебный класс"
         className="btn-success w-100 p-2 fw-medium fs-5"
+        onClick={ () => setModalShow(true) }
       />
 
       <hr className="my-4"/>

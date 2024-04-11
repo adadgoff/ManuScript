@@ -25,4 +25,4 @@ class StepModel(Base):
     lesson: Mapped["LessonModel"] = relationship(back_populates="steps")
 
     # many to many. child to parent = steps to users.
-    users: Mapped[list["UserModel"]] = relationship(secondary="users_steps", back_populates="steps")
+    users: Mapped[list["UserModel"]] = relationship(secondary="users_steps", back_populates="steps", cascade="all, delete")

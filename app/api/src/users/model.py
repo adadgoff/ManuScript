@@ -19,11 +19,11 @@ class UserModel(Base):
     # one to many. parent to child = user to comments.
     comments: Mapped[list["CommentModel"]] = relationship(back_populates="user")
 
-    # many to many. child to parent = teachers to classes.
-    teacher_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="teachers", back_populates="teachers")
-
     # many to many. child to parent = students to classes.
-    student_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="students", back_populates="students")
+    student_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="students", back_populates="students", passive_deletes=True)
+
+    # many to many. child to parent = teachers to classes.
+    teacher_classrooms: Mapped[list["ClassroomModel"]] = relationship(secondary="teachers", back_populates="teachers", passive_deletes=True)
 
     # many to many. parent to child = users to notifications.
     notifications: Mapped[list["NotificationModel"]] = relationship(secondary="users_notifications", back_populates="users")

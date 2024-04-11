@@ -1,18 +1,7 @@
-import { API_PATH } from "../../constants/API/APIConstants";
-import { MODULE_PREFIX } from "./ModuleConstants";
+import { API_PATH } from "../Paths";
+import { MODULE_PREFIX } from "./ModulePrefix";
 
 class ModuleService {
-  // TODO: maybe delete.
-  // static async getModule(moduleId) {
-  //   const response = await fetch(
-  //     `${ API_PATH }/${ MODULE_PREFIX }/${ moduleId }`, {
-  //       method: "GET",
-  //       credentials: "include",
-  //     }
-  //   );
-  //   return response.json();
-  // }
-
   static async getBaseModule(moduleId) {
     const response = await fetch(
       `${ API_PATH }/${ MODULE_PREFIX }/${ moduleId }/base`, {

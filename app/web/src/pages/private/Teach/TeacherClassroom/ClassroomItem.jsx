@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomConstants";
-import { IMAGE_PATH } from "../../../../API/Image/ImageConstants";
+import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomPrefix";
+import { IMAGE_PATH } from "../../../../API/Paths";
 import {
   CLASSROOM_DEFAULT_IMAGE_UUID,
-  CLASSROOM_DESCRIPTION_LENGTH,
-  CLASSROOM_TITLE_LENGTH
+  CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH,
+  CLASSROOM_TRUNCATE_TITLE_LENGTH
 } from "../../../../constants/Classroom/ClassroomConstants";
 import {
   CARD_BODY_CLASS_NAME,
@@ -18,6 +18,15 @@ import StringUtils from "../../../../utils/StringUtils";
 
 const ClassroomItem = ({ children, ...props }) => {
   const navigate = useNavigate();
+
+  const handleEditBtn = (event) => {
+    event.stopPropagation();
+    navigate(`/${ CLASSROOM_PREFIX }/${ props.id }/edit`);
+  }
+
+  const handleStatsBtn = (event) => {
+    event.stopPropagation();
+  }
 
   return (
     <Card
@@ -34,19 +43,22 @@ const ClassroomItem = ({ children, ...props }) => {
       </div>
 
       <CardBody className={ CARD_BODY_CLASS_NAME }>
-        <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TITLE_LENGTH) }</CardTitle>
-        <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_DESCRIPTION_LENGTH) }</CardText>
+        <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TRUNCATE_TITLE_LENGTH) }</CardTitle>
+        <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH) }</CardText>
       </CardBody>
 
-      <div className="d-flex align-items-center justify-content-center">
+      <div className="d-flex flex-column align-items-center justify-content-center">
         <Button
-          onClick={ (event) => {
-            event.stopPropagation();
-            navigate(`/${ CLASSROOM_PREFIX }/${ props.id }/edit`);
-          } }
+          onClick={ handleEditBtn }
+          variant="outline-primary"
           children="Редактировать"
-          className="h-50"
-        />
+          className="my-1 w-100"/>
+
+        <Button
+          onClick={ handleStatsBtn }
+          variant="outline-primary"
+          children="Статистика"
+          className="my-1 w-100"/>
       </div>
     </Card>
   );

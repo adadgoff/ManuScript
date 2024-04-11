@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomConstants";
+import { CLASSROOM_PREFIX } from "../../../../API/Classroom/ClassroomPrefix";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { CLASSROOM_EMPTY_TEXT, CLASSROOM_TITLE_HINT } from "../../../../constants/Classroom/ClassroomConstants";

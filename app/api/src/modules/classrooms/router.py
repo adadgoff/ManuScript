@@ -4,7 +4,7 @@ from src.auth.exceptions import AccessDeniedException
 from src.auth.helpers.token_helper import get_current_user
 from src.modules.classrooms.access import check_rights
 from src.modules.classrooms.exceptions import ClassroomNotFoundException
-from src.modules.classrooms.schemas import SClassroomDeleteIn, SClassroomDeleteOut, SClassroomGetOut, \
+from src.modules.classrooms.schemas import SClassroomDeleteOut, SClassroomGetOut, \
     SClassroomGetOutWithModules, SClassroomPostIn, SClassroomPostOut
 from src.modules.classrooms.service import ClassroomService
 from src.modules.students.service import StudentService
@@ -137,7 +137,7 @@ async def get_classroom_with_lessons_for_teachers(classroom_id: int, user: UserM
         raise ClassroomNotFoundException
 
     user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
-    check_rights(classroom.ClassroomModel, user.UserModel, is_for_teachers=True)
+    check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=False, is_for_teachers=True)
 
     return classroom.ClassroomModel
 
@@ -170,7 +170,7 @@ async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get
 
 
 @router.delete(
-    path="/delete",
+    path="/{classroom_id}/delete",
     response_model=SClassroomDeleteOut,
     status_code=status.HTTP_200_OK,
     summary="Delete a classroom.",
@@ -187,8 +187,14 @@ async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get
         }
     }
 )
-async def delete_classroom(data: SClassroomDeleteIn):
-    classroom = await ClassroomService.delete_one(id=data.id)
+async def delete_classroom(classroom_id: int, user: UserModel = Depends(get_current_user)):
+    classroom = await ClassroomService.read_one_or_none(id=classroom_id)
+
+    user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
+    check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
     if not classroom:
         raise ClassroomNotFoundException
+
+    classroom = await ClassroomService.delete_one(id=classroom_id)
     return classroom

@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, ButtonGroup, Card, CardBody, Form, InputGroup, Stack } from "react-bootstrap";
 import { MODULE_MAX_DESCRIPTION_LENGTH, MODULE_MAX_TITLE_LENGTH } from "../../../../constants/Module/ModuleConstants";
+import Lessons from "../Lesson/Lessons";
 
 const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
   const handleModuleTitleChange = (event) => {
@@ -8,9 +9,12 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
     const newTitle = event.target.value;
 
     setUpdatedClassroom(prevState => {
-      const updatedModules = prevState.modules.map(module =>
-        module.id === moduleId ? { ...module, title: newTitle } : module
-      );
+      const updatedModules = prevState.modules.map(module => {
+        if (module.id === moduleId) {
+          return { ...module, title: newTitle };
+        }
+        return module;
+      });
 
       return { ...prevState, modules: updatedModules };
     });
@@ -21,40 +25,47 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
     const newDescription = event.target.value;
 
     setUpdatedClassroom(prevState => {
-      const updatedModules = prevState.modules.map(module =>
-        module.id === moduleId ? { ...module, description: newDescription } : module
-      );
+      const updatedModules = prevState.modules.map(module => {
+        if (module.id === moduleId) {
+          return { ...module, description: newDescription };
+        }
+        return module;
+      });
 
       return { ...prevState, modules: updatedModules }
     });
   };
 
 
-  function handleUpBtn() {
+  const handleUpBtn = () => {
 
   }
 
-  function handleDownBtn() {
+  const handleDownBtn = () => {
 
   }
 
-  function handleDeleteBtn() {
+  const handleDeleteBtn = () => {
 
   }
 
   return (
-    <Stack direction="horizontal" className="my-4 border border-secondary-subtle rounded mx-2">
+    <Stack direction="horizontal" className="mt-3 rounded ms-2">
       <Card
         border="secondary"
-        className="w-100 me-2 p-1"
-        style={ { borderWidth: "2px" } }
+        className="w-100 me-2 p-1 pb-2"
+        style={ { borderWidth: "3px" } }
       >
         <CardBody className="p-0">
-          <Form.Text>{ `${ module.title.length } / ${ MODULE_MAX_TITLE_LENGTH }` }</Form.Text>
+          <Stack direction="horizontal">
+            <Form.Label className="mb-0">{ `Название модуля "${ module.title }"` } </Form.Label>
+            <Form.Text className="ms-auto">{ `${ module.title.length } / ${ MODULE_MAX_TITLE_LENGTH }` }</Form.Text>
+          </Stack>
           <InputGroup className="mb-2">
             <InputGroup.Text>{ module.order }</InputGroup.Text>
             <Form.Control
               required
+              size="lg"
               type="text"
               minLength={ 1 }
               maxLength={ MODULE_MAX_TITLE_LENGTH }
@@ -66,7 +77,10 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
             <Form.Control.Feedback type="invalid" children={ "Название модуля не должно быть пустым!" }/>
           </InputGroup>
 
-          <Form.Text>{ `${ module.description.length } / ${ MODULE_MAX_DESCRIPTION_LENGTH }` }</Form.Text>
+          <Stack direction="horizontal">
+            <Form.Label className="mb-0">{ `Описание модуля "${ module.title }"` } </Form.Label>
+            <Form.Text className="ms-auto">{ `${ module.description.length } / ${ MODULE_MAX_DESCRIPTION_LENGTH }` }</Form.Text>
+          </Stack>
           <Form.Control
             required
             type="text"
@@ -78,6 +92,14 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
             value={ module.description }
           />
           <Form.Control.Feedback type="invalid" children={ "Описание модуля не должно быть пустым!" }/>
+
+          <div className="border border-warning mt-4 mb-3"/>
+
+          <Lessons
+            module={ module }
+            lessons={ module.lessons }
+            updatedClassroom={ updatedClassroom }
+            setUpdatedClassroom={ setUpdatedClassroom }/>
         </CardBody>
       </Card>
 
@@ -89,7 +111,7 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
 
         <Button variant="outline-primary"
                 onClick={ handleDownBtn }
-                disabled={module.order === updatedClassroom.modules.length}
+                disabled={ module.order === updatedClassroom.modules.length }
                 children={ "Вниз" }/>
 
         <Button variant="outline-danger"

@@ -35,8 +35,7 @@ const RegisterForm = ({ ...props }) => {
             minLength={ 1 }
             maxLength={ EMAIL_MAX_LENGTH }
             onChange={ (event) => props.setEmail(event.target.value) }
-            disabled={ props.isLoading }
-          />
+            disabled={ props.isLoading }/>
         </FloatingLabel>
 
         <FloatingLabel controlId="floatingUsername" label="Имя пользователя" className="mb-3">
@@ -47,8 +46,7 @@ const RegisterForm = ({ ...props }) => {
             minLength={ 1 }
             maxLength={ USERNAME_MAX_LENGTH }
             onChange={ (event) => props.setUsername(event.target.value) }
-            disabled={ props.isLoading }
-          />
+            disabled={ props.isLoading }/>
           <Form.Control.Feedback>Верный формат</Form.Control.Feedback>
         </FloatingLabel>
 
@@ -60,8 +58,7 @@ const RegisterForm = ({ ...props }) => {
             minLength={ PASSWORD_MIN_LENGTH }
             maxLength={ PASSWORD_MAX_LENGTH }
             onChange={ (event) => props.setPassword(event.target.value) }
-            disabled={ props.isLoading }
-          />
+            disabled={ props.isLoading }/>
         </FloatingLabel>
         <Button
           type="submit"

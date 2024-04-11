@@ -1,4 +1,4 @@
-import { IMAGE_PATH } from "./ImageConstants";
+import { IMAGE_PATH } from "../Paths";
 
 class ImageService {
   static async uploadImage(imgBinary) {

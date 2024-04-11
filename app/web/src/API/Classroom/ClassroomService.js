@@ -1,5 +1,5 @@
-import { API_PATH } from "../../constants/API/APIConstants";
-import { CLASSROOM_PREFIX } from "./ClassroomConstants";
+import { API_PATH } from "../Paths";
+import { CLASSROOM_PREFIX } from "./ClassroomPrefix";
 
 class ClassroomService {
   static async getStudentClassrooms() {
@@ -36,6 +36,32 @@ class ClassroomService {
     const response = await fetch(
       `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/edit`, {
         method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  }
+
+  static async createClassroom(title, description) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/create`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          description: description
+        }),
+      });
+    return response.json();
+  }
+
+  static async deleteClassroom(classroomId) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/delete`, {
+        method: "DELETE",
         credentials: "include",
       }
     );

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { FRAMES_COUNT } from "./LoaderConstants";
 
-const Loader = (props) => {
+const Loader = ({ title }) => {
   const [loadingDots, setLoadingDots] = useState("");
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Loader = (props) => {
     <Container className="d-flex flex-column align-items-center justify-content-center my-3">
       <Spinner animation="grow" variant="primary"/>
       <span className="text-primary mt-2">
-        { `${ props.title }${ loadingDots }` }
+        { `${ title }${ loadingDots }` }
       </span>
     </Container>
   );

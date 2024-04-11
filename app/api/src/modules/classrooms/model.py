@@ -16,11 +16,11 @@ class ClassroomModel(Base):
     # one to many. parent to child = class to modules.
     modules: Mapped[list["ModuleModel"]] = relationship(back_populates="classroom")
 
-    # many to many. parent to child = classes to teachers.
-    teachers: Mapped[list["UserModel"]] = relationship(secondary="teachers", back_populates="teacher_classrooms")
-
     # many to many. parent to child = class to students.
-    students: Mapped[list["UserModel"]] = relationship(secondary="students", back_populates="student_classrooms")
+    students: Mapped[list["UserModel"]] = relationship(secondary="students", back_populates="student_classrooms", cascade="all, delete")
+
+    # many to many. parent to child = classes to teachers.
+    teachers: Mapped[list["UserModel"]] = relationship(secondary="teachers", back_populates="teacher_classrooms", cascade="all, delete")
 
     # one to many. parent to child = class to notifications.
     notifications: Mapped[list["NotificationModel"]] = relationship(back_populates="classroom")
