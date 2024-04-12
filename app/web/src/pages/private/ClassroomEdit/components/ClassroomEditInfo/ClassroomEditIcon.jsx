@@ -1,7 +1,7 @@
 import React from "react";
 import { CardImg } from "react-bootstrap";
-import { IMAGE_PATH } from "../../../../../../API/Paths";
-import { CLASSROOM_DEFAULT_IMAGE_UUID } from "../../../../../../constants/Classroom/ClassroomConstants";
+import { IMAGE_PATH } from "../../../../../API/Paths";
+import { DEFAULT_CLASSROOM_ICON_PATH } from "../../../../../constants/Image/ImageConstants";
 
 const ClassroomEditIcon = ({ selectedFile, updatedClassroom, handleClassroomFileChange }) => {
   return (
@@ -10,7 +10,8 @@ const ClassroomEditIcon = ({ selectedFile, updatedClassroom, handleClassroomFile
              onChange={ handleClassroomFileChange }/>
       <label htmlFor="fileInput">
         <CardImg
-          src={ selectedFile || `${ IMAGE_PATH }/${ updatedClassroom.icon ? updatedClassroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          // src={ selectedFile || `${ IMAGE_PATH }/${ updatedClassroom.icon ? updatedClassroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          src={ selectedFile || (updatedClassroom.icon ? `${ IMAGE_PATH }/${ updatedClassroom.icon.uuid }` : DEFAULT_CLASSROOM_ICON_PATH) }
           alt="Icon"
           className="p-0 btn-light border border-info rounded"
           style={ { height: "80px", width: "80px", alignContent: "center", cursor: "pointer" } }

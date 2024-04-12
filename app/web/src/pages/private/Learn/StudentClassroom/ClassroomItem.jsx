@@ -1,11 +1,11 @@
 import React from "react";
-import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
+import { Card, CardBody, CardImg, CardText, CardTitle, Stack } from "react-bootstrap";
 import { IMAGE_PATH } from "../../../../API/Paths";
 import {
-  CLASSROOM_DEFAULT_IMAGE_UUID,
   CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH,
   CLASSROOM_TRUNCATE_TITLE_LENGTH
 } from "../../../../constants/Classroom/ClassroomConstants";
+import { DEFAULT_CLASSROOM_ICON_PATH } from "../../../../constants/Image/ImageConstants";
 import {
   CARD_BODY_CLASS_NAME,
   CARD_CLASS_NAME,
@@ -21,18 +21,20 @@ const ClassroomItem = ({ children, ...props }) => {
       style={ CARD_STYLE }
       onClick={ props.onClick }
     >
-      <div className="d-flex align-items-center justify-content-center">
+      <Stack direction="horizontal" className="w-100">
         <CardImg
-          src={ `${ IMAGE_PATH }/${ props.icon ? props.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          // src={ `${ IMAGE_PATH }/${ props.icon ? props.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          src={ props.icon ? `${ IMAGE_PATH }/${ props.icon.uuid }` : DEFAULT_CLASSROOM_ICON_PATH }
           alt="Icon"
           style={ CARD_IMG_STYLE }
         />
-      </div>
 
-      <CardBody className={ CARD_BODY_CLASS_NAME }>
-        <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TRUNCATE_TITLE_LENGTH) }</CardTitle>
-        <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH) }</CardText>
-      </CardBody>
+
+        <CardBody className={ CARD_BODY_CLASS_NAME }>
+          <CardTitle>{ StringUtils.truncateStr(props.title, CLASSROOM_TRUNCATE_TITLE_LENGTH) }</CardTitle>
+          <CardText>{ StringUtils.truncateStr(props.description, CLASSROOM_TRUNCATE_DESCRIPTION_LENGTH) }</CardText>
+        </CardBody>
+      </Stack>
     </Card>
   );
 };

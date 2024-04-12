@@ -41,7 +41,7 @@ async def create_lesson(data: SLessonPostIn):
 
     lesson = await LessonService.create_one(
         title=data.title,
-        module_id=module.Modulemodel.id,
+        module_id=module.ModuleModel.id,
     )
     return lesson
 

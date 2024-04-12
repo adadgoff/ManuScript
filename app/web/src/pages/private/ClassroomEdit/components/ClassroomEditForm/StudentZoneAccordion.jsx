@@ -11,7 +11,10 @@ const StudentZoneAccordion = () => {
 
         <Accordion.Body>
           <Button className="btn-success w-100">
-            Добавить учеников
+            Добавить ученика
+          </Button>
+          <Button className="btn-success w-100">
+            Добавить преподавателя
           </Button>
         </Accordion.Body>
       </Accordion.Item>

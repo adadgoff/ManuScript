@@ -51,6 +51,7 @@ const ClassroomCreateModal = (props) => {
                   Форма создания учебного класса
                 </Modal.Title>
               </Modal.Header>
+
               <Modal.Body>
                 <div className="mb-3">
                   <ClassroomCreateTitleForm title={ title } setTitle={ setTitle }/>
@@ -59,9 +60,10 @@ const ClassroomCreateModal = (props) => {
                   <ClassroomCreateDescriptionForm description={ description } setDescription={ setDescription }/>
                 </div>
               </Modal.Body>
+
               <Modal.Footer>
-                <Button onClick={ props.onHide }>Вернуться назад</Button>
-                <Button className="btn-success" type="submit">Создать</Button>
+                <Button onClick={ props.onHide }>Отменить</Button>
+                <Button className="btn-success" type="submit">Создать класс</Button>
               </Modal.Footer>
             </Form>
           </Modal>

@@ -1,5 +1,5 @@
 import React from "react";
-import LessonEditTitleForm from "../components/Lesson/LessonEditInfo/LessonEditTitleForm";
+import LessonEditTitleForm from "../components/LessonEditInfo/LessonEditTitleForm";
 
 const LessonEditInfo = ({ updatedLesson, handleLessonTitleChange }) => {
   return (

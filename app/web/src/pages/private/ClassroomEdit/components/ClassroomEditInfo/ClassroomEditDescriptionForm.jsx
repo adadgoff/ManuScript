@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-import { CLASSROOM_MAX_DESCRIPTION_LENGTH } from "../../../../../../constants/Classroom/ClassroomConstants";
+import { CLASSROOM_MAX_DESCRIPTION_LENGTH } from "../../../../../constants/Classroom/ClassroomConstants";
 
 const ClassroomEditDescriptionForm = ({ updatedClassroom, handleClassroomDescriptionChange }) => {
   return (

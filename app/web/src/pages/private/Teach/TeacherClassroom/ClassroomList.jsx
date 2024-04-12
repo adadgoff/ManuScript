@@ -13,7 +13,7 @@ import ClassroomItem from "./ClassroomItem";
 const ClassroomList = ({ ...props }) => {
   const [search, setSearch] = useState("")
   const navigate = useNavigate();
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   const [sortedSearchedClassrooms, isSorting] = useSortedSearchedClassrooms(props.classrooms, search);
 

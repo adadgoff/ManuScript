@@ -6,7 +6,7 @@ import { useUpdatedLesson } from "../../../../hooks/Lesson/useLesson";
 import LessonEditInfo from "./LessonEditInfo";
 import LessonEditSyllabus from "./LessonEditSyllabus";
 
-const LessonEditForm = ({ lesson, isLoading }) => {
+const LessonEditForm = ({ module, lesson, isLoading }) => {
   const [validated, setValidated] = useState(false);
   const [updatedLesson, sortedLesson, isCopying, isSorting, setUpdatedLesson] = useUpdatedLesson(lesson);
 

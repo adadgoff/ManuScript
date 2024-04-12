@@ -1,24 +1,30 @@
 import React from "react";
-import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
+import { Card, CardBody, CardImg, CardText, CardTitle, Stack } from "react-bootstrap";
 import { IMAGE_PATH } from "../../../../API/Paths";
-import { CLASSROOM_DEFAULT_IMAGE_UUID } from "../../../../constants/Classroom/ClassroomConstants";
-import { CARD_IMG_STYLE } from "../../../../styles/Classroom/ClassroomStyles";
+import { DEFAULT_CLASSROOM_ICON_PATH } from "../../../../constants/Image/ImageConstants";
+import {
+  CARD_BODY_CLASS_NAME,
+  CARD_CLASS_NAME,
+  CARD_IMG_STYLE,
+  CARD_STYLE
+} from "../../../../styles/Classroom/ClassroomStyles";
 
 const ClassroomItem = ({ classroom }) => {
   return (
-    <Card className="p-2 flex-row">
-      <div className="d-flex align-items-center justify-content-center">
+    <Card className={ CARD_CLASS_NAME } style={ CARD_STYLE }>
+      <Stack direction="horizontal" className="w-100">
         <CardImg
-          src={ `${ IMAGE_PATH }/${ classroom.icon ? classroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          // src={ `${ IMAGE_PATH }/${ classroom.icon ? classroom.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
+          src={ classroom.icon ? `${ IMAGE_PATH }/${ classroom.icon.uuid }` : DEFAULT_CLASSROOM_ICON_PATH }
           alt="Icon"
           style={ CARD_IMG_STYLE }
         />
-      </div>
 
-      <CardBody className="p-1">
-        <CardTitle>{ `Описание "${ classroom.title }"` }</CardTitle>
-        <CardText>{ classroom.description }</CardText>
-      </CardBody>
+        <CardBody className={ CARD_BODY_CLASS_NAME }>
+          <CardTitle>{ `Описание "${ classroom.title }"` }</CardTitle>
+          <CardText>{ classroom.description }</CardText>
+        </CardBody>
+      </Stack>
     </Card>
   );
 };

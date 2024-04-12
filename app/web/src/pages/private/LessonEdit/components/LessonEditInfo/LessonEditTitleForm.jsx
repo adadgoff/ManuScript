@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Stack } from "react-bootstrap";
-import { CLASSROOM_MAX_TITLE_LENGTH } from "../../../../../../constants/Classroom/ClassroomConstants";
+import { CLASSROOM_MAX_TITLE_LENGTH } from "../../../../../constants/Classroom/ClassroomConstants";
 
 const LessonEditTitleForm = ({ updatedLesson, handleLessonTitleChange }) => {
   return (

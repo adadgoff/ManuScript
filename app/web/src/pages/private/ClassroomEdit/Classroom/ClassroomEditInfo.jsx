@@ -1,9 +1,9 @@
 import React from "react";
 import { Accordion, Card, CardBody, CardTitle } from "react-bootstrap";
-import ErrorFileAlert from "../components/Classroom/ClassroomEditForm/ErrorFileAlert";
-import ClassroomEditDescriptionForm from "../components/Classroom/ClassroomEditInfo/ClassroomEditDescriptionForm";
-import ClassroomEditIcon from "../components/Classroom/ClassroomEditInfo/ClassroomEditIcon";
-import ClassroomEditTitleForm from "../components/Classroom/ClassroomEditInfo/ClassroomEditTitleForm";
+import ErrorFileAlert from "../components/ClassroomEditForm/ErrorFileAlert";
+import ClassroomEditDescriptionForm from "../components/ClassroomEditInfo/ClassroomEditDescriptionForm";
+import ClassroomEditIcon from "../components/ClassroomEditInfo/ClassroomEditIcon";
+import ClassroomEditTitleForm from "../components/ClassroomEditInfo/ClassroomEditTitleForm";
 
 const ClassroomEditInfo = (
   {

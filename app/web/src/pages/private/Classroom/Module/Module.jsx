@@ -13,7 +13,6 @@ const Module = ({ moduleOrder, ...props }) => {
         <CardTitle>{ props.module.order }. { props.module.title }</CardTitle>
         <CardText>{ props.module.description }</CardText>
 
-        {/*TODO: maybe use border. <hr className="my-3 border-primary"/>*/ }
         <hr className="my-3"/>
 
         <Lessons

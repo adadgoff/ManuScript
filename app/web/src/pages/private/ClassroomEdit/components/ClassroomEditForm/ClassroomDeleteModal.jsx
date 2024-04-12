@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import ClassroomService from "../../../../../../API/Classroom/ClassroomService";
-import Loader from "../../../../../../components/UI/Loader/Loader";
-import { DELETING_TEXT, SORTING_TEXT } from "../../../../../../components/UI/Loader/LoaderConstants";
+import ClassroomService from "../../../../../API/Classroom/ClassroomService";
+import Loader from "../../../../../components/UI/Loader/Loader";
+import { DELETING_TEXT } from "../../../../../components/UI/Loader/LoaderConstants";
 
-const ClassroomDeleteModal = (props) => {
+const ClassroomDeleteModal = ({ ...props }) => {
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -35,12 +35,14 @@ const ClassroomDeleteModal = (props) => {
                  centered>
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Внимание! Вы нажали на кнопку "Удалить учебный класс"!
+                Внимание! Вы нажали на кнопку <i><b>"Удалить учебный класс"</b></i>!
               </Modal.Title>
             </Modal.Header>
+
             <Modal.Body className="mb-0 pb-0">
-              <p>{ `Вы действительно хотите удалить учебный класс "${ props.classroom.title }"?` }</p>
+              <p>Вы действительно хотите удалить учебный класс <b>"{props.classroom.title}"</b>?</p>
             </Modal.Body>
+
             <Modal.Footer>
               <Button onClick={ props.onHide } className="btn-primary">
                 Я случайно...

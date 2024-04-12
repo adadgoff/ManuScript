@@ -5,9 +5,9 @@ import { COPYING_TEXT, LOADING_TEXT, SORTING_TEXT } from "../../../../components
 import { IMAGE_EXTENSION_ERROR, IMAGE_SIZE_ERROR } from "../../../../constants/Error/ErrorConstants";
 import { IMAGE_MAX_SIZE } from "../../../../constants/Image/ImageConstants";
 import { useUpdatedClassroom } from "../../../../hooks/Classroom/useClassroom";
-import DangerZoneAccordion from "../components/Classroom/ClassroomEditForm/DangerZoneAccordion";
-import SaveCancelMenu from "../components/Classroom/ClassroomEditForm/SaveCancelMenu";
-import StudentZoneAccordion from "../components/Classroom/ClassroomEditForm/StudentZoneAccordion";
+import DangerZoneAccordion from "../components/ClassroomEditForm/DangerZoneAccordion";
+import SaveCancelMenu from "../components/ClassroomEditForm/SaveCancelMenu";
+import StudentZoneAccordion from "../components/ClassroomEditForm/StudentZoneAccordion";
 import ClassroomEditInfo from "./ClassroomEditInfo";
 import ClassroomEditSyllabus from "./ClassroomEditSyllabus";
 
@@ -62,6 +62,8 @@ const ClassroomEditForm = ({ ...props }) => {
     };
     reader.readAsDataURL(file);
   }
+
+  console.log(updatedClassroom);
 
   return (
     <>

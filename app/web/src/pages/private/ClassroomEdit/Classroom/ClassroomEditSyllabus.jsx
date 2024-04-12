@@ -1,29 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Accordion, Button } from "react-bootstrap";
-import Modules from "../Module/Modules";
+import ModuleCreateModal from "../components/Module/ModuleCreateModal";
+import Modules from "../components/ClassroomEditSyllabus/Module/Modules";
 
 const ClassroomEditSyllabus = ({ updatedClassroom, setUpdatedClassroom }) => {
+  const [modalShow, setModalShow] = useState(false);
+
   return (
-    <Accordion className="border border-warning border-3 rounded-3 my-4">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>
-          <span className="fw-medium">Программа учебного класса</span>
-        </Accordion.Header>
+    <>
+      <ModuleCreateModal
+        show={ modalShow }
+        onHide={ () => setModalShow(false) }
+        updatedClassroom={ updatedClassroom }
+        setUpdatedClassroom={ setUpdatedClassroom }/>
 
-        <Accordion.Body className="p-2 pt-1">
-          <Modules modules={ updatedClassroom.modules }
-                   updatedClassroom={updatedClassroom}
-                   setUpdatedClassroom={ setUpdatedClassroom }/>
-        </Accordion.Body>
-        <Accordion.Body>
-          <div className="mb-4 border border-warning border-2"/>
-          <Button
-            className="btn-success w-100 mb-2"
-            children={ "Создать модуль" }/>
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
+      <Accordion className="border border-warning border-3 rounded-3 my-4">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>
+            <span className="fw-medium">Программа учебного класса</span>
+          </Accordion.Header>
 
+          <Accordion.Body className="p-0">
+            <div className="my-4 border border-warning border-2"/>
+
+            <Modules modules={ updatedClassroom.modules }
+                     updatedClassroom={ updatedClassroom }
+                     setUpdatedClassroom={ setUpdatedClassroom }/>
+
+            <div className="mt-4 border border-warning border-2"/>
+          </Accordion.Body>
+          <Accordion.Body>
+            <Button
+              onClick={ () => setModalShow(true) }
+              className="btn-success w-100"
+              children={ "Создать модуль" }/>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    </>
   );
 };
 
