@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { COPYING_TEXT, LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { useUpdatedLesson } from "../../../../hooks/Lesson/useLesson";
+import StepUtils from "../components/Step/StepUtils";
 import LessonEditInfo from "./LessonEditInfo";
 import LessonEditSyllabus from "./LessonEditSyllabus";
 
@@ -10,8 +11,13 @@ const LessonEditForm = ({ module, lesson, isLoading }) => {
   const [validated, setValidated] = useState(false);
   const [updatedLesson, sortedLesson, isCopying, isSorting, setUpdatedLesson] = useUpdatedLesson(lesson);
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setValidated(true);
+    const editorContent = StepUtils.extractEditorContentFromSteps(updatedLesson.steps);
+    console.log(editorContent);
+    // TODO: обработать картинки в steps.text
   }
 
   const handleLessonTitleChange = (event) => {
@@ -42,7 +48,8 @@ const LessonEditForm = ({ module, lesson, isLoading }) => {
             <LessonEditSyllabus updatedLesson={ updatedLesson }
                                 setUpdatedLesson={ setUpdatedLesson }/>
 
-            {/*<SaveCancelMenu*/}
+            <Button type="submit" children={ "Сохранить" }/>
+            { /*<SaveCancelMenu/>*/ }
           </Form>
         </Container>
       ) }

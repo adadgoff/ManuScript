@@ -54,7 +54,22 @@ class ClassroomService {
           title: title,
           description: description
         }),
-      });
+      }
+    );
+    return response.json();
+  }
+
+  static async updateClassroom(updatedClassroom, selectedFile) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/update`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedClassroom),
+      }
+    );
     return response.json();
   }
 

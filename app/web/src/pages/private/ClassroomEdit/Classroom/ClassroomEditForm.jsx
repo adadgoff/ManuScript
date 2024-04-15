@@ -1,32 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
+import ClassroomService from "../../../../API/Classroom/ClassroomService";
 import Loader from "../../../../components/UI/Loader/Loader";
 import { COPYING_TEXT, LOADING_TEXT, SORTING_TEXT } from "../../../../components/UI/Loader/LoaderConstants";
 import { IMAGE_EXTENSION_ERROR, IMAGE_SIZE_ERROR } from "../../../../constants/Error/ErrorConstants";
 import { IMAGE_MAX_SIZE } from "../../../../constants/Image/ImageConstants";
 import { useUpdatedClassroom } from "../../../../hooks/Classroom/useClassroom";
+import ClassroomSaveModal from "../components/ClassroomEditForm/ClassroomSaveModal";
 import DangerZoneAccordion from "../components/ClassroomEditForm/DangerZoneAccordion";
 import SaveCancelMenu from "../components/ClassroomEditForm/SaveCancelMenu";
 import StudentZoneAccordion from "../components/ClassroomEditForm/StudentZoneAccordion";
 import ClassroomEditInfo from "./ClassroomEditInfo";
 import ClassroomEditSyllabus from "./ClassroomEditSyllabus";
 
-const ClassroomEditForm = ({ ...props }) => {
+const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
   const [errorFileMessage, setErrorFileMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const [validated, setValidated] = useState(false);
-  const [updatedClassroom, sortedClassroom, isCopying, isSorting, setUpdatedClassroom] = useUpdatedClassroom(props.classroom);
+  const [saveModalShow, setSaveModalShow] = useState(false);
 
-  const handleSubmit = (event) => {
-    console.log("submitting")
+  const [validated, setValidated] = useState(false);
+  const [updatedClassroom, sortedClassroom, isCopying, isSorting, setUpdatedClassroom] = useUpdatedClassroom(classroom);
+
+  useEffect(() => {
+    setUpdatedClassroom(classroom);
+  }, []);
+
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    event.preventDefault();
+    event.stopPropagation();
 
     setValidated(true);
+
+    if (form.checkValidity() === true) {
+      try {
+        setSaveModalShow(true);
+        const response = await ClassroomService.updateClassroom(updatedClassroom, selectedFile);
+        setClassroom({ ...response });
+      } catch (error) {
+        console.log("Error updating classroom", error);
+      } finally {
+        setSaveModalShow(false);
+      }
+    }
   };
 
   const handleClassroomTitleChange = (event) => {
@@ -63,13 +80,14 @@ const ClassroomEditForm = ({ ...props }) => {
     reader.readAsDataURL(file);
   }
 
-  console.log(updatedClassroom);
-
   return (
     <>
-      { props.isLoading || isSorting || isCopying ? (
+      <ClassroomSaveModal
+        show={ saveModalShow }/>
+
+      { isLoading || isSorting || isCopying ? (
         <Loader title={
-          (props.isLoading && LOADING_TEXT) ||
+          (isLoading && LOADING_TEXT) ||
           (isSorting && SORTING_TEXT) ||
           (isCopying && COPYING_TEXT)
         }/>

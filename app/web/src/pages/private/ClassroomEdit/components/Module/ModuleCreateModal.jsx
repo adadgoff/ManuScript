@@ -20,8 +20,9 @@ const ModuleCreateModal = ({ updatedClassroom, setUpdatedClassroom, ...props }) 
       const newModule = {
         title: title,
         description: description,
-        order: (updatedClassroom.modules.length + 1),
+        order: updatedClassroom.modules.length + 1,
         lessons: [],
+        id: null,
       };
       const updatedModules = [...updatedClassroom.modules, newModule];
       setUpdatedClassroom({ ...updatedClassroom, modules: updatedModules });

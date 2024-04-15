@@ -1,66 +1,68 @@
 import React, { useState } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Button, Form, InputGroup, Stack } from "react-bootstrap";
 import { LESSON_MAX_TITLE_LENGTH } from "../../../../../constants/Lesson/LessonConstants";
 
-const LessonCreateForm = ({ ...props }) => {
-  const [validated, setValidated] = useState(false);
+const LessonCreateForm = ({ module, updatedClassroom, setUpdatedClassroom, ...props }) => {
   const [title, setTitle] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handleLessonTitleChange = (event) => {
+    setTitle(event.target.value);
   }
 
-  return (
-    <Form noValidate validated={ validated } onSubmit={ handleSubmit } className="mb-3">
-      <Stack direction="horizontal">
-        <div className="w-100">
-          <Stack direction="horizontal">
-            <Form.Label className="mb-0">Название урока</Form.Label>
-            <Form.Text className="ms-auto">{ `${ title.length } / ${ LESSON_MAX_TITLE_LENGTH }` }</Form.Text>
-          </Stack>
-          <Form.Control
-            required
-            type="text"
-            minLength={ 1 }
-            maxLength={ LESSON_MAX_TITLE_LENGTH }
-            className="border border-info rounded"
-            placeholder={ "Название урока" }
-            onChange={ event => setTitle(event.target.value) }
-            { ...props }
-          />
-          <Form.Control.Feedback type="invalid" children={ "Название урока не должно быть пустым!" }/>
-        </div>
+  const handleCreateLessonClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-        <div className="ms-auto">
-          <Button
-            className="h-50"
-            variant="outline-success"
-            type="submit"
-            children={ "Создать урок" }/>
-        </div>
+    setTitle("");
+
+    const moduleOrder = module.order;
+
+    setUpdatedClassroom(prevState => {
+      const updatedModules = prevState.modules.map(module => {
+        if (module.order === moduleOrder) {
+          const newLesson = {
+            id: null,
+            title: title,
+            order: module.lessons.length + 1,
+            module_id: null,
+          };
+
+          const updatedLessons = [...module.lessons, newLesson];
+          return { ...module, lessons: updatedLessons };
+        }
+
+        return module;
+      });
+
+      return { ...prevState, modules: updatedModules };
+    });
+  };
+
+  return (
+    <Form noValidate className="w-100 me-2">
+      <Stack direction="horizontal">
+        <Form.Label className="mb-0">Название нового урока</Form.Label>
+        <Form.Text className="ms-auto">{ `${ title.length } / ${ LESSON_MAX_TITLE_LENGTH }` }</Form.Text>
       </Stack>
+      <InputGroup>
+        <Form.Control
+          required
+          type="text"
+          minLength={ 1 }
+          maxLength={ LESSON_MAX_TITLE_LENGTH }
+          className="border border-success-subtle"
+          placeholder="Название нового урока"
+          onChange={ handleLessonTitleChange }
+          value={ title }/>
+
+        <Button
+          className="btn-success"
+          onClick={ handleCreateLessonClick }
+          disabled={ title.length === 0 }
+          children={ "Создать урок" }/>
+      </InputGroup>
     </Form>
   );
 };
 
 export default LessonCreateForm;
-
-// <div>
-//   <Stack direction="horizontal">
-//     <Form.Label className="mb-0">Название урока</Form.Label>
-//     <Form.Text className="ms-auto">{ `${ title.length } / ${ LESSON_MAX_TITLE_LENGTH }` }</Form.Text>
-//   </Stack>
-//   <Form.Control
-//     required
-//     size="lg"
-//     type="text"
-//     minLength={ 1 }
-//     maxLength={ LESSON_MAX_TITLE_LENGTH }
-//     className="border border-info rounded"
-//     placeholder={ "Название урока" }
-//     onChange={ event => setTitle(event.target.value) }
-//     { ...props }
-//   />
-//   <Form.Control.Feedback type="invalid" children={ "Название урока не должно быть пустым!" }/>
-// </div>

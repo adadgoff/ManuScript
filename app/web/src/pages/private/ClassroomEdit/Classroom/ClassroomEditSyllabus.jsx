@@ -29,6 +29,7 @@ const ClassroomEditSyllabus = ({ updatedClassroom, setUpdatedClassroom }) => {
 
             <div className="mt-4 border border-warning border-2"/>
           </Accordion.Body>
+
           <Accordion.Body>
             <Button
               onClick={ () => setModalShow(true) }

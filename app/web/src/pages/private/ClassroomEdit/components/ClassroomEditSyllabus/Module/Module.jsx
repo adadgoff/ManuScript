@@ -54,18 +54,17 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
     }
 
     const moduleOrder = module.order;
-    const lowerModuleIndex = updatedClassroom.modules.findIndex(module => module.order === moduleOrder);
     const updatedModules = [...updatedClassroom.modules];
 
-    updatedModules[lowerModuleIndex].order--;
-    updatedModules[lowerModuleIndex - 1].order++;
-    [updatedModules[lowerModuleIndex - 1], updatedModules[lowerModuleIndex]] = [updatedModules[lowerModuleIndex], updatedModules[lowerModuleIndex - 1]];
+    updatedModules[moduleOrder - 2].order++;
+    updatedModules[moduleOrder - 1].order--;
+    [updatedModules[moduleOrder - 2], updatedModules[moduleOrder - 1]] = [updatedModules[moduleOrder - 1], updatedModules[moduleOrder - 2]];
 
     setUpdatedClassroom(prevState => ({
       ...prevState,
       modules: updatedModules,
     }));
-  }
+  };
 
   const handleDownBtn = (event) => {
     event.preventDefault();
@@ -76,12 +75,11 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
     }
 
     const moduleOrder = module.order;
-    const upperModuleIndex = updatedClassroom.modules.findIndex(module => module.order === moduleOrder);
     const updatedModules = [...updatedClassroom.modules];
 
-    updatedModules[upperModuleIndex].order++;
-    updatedModules[upperModuleIndex + 1].order--;
-    [updatedModules[upperModuleIndex], updatedModules[upperModuleIndex + 1]] = [updatedModules[upperModuleIndex + 1], updatedModules[upperModuleIndex]];
+    updatedModules[moduleOrder - 1].order++;
+    updatedModules[moduleOrder].order--;
+    [updatedModules[moduleOrder - 1], updatedModules[moduleOrder]] = [updatedModules[moduleOrder], updatedModules[moduleOrder - 1]];
 
     setUpdatedClassroom(prevState => ({
       ...prevState,
@@ -126,7 +124,8 @@ const Module = ({ module, updatedClassroom, setUpdatedClassroom }) => {
                 </ButtonGroup>
 
                 <Stack direction="vertical" className="ms-auto">
-                  <ModuleEditTitleForm module={ module } handleModuleTitleChange={ handleModuleTitleChange }/>
+                  <ModuleEditTitleForm module={ module }
+                                       handleModuleTitleChange={ handleModuleTitleChange }/>
                   <ModuleEditDescriptionForm module={ module }
                                              handleModuleDescriptionChange={ handleModuleDescriptionChange }/>
                 </Stack>

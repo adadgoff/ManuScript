@@ -3,7 +3,7 @@ import Module from "./Module";
 
 const Modules = ({ modules, updatedClassroom, setUpdatedClassroom }) => {
   return (
-    <>
+    <div>
       { modules && modules.length ? (
         modules.map((module, index) => (
           <>
@@ -15,9 +15,9 @@ const Modules = ({ modules, updatedClassroom, setUpdatedClassroom }) => {
           </>
         ))
       ) : (
-        <h5 className="text-center bg-light border border-secondary rounded p-3 mx-2 mt-4">Модулей в учебном классе нет...</h5>
+        <h5 className="text-center bg-info-subtle border border-primary-subtle border-2 rounded p-3 mx-2 mt-4">Модулей в учебном классе нет...</h5>
       ) }
-    </>
+    </div>
   );
 };
 

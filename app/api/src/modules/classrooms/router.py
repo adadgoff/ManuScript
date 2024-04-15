@@ -5,7 +5,7 @@ from src.auth.helpers.token_helper import get_current_user
 from src.modules.classrooms.access import check_rights
 from src.modules.classrooms.exceptions import ClassroomNotFoundException
 from src.modules.classrooms.schemas import SClassroomDeleteOut, SClassroomGetOut, \
-    SClassroomGetOutWithModules, SClassroomPostIn, SClassroomPostOut
+    SClassroomGetOutWithModules, SClassroomPostIn, SClassroomPostOut, SClassroomUpdateIn, SClassroomUpdateOut
 from src.modules.classrooms.service import ClassroomService
 from src.modules.students.service import StudentService
 from src.modules.teachers.service import TeacherService
@@ -154,10 +154,6 @@ async def get_classroom_with_lessons_for_teachers(classroom_id: int, user: UserM
             "model": SClassroomPostOut,
             "description": "Classroom created successfully.",
         },
-        UserNotFoundException.status_code: {
-            "model": None,
-            "description": UserNotFoundException.detail,
-        }
     }
 )
 async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get_current_user)):
@@ -167,6 +163,37 @@ async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get
         user=user,
     )
     return classroom
+
+
+@router.put(
+    path="/update",
+    response_model=SClassroomUpdateOut,
+    status_code=status.HTTP_200_OK,
+    summary="Update a classroom.",
+    description="Update a classroom and return it to the client.",
+    tags=["Classroom"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SClassroomUpdateOut,
+            "description": "Classroom updated successfully.",
+        },
+        ClassroomNotFoundException.status_code: {
+            "model": None,
+            "description": ClassroomNotFoundException.detail,
+        },
+    }
+)
+async def update_classroom(data: SClassroomUpdateIn, user: UserModel = Depends(get_current_user)):
+    classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(id=data.id)
+
+    if not classroom:
+        raise ClassroomNotFoundException
+
+    user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
+    check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    updated_classroom = await ClassroomService.update_classroom(classroom.ClassroomModel, data)
+    return updated_classroom
 
 
 @router.delete(

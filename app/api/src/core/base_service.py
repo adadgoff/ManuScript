@@ -22,9 +22,13 @@ class BaseService:
         return await cls.repository.read_all(**filter_by)
 
     @classmethod
-    async def update_one(cls):
-        raise NotImplementedError
+    async def update_one(cls, model=None, **data) -> dict:
+        return await cls.repository.update_one(model, **data)
 
     @classmethod
     async def delete_one(cls, **filter_by) -> dict:
         return await cls.repository.delete_one(**filter_by)
+
+    @classmethod
+    async def delete_all_by_id(cls, ids) -> dict:
+        return await cls.repository.delete_all_by_id(ids)

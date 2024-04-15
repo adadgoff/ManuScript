@@ -35,7 +35,7 @@ router = APIRouter(
         }
     }
 )
-async def get_image_by_uuid(image_uuid: UUID):
+async def get_image_by_uuid(image_uuid: UUID, user: UserModel = Depends(get_current_user)):
     image = await ImageService.read_one_or_none(uuid=image_uuid)
     if not image:
         raise ImageNotFoundException
@@ -66,5 +66,3 @@ async def get_image_by_uuid(image_uuid: UUID):
 )
 async def upload_image(file: UploadFile, user: UserModel = Depends(get_current_user)):
     return await ImageService.create_one(file, user)
-
-

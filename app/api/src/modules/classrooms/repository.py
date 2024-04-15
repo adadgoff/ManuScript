@@ -23,9 +23,8 @@ class ClassroomRepository(BaseRepository):
             await session.commit()
             return classroom
 
-    # TODO: do with **filter_by.
     @classmethod
-    async def read_one_or_none_with_icon_and_modules(cls, **filter_by):
+    async def read_one_or_none_with_icon_and_modules(cls, **filter_by) -> ClassroomModel:
         async with async_session_factory(expire_on_commit=False) as session:
             query = select(ClassroomModel).filter_by(**filter_by).options(
                 joinedload(ClassroomModel.icon),
@@ -35,7 +34,7 @@ class ClassroomRepository(BaseRepository):
             return result.unique().mappings().one_or_none()
 
     @classmethod
-    async def read_all_with_icon(cls, ids: list[int]):
+    async def read_all_with_icon(cls, ids: list[int]) -> list[ClassroomModel]:
         async with async_session_factory(expire_on_commit=False) as session:
             query = select(ClassroomModel).filter(ClassroomModel.id.in_(ids)).options(joinedload(ClassroomModel.icon))
             result = await session.execute(query)

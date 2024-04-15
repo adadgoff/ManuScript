@@ -1,0 +1,1 @@
+export const STEP_MAX_ANSWER_LENGTH = 50;

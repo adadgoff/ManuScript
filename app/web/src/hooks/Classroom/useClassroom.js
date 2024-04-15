@@ -1,4 +1,6 @@
+import { cloneDeep } from "lodash";
 import { useEffect, useMemo, useState } from "react";
+import CopyUtils from "../../utils/CopyUtils";
 
 export const useSortedClassroom = (classroom) => {
   const [isSorting, setIsSorting] = useState(true);
@@ -14,7 +16,7 @@ export const useSortedClassroom = (classroom) => {
     });
 
     setIsSorting(false);
-    return sortedClassroom;
+    return CopyUtils.deepFreeze(sortedClassroom);
   }, [classroom]);
 
   return [sortedClassroom, isSorting];
@@ -27,7 +29,7 @@ export const useUpdatedClassroom = (classroom) => {
 
   useEffect(() => {
     setIsCopying(true);
-    setUpdatedClassroom({ ...sortedClassroom });
+    setUpdatedClassroom(cloneDeep(sortedClassroom));
     setIsCopying(updatedClassroom === null);
   }, [sortedClassroom]);
 

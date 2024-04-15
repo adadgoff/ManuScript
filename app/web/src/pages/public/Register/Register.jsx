@@ -17,9 +17,6 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  console.log(username, username.length)
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 

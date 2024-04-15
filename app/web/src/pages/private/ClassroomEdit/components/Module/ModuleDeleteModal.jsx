@@ -2,32 +2,31 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const ModuleDeleteModal = ({ module, updatedClassroom, setUpdatedClassroom, ...props }) => {
-
-  const handleDeleteBtn = async (event) => {
+  const handleDeleteBtn = (event) => {
     event.preventDefault();
 
-    const updatedModules = updatedClassroom.modules.filter(m => m.order !== module.order);
-    updatedModules.map(m => {
-      if (m.order >= module.order) {
-        m.order -= 1;
-      }
-      return m;
+    const moduleOrder = module.order;
+
+    const updatedModules = updatedClassroom.modules.filter(module => module.order !== moduleOrder);
+    updatedModules.map(module => {
+      module.order -= module.order >= moduleOrder;
+      return module;
     });
 
     setUpdatedClassroom(prevState => ({
       ...prevState,
-      modules: updatedModules
+      modules: updatedModules,
     }));
 
     props.onHide();
-  }
+  };
 
   return (
     <Modal { ...props }
            size="lg"
            aria-labelledby="contained-modal-title-vcenter"
            centered>
-      <Modal.Header closeVariant>
+      <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Внимание! Вы нажали на кнопку <i><b>"Удалить модуль"</b></i>!
         </Modal.Title>

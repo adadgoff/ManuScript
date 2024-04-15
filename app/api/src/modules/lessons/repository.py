@@ -10,12 +10,13 @@ class LessonRepository(BaseRepository):
     model = LessonModel
 
     @classmethod
-    async def create_one(cls, title: str, module_id: int) -> LessonModel:
+    async def create_one(cls, order: int, title: str, module_id: int) -> LessonModel:
         async with async_session_factory(expire_on_commit=False) as session:
             lesson = LessonModel(
+                order=order,
                 title=title,
+                module_id=module_id,
             )
-            lesson.module_id = module_id
             session.add(lesson)
             await session.commit()
             return lesson

@@ -27,6 +27,7 @@ const ClassroomEdit = () => {
       ) : (
         <ClassroomEditForm
           classroom={ classroom }
+          setClassroom={ setClassroom }
           isLoading={ isFetchingLoading }/>
       ) }
     </>

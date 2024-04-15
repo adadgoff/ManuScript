@@ -1,7 +1,3 @@
-import asyncio
-
-import aiofiles
-import aiofiles.os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -40,6 +36,8 @@ app.mount(path="/static", app=StaticFiles(directory="../resources/static"), name
 origins = [
     "http://localhost:3000",
     "http://kaa77.keenetic.pro:3000",
+    "http://localhost:8000",
+    "http://kaa77.keenetic.pro:8000",
 ]
 
 app.add_middleware(

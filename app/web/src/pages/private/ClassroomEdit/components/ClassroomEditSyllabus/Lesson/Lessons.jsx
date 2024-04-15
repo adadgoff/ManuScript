@@ -3,7 +3,6 @@ import LessonCreateForm from "../../Lesson/LessonCreateForm";
 import Lesson from "./Lesson";
 
 const Lessons = ({ module, lessons, updatedClassroom, setUpdatedClassroom }) => {
-
   return (
     <>
       { lessons && lessons.length ? (
@@ -16,12 +15,15 @@ const Lessons = ({ module, lessons, updatedClassroom, setUpdatedClassroom }) => 
             setUpdatedClassroom={ setUpdatedClassroom }/>
         )
       ) : (
-        <h6 className="text-center bg-light border border-secondary rounded p-3 mt-3">Уроков в модуле нет...</h6>
+        <h6 className="text-center bg-info-subtle border border-primary-subtle border-2 rounded p-3 mt-3">Уроков в модуле нет...</h6>
       ) }
 
-      <div className="border border-secondary-subtle my-4"/>
+      <div className="border border-success mt-4 mb-2"/>
 
-      {/*<LessonCreateForm/>*/}
+      <LessonCreateForm
+        module={ module }
+        updatedClassroom={ updatedClassroom }
+        setUpdatedClassroom={ setUpdatedClassroom }/>
     </>
   );
 };

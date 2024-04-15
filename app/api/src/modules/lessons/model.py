@@ -9,10 +9,10 @@ class LessonModel(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str_50]
-    order: Mapped[int] = mapped_column(default=-1)
+    order: Mapped[int]
 
     # one to many. parent to child = lesson to steps.
-    steps: Mapped[list["StepModel"]] = relationship(back_populates="lesson")
+    steps: Mapped[list["StepModel"]] = relationship(back_populates="lesson", cascade="all, delete", passive_deletes=True)
 
     # many to one. child to parent = lessons to module.
     module_id: Mapped[int] = mapped_column(ForeignKey("modules.id", ondelete="CASCADE"))

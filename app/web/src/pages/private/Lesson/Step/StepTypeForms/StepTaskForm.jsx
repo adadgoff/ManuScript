@@ -56,8 +56,6 @@ const StepTaskForm = ({ ...props }) => {
     }
   };
 
-  console.log(errorFileMessage);
-
   return (
     <Form onSubmit={ handleFormSubmit }>
       <StepType step={ props.step }/>

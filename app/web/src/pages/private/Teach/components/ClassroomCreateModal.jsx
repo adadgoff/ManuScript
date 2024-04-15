@@ -28,7 +28,6 @@ const ClassroomCreateModal = (props) => {
       try {
         setIsLoading(true);
         const response = await ClassroomService.createClassroom(title, description);
-        console.log(response);
         navigate(`/${CLASSROOM_PREFIX}/${response.id}/edit`);
       } catch (error) {
         console.log("Error creating classroom", error);

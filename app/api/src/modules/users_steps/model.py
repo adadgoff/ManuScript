@@ -10,8 +10,8 @@ from src.modules.users_steps.UserStepStatus import UserStepStatus
 class UserStepModel(Base):
     __tablename__ = "users_steps"
 
-    user_uuid: Mapped[UUID] = mapped_column(ForeignKey("users.uuid"), primary_key=True)
-    step_id: Mapped[int] = mapped_column(ForeignKey("steps.id"), primary_key=True)
+    user_uuid: Mapped[UUID] = mapped_column(ForeignKey("users.uuid", ondelete="CASCADE"), primary_key=True)
+    step_id: Mapped[int] = mapped_column(ForeignKey("steps.id", ondelete="CASCADE"), primary_key=True)
     user_answer: Mapped[str_50]
     status: Mapped[UserStepStatus]
 

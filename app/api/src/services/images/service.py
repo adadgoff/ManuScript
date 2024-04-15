@@ -1,4 +1,3 @@
-import asyncio
 from uuid import UUID, uuid4
 
 import aiofiles
@@ -41,15 +40,17 @@ class ImageService(BaseService):
 
     @classmethod
     async def delete_one(cls, img_uuid: UUID) -> RowMapping:
+        image = await ImageService.delete_img(img_uuid)
+        await cls.repository.delete_one(uuid=img_uuid)
+        return image
+
+    @classmethod
+    async def delete_img(cls, img_uuid: UUID) -> RowMapping:
         image = await cls.repository.read_one_or_none(uuid=img_uuid)
+
         if not image:
             raise ImageNotFoundException
 
         img_path = f"{PATH}/{image.ImageModel.uuid}.{image.ImageModel.extension}"
-
-        await asyncio.gather(
-            aiofiles.os.remove(img_path),
-            cls.repository.delete_one(uuid=img_uuid),
-        )
-
+        await aiofiles.os.remove(img_path)
         return image

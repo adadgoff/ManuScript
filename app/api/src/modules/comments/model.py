@@ -2,16 +2,16 @@ from datetime import datetime
 from uuid import UUID
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, relationship, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.db.base import Base, str_16_383
+from src.db.base import Base, str_1_048_575
 
 
 class CommentModel(Base):
     __tablename__ = "comments"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    text: Mapped[str_16_383]
+    text: Mapped[str_1_048_575]
     send_time: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     # one to many. parent to child = comment to images.

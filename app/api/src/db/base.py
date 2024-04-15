@@ -7,7 +7,7 @@ str_5 = Annotated[str, 5]
 str_50 = Annotated[str, 50]
 str_100 = Annotated[str, 100]
 str_320 = Annotated[str, 320]
-str_16_383 = Annotated[str, 16_383]
+str_1_048_575 = Annotated[str, 1_048_575]
 
 
 class Base(DeclarativeBase):
@@ -16,7 +16,7 @@ class Base(DeclarativeBase):
         str_50: String(50),
         str_100: String(100),
         str_320: String(320),
-        str_16_383: String(16_383),
+        str_1_048_575: String(1_048_575),
     }
 
     repr_cols_num = 3

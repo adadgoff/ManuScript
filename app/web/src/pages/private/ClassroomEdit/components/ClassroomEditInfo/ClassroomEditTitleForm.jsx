@@ -4,7 +4,7 @@ import { CLASSROOM_MAX_TITLE_LENGTH } from "../../../../../constants/Classroom/C
 
 const ClassroomEditTitleForm = ({updatedClassroom, handleClassroomTitleChange}) => {
   return (
-    <>
+    <div>
       <Stack direction="horizontal">
         <Form.Label className="mb-0">Название учебного класса</Form.Label>
         <Form.Text
@@ -21,7 +21,7 @@ const ClassroomEditTitleForm = ({updatedClassroom, handleClassroomTitleChange}) 
         onChange={ handleClassroomTitleChange }
         value={ updatedClassroom.title }/>
       <Form.Control.Feedback type="invalid" children={ "Название класса не должно быть пустым!" }/>
-    </>
+    </div>
   );
 };
 

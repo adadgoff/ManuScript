@@ -33,7 +33,6 @@ const Register = () => {
 
     try {
       const response = await AuthService.login(email, password);
-      console.log(response);
       if (response.detail) {
         setError(response.detail);
         return;

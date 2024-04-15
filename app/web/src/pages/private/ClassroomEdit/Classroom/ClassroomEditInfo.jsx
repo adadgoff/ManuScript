@@ -31,8 +31,8 @@ const ClassroomEditInfo = (
                 updatedClassroom={ updatedClassroom }
                 handleClassroomFileChange={ handleClassroomFileChange }/>
 
-              <CardBody className="p-1">
-                <CardTitle>{ `Описание ${ updatedClassroom.title }` }</CardTitle>
+              <CardBody className="p-1 ">
+                <CardTitle className="mb-0">{ `Описание учебного класса "${ updatedClassroom.title }"` }</CardTitle>
                 <ClassroomEditDescriptionForm
                   updatedClassroom={ updatedClassroom }
                   handleClassroomDescriptionChange={ handleClassroomDescriptionChange }/>

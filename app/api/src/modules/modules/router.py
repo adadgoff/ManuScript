@@ -1,11 +1,9 @@
 from fastapi import APIRouter, status
 
-from src.modules.classrooms.exceptions import ClassroomNotFoundException
-from src.modules.classrooms.service import ClassroomService
 from src.modules.lessons.schemas import SLessonGetOut
 from src.modules.lessons.service import LessonService
 from src.modules.modules.exceptions import ModuleNotFoundException
-from src.modules.modules.schemas import SModulePostOut, SModulePostIn, SModuleGetOutBase
+from src.modules.modules.schemas import SModuleGetOutBase
 from src.modules.modules.service import ModuleService
 
 router = APIRouter(
@@ -66,33 +64,33 @@ async def get_lessons_in_module(module_id: int):
     ]
     return lessons
 
-
-@router.post(
-    path="/create",
-    response_model=SModulePostOut,
-    status_code=status.HTTP_201_CREATED,
-    summary="Teacher create module.",
-    description="Create module by teacher.",
-    tags=["Module"],
-    responses={
-        status.HTTP_201_CREATED: {
-            "model": SModulePostOut,
-            "description": "Module created successfully.",
-        },
-        ClassroomNotFoundException.status_code: {
-            "model": None,
-            "description": ClassroomNotFoundException.detail,
-        }
-    }
-)
-async def create_module(data: SModulePostIn):
-    classroom = await ClassroomService.read_one_or_none(id=data.classroom_id)
-    if not classroom:
-        raise ClassroomNotFoundException
-
-    module = await ModuleService.create_one(
-        title=data.title,
-        description=data.description,
-        classroom_id=data.classroom_id,
-    )
-    return module
+# TODO: delete.
+# @router.post(
+#     path="/create",
+#     response_model=SModulePostOut,
+#     status_code=status.HTTP_201_CREATED,
+#     summary="Teacher create module.",
+#     description="Create module by teacher.",
+#     tags=["Module"],
+#     responses={
+#         status.HTTP_201_CREATED: {
+#             "model": SModulePostOut,
+#             "description": "Module created successfully.",
+#         },
+#         ClassroomNotFoundException.status_code: {
+#             "model": None,
+#             "description": ClassroomNotFoundException.detail,
+#         }
+#     }
+# )
+# async def create_module(data: SModulePostIn):
+#     classroom = await ClassroomService.read_one_or_none(id=data.classroom_id)
+#     if not classroom:
+#         raise ClassroomNotFoundException
+#
+#     module = await ModuleService.create_one(
+#         title=data.title,
+#         description=data.description,
+#         classroom_id=data.classroom_id,
+#     )
+#     return module

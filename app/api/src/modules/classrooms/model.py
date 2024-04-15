@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.db.base import Base, str_50, str_100
+from src.db.base import Base, str_100, str_50
 
 
 class ClassroomModel(Base):
@@ -14,7 +14,7 @@ class ClassroomModel(Base):
     icon: Mapped["ImageModel"] = relationship(back_populates="classroom")
 
     # one to many. parent to child = class to modules.
-    modules: Mapped[list["ModuleModel"]] = relationship(back_populates="classroom")
+    modules: Mapped[list["ModuleModel"]] = relationship(back_populates="classroom", cascade="all, delete", passive_deletes=True)
 
     # many to many. parent to child = class to students.
     students: Mapped[list["UserModel"]] = relationship(secondary="students", back_populates="student_classrooms", cascade="all, delete")

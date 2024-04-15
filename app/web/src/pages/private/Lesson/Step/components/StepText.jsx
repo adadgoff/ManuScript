@@ -4,18 +4,19 @@ import { TINY_MCE_API_KEY } from "../../../../../constants/TextEditor/TextEditor
 
 const StepText = ({ ...props }) => {
   return (
-    <Editor
-      apiKey={ TINY_MCE_API_KEY }
-      initialValue={ props.step.text }
-      disabled={ true }
-      init={ {
-        plugins: "autoresize",
-        toolbar: false,
-        menubar: false,
-        readonly: 1,
-        branding: false,
-      } }
-    />
+    <div className="border border-primary-subtle rounded-3">
+      <Editor
+        apiKey={ TINY_MCE_API_KEY }
+        initialValue={ props.step.text }
+        disabled={ true }
+        init={ {
+          toolbar: false,
+          menubar: false,
+          readonly: 1,
+          branding: false,
+        } }
+      />
+    </div>
   );
 };
 
