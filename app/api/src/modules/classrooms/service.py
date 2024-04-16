@@ -29,7 +29,7 @@ class ClassroomService(BaseService):
                                         title=data.title,
                                         description=data.description)
 
-        if classroom_icon is not None:
+        if classroom_icon is not None and classroom_icon != "null":
             if classroom_model.icon is not None:
                 await ImageService.delete_one(img_uuid=classroom_model.icon.uuid)
             image_dict = await ImageService.create_one(classroom_icon, user)
