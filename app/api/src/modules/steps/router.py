@@ -2,11 +2,9 @@ from fastapi import APIRouter, Depends, status
 
 from src.auth.exceptions import AccessDeniedException
 from src.auth.helpers.token_helper import get_current_user
-from src.modules.lessons.exceptions import LessonNotFoundException
-from src.modules.lessons.service import LessonService
 from src.modules.steps.access import check_rights
 from src.modules.steps.exceptions import StepNotFoundException
-from src.modules.steps.schemas import SStepGetOut, SStepPostIn, SStepPostOut
+from src.modules.steps.schemas import SStepGetOut
 from src.modules.steps.service import StepService
 from src.users.model import UserModel
 from src.users.service import UserService
@@ -43,37 +41,7 @@ async def get_step(step_id: int, user: UserModel = Depends(get_current_user)):
     if not step:
         raise StepNotFoundException
 
-    # TODO: better to change or maybe decorator and remove extra moves.
     user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
     check_rights(step.StepModel, user.UserModel, is_for_students=True, is_for_teachers=True)
 
     return step.StepModel
-
-
-@router.post(
-    path="/create",
-    response_model=SStepPostOut,
-    status_code=status.HTTP_201_CREATED,
-    summary="Teacher create step.",
-    description="Create step by teacher.",
-    tags=["Step"],
-    responses={
-        status.HTTP_201_CREATED: {
-            "model": SStepPostOut,
-            "description": "Step created successfully.",
-        },
-        LessonNotFoundException.status_code: {
-            "model": None,
-            "description": LessonNotFoundException.detail,
-        }
-    }
-)
-async def create_step(data: SStepPostIn):
-    lesson = await LessonService.read_one_or_none(id=data.lesson_id)
-    if not lesson:
-        raise LessonNotFoundException
-    step = await StepService.create_one(
-        type=data.type,
-        lesson_id=lesson.LessonModel.id,
-    )
-    return step

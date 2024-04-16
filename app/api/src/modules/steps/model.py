@@ -14,9 +14,6 @@ class StepModel(Base):
     answer: Mapped[str_50 | None]
     order: Mapped[int]
 
-    # one to many. parent to child = step to images.
-    images: Mapped[list["ImageModel"]] = relationship(back_populates="step")
-
     # one to many. parent to child = step to comments.
     comments: Mapped[list["CommentModel"]] = relationship(back_populates="step")
 

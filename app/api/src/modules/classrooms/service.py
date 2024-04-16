@@ -1,8 +1,12 @@
+from fastapi import UploadFile
+
 from src.core.base_service import BaseService
 from src.modules.classrooms.model import ClassroomModel
 from src.modules.classrooms.repository import ClassroomRepository
 from src.modules.classrooms.schemas import SClassroomUpdateIn
 from src.modules.modules.service import ModuleService
+from src.services.images.service import ImageService
+from src.users.model import UserModel
 
 
 class ClassroomService(BaseService):
@@ -17,11 +21,17 @@ class ClassroomService(BaseService):
         return await cls.repository.read_all_with_icon(ids)
 
     @classmethod
-    async def update_classroom(cls, classroom_model: ClassroomModel, data: SClassroomUpdateIn) -> ClassroomModel:
+    async def update_classroom(cls, classroom_model: ClassroomModel,
+                               data: SClassroomUpdateIn,
+                               # classroom_icon: UploadFile | None,
+                               user: UserModel) -> ClassroomModel:
         await cls.repository.update_one(classroom_model,
                                         title=data.title,
                                         description=data.description)
-        # Update classroom icon.
+
+        # if classroom_icon is not None:
+        #     image_model = (await ImageService.create_one(classroom_icon, user)).ImageModel
+        #     await ImageService.update_one(model=image_model, classroom_id=classroom_model.id)
 
         await ModuleService.delete_all_by_id(
             ids=[m.id for m in classroom_model.modules if m.id not in {m.id for m in data.modules}])

@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 
-from src.modules.steps.schemas import SStepGetOut, SStepGetOutBase
+from src.modules.steps.schemas import SStepGetOut, SStepGetOutBase, SStepUpdateIn, SStepUpdateOut
+
+
+class SModuleGetOutWithClassroomId(BaseModel):
+    classroom_id: int
 
 
 class SLessonGetOut(BaseModel):
@@ -31,15 +35,33 @@ class SLessonPostOut(BaseModel):
     title: str
 
 
-class SLessonUpdateIn(BaseModel):
+class SLessonUpdateInForClassroom(BaseModel):
     id: int | None
     order: int
     title: str
     module_id: int | None
 
 
-class SLessonUpdateOut(BaseModel):
+class SLessonUpdateOutForClassroom(BaseModel):
     id: int
     order: int
     title: str
     module_id: int
+
+
+class SLessonUpdateInForLesson(BaseModel):
+    id: int
+    title: str
+    steps: list[SStepUpdateIn]
+
+
+class SLessonUpdateOutForLesson(BaseModel):
+    id: int
+    title: str
+    steps: list[SStepUpdateOut]
+
+
+class SLessonDeleteOut(BaseModel):
+    id: int
+    title: str
+    module: SModuleGetOutWithClassroomId

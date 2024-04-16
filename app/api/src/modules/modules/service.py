@@ -1,5 +1,5 @@
 from src.core.base_service import BaseService
-from src.modules.lessons.schemas import SLessonUpdateIn
+from src.modules.lessons.schemas import SLessonUpdateInForClassroom
 from src.modules.modules.model import ModuleModel
 from src.modules.modules.repository import ModuleRepository
 
@@ -18,7 +18,7 @@ class ModuleService(BaseService):
                                                 order: int,
                                                 title: str,
                                                 description: str,
-                                                lessons: list[SLessonUpdateIn]) -> ModuleModel:
+                                                lessons: list[SLessonUpdateInForClassroom]) -> ModuleModel:
         if id is None:
             return await cls.repository.create_one(order=order, title=title,  # noqa.
                                                    description=description,

@@ -10,3 +10,7 @@ class SImageGetOut(BaseModel):
 class SImagePostOut(BaseModel):
     uuid: UUID
     extension: str
+
+class SImageDeleteOut(BaseModel):
+    uuid: UUID
+    extension: str

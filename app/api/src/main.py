@@ -1,3 +1,6 @@
+import asyncio
+import os
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,6 +54,12 @@ app.add_middleware(
 
 
 async def work_with_db():
+    folder_path = "../resources/static/images/"
+    files = os.listdir(folder_path)
+    for file in files:
+        file_path = os.path.join(folder_path, file)
+        os.remove(file_path)
+
     await init_db()
     await input_example_data()
 

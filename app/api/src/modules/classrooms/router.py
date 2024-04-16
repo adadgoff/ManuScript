@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, status
+from typing import Optional
+
+from fastapi import APIRouter, Body, Depends, File, UploadFile, status
 
 from src.auth.exceptions import AccessDeniedException
 from src.auth.helpers.token_helper import get_current_user
@@ -183,7 +185,9 @@ async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get
         },
     }
 )
-async def update_classroom(data: SClassroomUpdateIn, user: UserModel = Depends(get_current_user)):
+async def update_classroom(data: SClassroomUpdateIn,
+                           # classroom_icon: UploadFile | None = None,
+                           user: UserModel = Depends(get_current_user)):
     classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(id=data.id)
 
     if not classroom:
@@ -192,7 +196,10 @@ async def update_classroom(data: SClassroomUpdateIn, user: UserModel = Depends(g
     user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
     check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=False, is_for_teachers=True)
 
-    updated_classroom = await ClassroomService.update_classroom(classroom.ClassroomModel, data)
+    updated_classroom = await ClassroomService.update_classroom(classroom.ClassroomModel,
+                                                                data,
+                                                                # classroom_icon,
+                                                                user.UserModel)
     return updated_classroom
 
 
@@ -206,7 +213,7 @@ async def update_classroom(data: SClassroomUpdateIn, user: UserModel = Depends(g
     responses={
         status.HTTP_200_OK: {
             "model": SClassroomDeleteOut,
-            "description": "Deleted classroom."
+            "description": "Deleted classroom successfully.",
         },
         ClassroomNotFoundException.status_code: {
             "model": None,

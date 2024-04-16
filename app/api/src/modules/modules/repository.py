@@ -3,7 +3,7 @@ from sqlalchemy.orm import joinedload
 
 from src.core.base_repository import BaseRepository
 from src.db.async_session_factory import async_session_factory
-from src.modules.lessons.schemas import SLessonUpdateIn
+from src.modules.lessons.schemas import SLessonUpdateInForClassroom
 from src.modules.lessons.service import LessonService
 from src.modules.modules.model import ModuleModel
 
@@ -17,7 +17,7 @@ class ModuleRepository(BaseRepository):
                          title: str,
                          description: str,
                          classroom_id: int,
-                         lessons: list[SLessonUpdateIn]
+                         lessons: list[SLessonUpdateInForClassroom]
                          ) -> ModuleModel:
         async with async_session_factory(expire_on_commit=False) as session:
             module_model = ModuleModel(
@@ -50,7 +50,7 @@ class ModuleRepository(BaseRepository):
                          title: str,
                          description: str,
                          classroom_id: int,
-                         lessons: list[SLessonUpdateIn]) -> ModuleModel:
+                         lessons: list[SLessonUpdateInForClassroom]) -> ModuleModel:
         async with async_session_factory(expire_on_commit=False) as session:
             module_model = (await cls.read_one_or_none_with_lessons(id=id)).ModuleModel
 

@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse
 from src.auth.helpers.token_helper import get_current_user
 from src.services.images.contants import PATH
 from src.services.images.exceptions import ImageIncorrectExtensionException, ImageNotFoundException
-from src.services.images.schemas import SImagePostOut
+from src.services.images.schemas import SImageDeleteOut, SImagePostOut
 from src.services.images.service import ImageService
 from src.users.exceptions import UserNotFoundException
 from src.users.model import UserModel
@@ -27,7 +27,7 @@ router = APIRouter(
     responses={
         status.HTTP_200_OK: {
             "model": bytes,
-            "description": "Image found successfully."
+            "description": "Image found successfully.",
         },
         ImageNotFoundException.status_code: {
             "model": None,

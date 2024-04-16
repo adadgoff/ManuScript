@@ -8,14 +8,17 @@ class StepRepository(BaseRepository):
     model = StepModel
 
     @classmethod
-    async def create_one(cls, type: StepType, lesson_id: int) -> StepModel:
+    async def create_one(cls, order: int, type: StepType,
+                         text: str, answer: str | None,
+                         lesson_id: int) -> StepModel:
         async with async_session_factory(expire_on_commit=False) as session:
             step = StepModel(
+                order=order,
                 type=type,
-                text="Test text.",
-                answer="Test answer.",
+                text=text,
+                answer=answer,
+                lesson_id=lesson_id,
             )
-            step.lesson_id = lesson_id
             session.add(step)
             await session.commit()
             return step

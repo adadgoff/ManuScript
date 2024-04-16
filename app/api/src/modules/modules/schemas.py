@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from src.modules.lessons.schemas import SLessonGetOut, SLessonUpdateIn, SLessonUpdateOut
+from src.modules.lessons.schemas import SLessonGetOut, SLessonUpdateInForClassroom, SLessonUpdateOutForClassroom
 
 
 class SModuleGetOutBase(BaseModel):
@@ -35,7 +35,7 @@ class SModuleUpdateIn(BaseModel):
     order: int
     title: str
     description: str
-    lessons: list[SLessonUpdateIn]
+    lessons: list[SLessonUpdateInForClassroom]
 
 
 class SModuleUpdateOut(BaseModel):
@@ -43,4 +43,4 @@ class SModuleUpdateOut(BaseModel):
     order: int
     title: str
     description: str
-    lessons: list[SLessonUpdateOut]
+    lessons: list[SLessonUpdateOutForClassroom]

@@ -41,6 +41,10 @@ class ImageService(BaseService):
     @classmethod
     async def delete_one(cls, img_uuid: UUID) -> RowMapping:
         image = await ImageService.delete_img(img_uuid)
+
+        if not image:
+            raise ImageNotFoundException
+
         await cls.repository.delete_one(uuid=img_uuid)
         return image
 

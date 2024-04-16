@@ -23,3 +23,19 @@ class SStepPostOut(BaseModel):
     id: int
     type: StepType
     lesson_id: int
+
+
+class SStepUpdateIn(BaseModel):
+    id: int | None
+    order: int
+    type: StepType
+    text: str
+    answer: str | None
+
+
+class SStepUpdateOut(BaseModel):
+    id: int
+    order: int
+    type: StepType
+    text: str
+    answer: str | None
