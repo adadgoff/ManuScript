@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import ClassroomService from "../../../../API/Classroom/ClassroomService";
 import Loader from "../../../../components/UI/Loader/Loader";
@@ -6,7 +6,7 @@ import { COPYING_TEXT, LOADING_TEXT, SORTING_TEXT } from "../../../../components
 import { IMAGE_EXTENSION_ERROR, IMAGE_SIZE_ERROR } from "../../../../constants/Error/ErrorConstants";
 import { IMAGE_MAX_SIZE } from "../../../../constants/Image/ImageConstants";
 import { useUpdatedClassroom } from "../../../../hooks/Classroom/useClassroom";
-import ClassroomSaveModal from "../components/ClassroomEditForm/ClassroomSaveModal";
+import ClassroomSavingModal from "../components/ClassroomEditForm/ClassroomSavingModal";
 import DangerZoneAccordion from "../components/ClassroomEditForm/DangerZoneAccordion";
 import SaveCancelMenu from "../components/ClassroomEditForm/SaveCancelMenu";
 import StudentZoneAccordion from "../components/ClassroomEditForm/StudentZoneAccordion";
@@ -16,15 +16,12 @@ import ClassroomEditSyllabus from "./ClassroomEditSyllabus";
 const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
   const [errorFileMessage, setErrorFileMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [icon, setIcon] = useState(null);
 
   const [saveModalShow, setSaveModalShow] = useState(false);
 
   const [validated, setValidated] = useState(false);
   const [updatedClassroom, sortedClassroom, isCopying, isSorting, setUpdatedClassroom] = useUpdatedClassroom(classroom);
-
-  useEffect(() => {
-    setUpdatedClassroom(classroom);
-  }, []);
 
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
@@ -38,6 +35,7 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
         setSaveModalShow(true);
         const response = await ClassroomService.updateClassroom(updatedClassroom, selectedFile);
         setClassroom({ ...response });
+        setSelectedFile(null);
       } catch (error) {
         console.log("Error updating classroom", error);
       } finally {
@@ -63,26 +61,30 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
   const handleClassroomFileChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > IMAGE_MAX_SIZE) {
-      setErrorFileMessage(IMAGE_SIZE_ERROR);
-      return;
-    }
+    if (file) {
+      if (file.size > IMAGE_MAX_SIZE) {
+        setErrorFileMessage(IMAGE_SIZE_ERROR);
+        return;
+      }
 
-    if (!file.type.startsWith("image/")) {
-      setErrorFileMessage(IMAGE_EXTENSION_ERROR);
-      return;
-    }
+      if (!file.type.startsWith("image/")) {
+        setErrorFileMessage(IMAGE_EXTENSION_ERROR);
+        return;
+      }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedFile(reader.result);
-    };
-    reader.readAsDataURL(file);
+      setSelectedFile(file);
+      setErrorFileMessage("");
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setIcon(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
     <>
-      <ClassroomSaveModal
+      <ClassroomSavingModal
         show={ saveModalShow }/>
 
       { isLoading || isSorting || isCopying ? (
@@ -101,7 +103,7 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
             <ClassroomEditInfo
               errorFileMessage={ errorFileMessage }
               setErrorFileMessage={ setErrorFileMessage }
-              selectedFile={ selectedFile }
+              icon={ icon }
               updatedClassroom={ updatedClassroom }
               handleClassroomFileChange={ handleClassroomFileChange }
               handleClassroomDescriptionChange={ handleClassroomDescriptionChange }
@@ -115,7 +117,8 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
               updatedClassroom={ updatedClassroom }
               setUpdatedClassroom={ setUpdatedClassroom }
               selectedFile={ selectedFile }
-              setSelectedFile={ setSelectedFile }/>
+              setSelectedFile={ setSelectedFile }
+              setIcon={ setIcon }/>
           </Form>
 
           <div className="my-4 border border-info border-2"/>

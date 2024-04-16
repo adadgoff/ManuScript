@@ -1,21 +1,15 @@
 import { cloneDeep } from "lodash";
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import { IMAGE_PATH } from "../../../../../API/Paths";
 
-const CancelModal = ({ sortedClassroom, setUpdatedClassroom, setSelectedFile, ...props }) => {
-  const handleCancelBtn = async (event) => {
+const CancelModal = ({ sortedClassroom, setUpdatedClassroom, setSelectedFile, setIcon, ...props }) => {
+  const handleClassroomCancelBtn = (event) => {
     event.preventDefault();
-
-    // const sortedCopy = { ...sortedClassroom };
-    //
-    // sortedClassroom.modules && sortedClassroom.modules.sort((a, b) => a.order - b.order);
-    //
-    // sortedClassroom.modules && sortedClassroom.modules.forEach((module) => {
-    //   module.lessons && module.lessons.sort((a, b) => a.order - b.order);
-    // });
 
     setUpdatedClassroom(cloneDeep(sortedClassroom));
     setSelectedFile(null);
+    setIcon(sortedClassroom.icon ? `${ IMAGE_PATH }/${ sortedClassroom.icon.uuid }` : null);
 
     props.onHide();
   };
@@ -40,7 +34,7 @@ const CancelModal = ({ sortedClassroom, setUpdatedClassroom, setSelectedFile, ..
           Вернуться к редактированию
         </Button>
 
-        <Button className="btn-danger" onClick={ handleCancelBtn }>
+        <Button className="btn-danger" onClick={ handleClassroomCancelBtn }>
           Сбросить изменения
         </Button>
       </Modal.Footer>

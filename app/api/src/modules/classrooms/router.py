@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import APIRouter, Body, Depends, File, UploadFile, status
 
 from src.auth.exceptions import AccessDeniedException
@@ -185,9 +183,10 @@ async def create_classroom(data: SClassroomPostIn, user: UserModel = Depends(get
         },
     }
 )
-async def update_classroom(data: SClassroomUpdateIn,
-                           # classroom_icon: UploadFile | None = None,
-                           user: UserModel = Depends(get_current_user)):
+async def update_classroom(
+        data: SClassroomUpdateIn = Body(),
+        classroom_icon: UploadFile = File(media_type="image/*"),
+        user: UserModel = Depends(get_current_user)):
     classroom = await ClassroomService.read_one_or_none_with_icon_and_modules(id=data.id)
 
     if not classroom:
@@ -198,7 +197,7 @@ async def update_classroom(data: SClassroomUpdateIn,
 
     updated_classroom = await ClassroomService.update_classroom(classroom.ClassroomModel,
                                                                 data,
-                                                                # classroom_icon,
+                                                                classroom_icon,
                                                                 user.UserModel)
     return updated_classroom
 

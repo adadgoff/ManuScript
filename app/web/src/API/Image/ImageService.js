@@ -16,7 +16,7 @@ class ImageService {
       }
     );
     return response.json();
-  }
+  };
 }
 
 export default ImageService;

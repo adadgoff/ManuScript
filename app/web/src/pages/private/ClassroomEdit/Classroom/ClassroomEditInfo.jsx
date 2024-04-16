@@ -8,7 +8,7 @@ import ClassroomEditTitleForm from "../components/ClassroomEditInfo/ClassroomEdi
 const ClassroomEditInfo = (
   {
     errorFileMessage, setErrorFileMessage,
-    selectedFile, updatedClassroom,
+    icon, updatedClassroom,
     handleClassroomFileChange, handleClassroomDescriptionChange,
     handleClassroomTitleChange,
   }
@@ -27,7 +27,7 @@ const ClassroomEditInfo = (
 
             <Card className="p-2 flex-row">
               <ClassroomEditIcon
-                selectedFile={ selectedFile }
+                icon={ icon }
                 updatedClassroom={ updatedClassroom }
                 handleClassroomFileChange={ handleClassroomFileChange }/>
 

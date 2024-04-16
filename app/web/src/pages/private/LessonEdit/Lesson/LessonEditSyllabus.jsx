@@ -11,7 +11,7 @@ const LessonEditSyllabus = ({ updatedLesson, setUpdatedLesson }) => {
     const newStep = {
       id: null,
       order: updatedLesson.steps.length + 1,
-      text: "Редактируйте содержимое шага :)",
+      text: "<p>Редактируйте содержимое шага :)</p>",
       type: StepType.INFO,
       answer: "",
     };
@@ -30,8 +30,7 @@ const LessonEditSyllabus = ({ updatedLesson, setUpdatedLesson }) => {
           <Accordion.Body className="p-0">
             <div className="my-4 border border-warning border-2"/>
 
-            <Steps steps={ updatedLesson.steps }
-                   updatedLesson={ updatedLesson }
+            <Steps updatedLesson={ updatedLesson }
                    setUpdatedLesson={ setUpdatedLesson }/>
 
             <div className="mt-4 border border-warning border-2"/>

@@ -1,7 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React, { useEffect, useRef } from "react";
-import { Form, Stack } from "react-bootstrap";
-import { STEP_MAX_ANSWER_LENGTH } from "../../../../../constants/Steps/StepConstants";
+import { Form } from "react-bootstrap";
 import { TINY_MCE_API_KEY } from "../../../../../constants/TextEditor/TextEditorConstants";
 
 const StepEditTextForm = ({ step, updatedLesson, setUpdatedLesson }) => {
@@ -18,7 +17,7 @@ const StepEditTextForm = ({ step, updatedLesson, setUpdatedLesson }) => {
         <Editor
           apiKey={ TINY_MCE_API_KEY }
           onInit={ (evt, editor) => editorRef.current = editor }
-          initialValue={ editorRef.current ? step.editorRef.current.getContent() : step.text }
+          initialValue={ (editorRef && editorRef.current) ? step.editorRef.current.getContent() : step.text }
           init={ {
             plugins: [
               "advlist", "autolink", "lists", "link", "image", "charmap", "preview",

@@ -23,15 +23,18 @@ class ClassroomService(BaseService):
     @classmethod
     async def update_classroom(cls, classroom_model: ClassroomModel,
                                data: SClassroomUpdateIn,
-                               # classroom_icon: UploadFile | None,
+                               classroom_icon: UploadFile | None,
                                user: UserModel) -> ClassroomModel:
         await cls.repository.update_one(classroom_model,
                                         title=data.title,
                                         description=data.description)
 
-        # if classroom_icon is not None:
-        #     image_model = (await ImageService.create_one(classroom_icon, user)).ImageModel
-        #     await ImageService.update_one(model=image_model, classroom_id=classroom_model.id)
+        if classroom_icon is not None:
+            if classroom_model.icon is not None:
+                await ImageService.delete_one(img_uuid=classroom_model.icon.uuid)
+            image_dict = await ImageService.create_one(classroom_icon, user)
+            image_model = (await ImageService.read_one_or_none(uuid=image_dict.get("uuid"))).ImageModel
+            await ImageService.update_one(model=image_model, classroom_id=classroom_model.id)
 
         await ModuleService.delete_all_by_id(
             ids=[m.id for m in classroom_model.modules if m.id not in {m.id for m in data.modules}])

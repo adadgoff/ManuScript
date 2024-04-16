@@ -1,17 +1,17 @@
 import React from "react";
 import Step from "./Step";
 
-const Steps = ({ steps, updatedLesson, setUpdatedLesson }) => {
+const Steps = ({ updatedLesson, setUpdatedLesson }) => {
   return (
     <div>
-      { steps && steps.length ? (
-        steps.map((step, index) => (
+      { updatedLesson.steps && updatedLesson.steps.length ? (
+        updatedLesson.steps.map((step, index) => (
           <>
             <Step
               step={ step }
               updatedLesson={ updatedLesson }
               setUpdatedLesson={ setUpdatedLesson }/>
-            { index !== steps.length - 1 && <div className="my-4 border border-warning border-2"/> }
+            { index !== updatedLesson.steps.length - 1 && <div className="my-4 border border-warning border-2"/> }
           </>
         ))
       ) : (

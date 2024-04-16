@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Accordion, Button } from "react-bootstrap";
 import ClassroomDeleteModal from "./ClassroomDeleteModal";
 
 const DangerZoneAccordion = ({ classroom }) => {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <>

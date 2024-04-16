@@ -1,9 +1,9 @@
-from uuid import UUID
+import json
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
 from src.modules.modules.schemas import SModuleGetOutWithLessons, SModuleUpdateIn, SModuleUpdateOut
-from src.services.images.schemas import SImageGetOut
+from src.services.images.schemas import SImageGetOut, SImageUpdateIn, SImageUpdateOut
 
 
 class SClassroomGetOut(BaseModel):
@@ -32,15 +32,22 @@ class SClassroomUpdateIn(BaseModel):
     id: int
     title: str
     description: str
-    icon: UUID | None
+    icon: SImageUpdateIn | None
     modules: list[SModuleUpdateIn]
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate_to_json(cls, value):
+        if isinstance(value, str):
+            return cls(**json.loads(value))
+        return value
 
 
 class SClassroomUpdateOut(BaseModel):
     id: int
     title: str
     description: str
-    icon: UUID | None
+    icon: SImageUpdateOut | None
     modules: list[SModuleUpdateOut]
 
 

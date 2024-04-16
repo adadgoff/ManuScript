@@ -10,7 +10,7 @@ class ClassroomService {
       }
     );
     return response.json();
-  }
+  };
 
   static async getTeacherClassrooms() {
     const response = await fetch(
@@ -20,7 +20,7 @@ class ClassroomService {
       }
     );
     return response.json();
-  }
+  };
 
   static async getClassroom(classroomId) {
     const response = await fetch(
@@ -30,7 +30,7 @@ class ClassroomService {
       }
     );
     return response.json();
-  }
+  };
 
   static async getClassroomEdit(classroomId) {
     const response = await fetch(
@@ -40,7 +40,7 @@ class ClassroomService {
       }
     );
     return response.json();
-  }
+  };
 
   static async createClassroom(title, description) {
     const response = await fetch(
@@ -52,26 +52,28 @@ class ClassroomService {
         },
         body: JSON.stringify({
           title: title,
-          description: description
+          description: description,
         }),
       }
     );
     return response.json();
-  }
+  };
 
   static async updateClassroom(updatedClassroom, selectedFile) {
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(updatedClassroom));
+    formData.append("classroom_icon", selectedFile);
+
     const response = await fetch(
       `${ API_PATH }/${ CLASSROOM_PREFIX }/update`, {
         method: "PUT",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedClassroom),
+        body: formData,
+        file: formData,
       }
     );
     return response.json();
-  }
+  };
 
   static async deleteClassroom(classroomId) {
     const response = await fetch(
@@ -81,7 +83,7 @@ class ClassroomService {
       }
     );
     return response.json();
-  }
+  };
 }
 
 export default ClassroomService;

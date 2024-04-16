@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import Loader from "../../../../../components/UI/Loader/Loader";
 import { SAVING_TEXT } from "../../../../../components/UI/Loader/LoaderConstants";
 
-const ClassroomSaveModal = (props) => {
+const ClassroomSavingModal = (props) => {
   return (
     <Modal { ...props }
            size="lg"
@@ -16,4 +16,4 @@ const ClassroomSaveModal = (props) => {
   );
 };
 
-export default ClassroomSaveModal;
+export default ClassroomSavingModal;

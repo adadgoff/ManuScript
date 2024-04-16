@@ -27,6 +27,7 @@ const LessonEdit = () => {
       ) : (
         <LessonEditForm
           lesson={ lesson }
+          setLesson={ setLesson }
           isLoading={ isFetchingLoading }/>
       ) }
     </>

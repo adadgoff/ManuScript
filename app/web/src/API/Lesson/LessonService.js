@@ -22,10 +22,27 @@ class LessonService {
     return response.json();
   };
 
+  static async updateLesson(updatedLesson) {
+    const response = await fetch(
+      `${API_PATH}/${LESSON_PREFIX}/update`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedLesson),
+      }
+    );
+    return response.json();
+  }
+
   static async deleteLesson(lessonId) {
     const response = await fetch(
-      `${ API_PATH }/${ LESSON_PREFIX }/$`
-    )
+      `${ API_PATH }/${ LESSON_PREFIX }/${ lessonId }/delete`, {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
     return response.json();
   };
 }

@@ -9,17 +9,17 @@ const ClassroomDeleteModal = ({ ...props }) => {
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleDeleteBtn = async (event) => {
+  const handleClassroomDeleteBtn = async (event) => {
     event.preventDefault();
 
     try {
       setIsDeleting(true);
       const response = await ClassroomService.deleteClassroom(props.classroom.id);
+      navigate("/teach", { replace: true });
     } catch (error) {
       console.log("Error deleting classroom", error);
     } finally {
       setIsDeleting(false);
-      navigate("/teach", { replace: true });
     }
   };
 
@@ -47,7 +47,7 @@ const ClassroomDeleteModal = ({ ...props }) => {
               <Button onClick={ props.onHide } className="btn-primary">
                 Я случайно...
               </Button>
-              <Button className="btn-danger" onClick={ handleDeleteBtn }>
+              <Button className="btn-danger" onClick={ handleClassroomDeleteBtn }>
                 Удалить
               </Button>
             </Modal.Footer>

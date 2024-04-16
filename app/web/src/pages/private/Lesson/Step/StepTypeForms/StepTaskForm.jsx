@@ -5,9 +5,10 @@ import Loader from "../../../../../components/UI/Loader/Loader";
 import { LOADING_TEXT } from "../../../../../components/UI/Loader/LoaderConstants";
 import { IMAGE_EXTENSION_ERROR, IMAGE_SIZE_ERROR } from "../../../../../constants/Error/ErrorConstants";
 import { IMAGE_MAX_SIZE } from "../../../../../constants/Image/ImageConstants";
+import { STEP_MAX_ANSWER_LENGTH } from "../../../../../constants/Steps/StepConstants";
 import { useFetching } from "../../../../../hooks/useFetching";
-import ImageAccordion from "../components/ImageAccordion";
 import ErrorFileAlert from "../components/ErrorFileAlert";
+import ImageAccordion from "../components/ImageAccordion";
 import StatusAlert from "../components/StatusAlert";
 import StepText from "../components/StepText";
 import StepType from "../components/StepType";
@@ -88,6 +89,9 @@ const StepTaskForm = ({ ...props }) => {
               type="text"
               value={ userAnswer }
               onChange={ event => setUserAnswer(event.target.value) }
+              minLength={ 1 }
+              maxLength={ STEP_MAX_ANSWER_LENGTH }
+              required
             />
 
             <Button
