@@ -23,7 +23,6 @@ const ClassroomItem = ({ children, ...props }) => {
     >
       <Stack direction="horizontal" className="w-100">
         <CardImg
-          // src={ `${ IMAGE_PATH }/${ props.icon ? props.icon.uuid : CLASSROOM_DEFAULT_IMAGE_UUID }` }
           src={ props.icon ? `${ IMAGE_PATH }/${ props.icon.uuid }` : DEFAULT_CLASSROOM_ICON_PATH }
           alt="Icon"
           style={ CARD_IMG_STYLE }

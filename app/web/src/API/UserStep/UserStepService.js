@@ -10,7 +10,7 @@ class UserStepService {
       }
     );
     return response.json();
-  }
+  };
 
   static async postAnswer(stepId, userAnswer, answerImg) {
     const formData = new FormData();
@@ -30,7 +30,7 @@ class UserStepService {
     );
 
     return response.json();
-  }
+  };
 }
 
 export default UserStepService;

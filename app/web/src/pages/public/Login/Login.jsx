@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../../API/Auth/AuthService";
 import { EMAIL_ERROR, PASSWORD_ERROR } from "../../../constants/Error/ErrorConstants";
+import { AuthContext } from "../../../context/Auth/AuthContext";
 import { checkEmail } from "../../../helpers/checkEmail";
 import { checkPassword } from "../../../helpers/checkPassword";
 import LoginForm from "./LoginForm";
 
 const Register = () => {
+  const { token, setToken } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -37,6 +40,9 @@ const Register = () => {
         setError(response.detail);
         return;
       }
+
+      setToken(response.access_token);
+      localStorage.setItem("token", response.access_token);
       navigate("/learn", { replace: true });
     } catch (error) {
       console.error("Error:", error);

@@ -13,7 +13,7 @@ class ImageModel(Base):
     extension: Mapped[str_5]
 
     # one to one. child to parent = image to user.
-    user_uuid: Mapped[UUID] = mapped_column(ForeignKey("users.uuid", ondelete="CASCADE"))
+    user_uuid: Mapped[UUID | None] = mapped_column(ForeignKey("users.uuid", ondelete="CASCADE"))
     user: Mapped["UserModel"] = relationship(back_populates="icon")
 
     # one to one. child to parent = image to classroom.

@@ -62,7 +62,8 @@ async def get_image_by_uuid(image_uuid: UUID, user: UserModel = Depends(get_curr
             "model": None,
             "description": ImageIncorrectExtensionException.detail,
         }
-    }
+    },
+    dependencies=[Depends(get_current_user)]
 )
-async def upload_image(file: UploadFile, user: UserModel = Depends(get_current_user)):
-    return await ImageService.create_one(file, user)
+async def upload_image(file: UploadFile):
+    return await ImageService.create_one(file)

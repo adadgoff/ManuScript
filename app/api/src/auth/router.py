@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from fastapi import APIRouter, Response
 from starlette import status
 
@@ -5,6 +7,7 @@ from src.auth.exceptions import UserAlreadyExistsException, UserIncorrectEmailOr
 from src.auth.helpers.hasher_helper import get_password_hash
 from src.auth.helpers.token_helper import authenticate_user, create_access_token
 from src.auth.schemas import SAuthAccessToken, SAuthEmail, SAuthLogin, SAuthRegister
+from src.config import settings
 from src.users.service import UserService
 
 router = APIRouter()
@@ -16,7 +19,7 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED,
     summary="Register a new user.",
     description="Register a new user.",
-    tags=["Auth", "User"],
+    tags=["Auth"],
     responses={
         status.HTTP_201_CREATED: {
             "model": SAuthRegister,
@@ -25,7 +28,7 @@ router = APIRouter()
         UserAlreadyExistsException.status_code: {
             "model": None,
             "description": UserAlreadyExistsException.detail,
-        }
+        },
     }
 )
 async def register(user_data: SAuthRegister):
@@ -44,7 +47,7 @@ async def register(user_data: SAuthRegister):
     status_code=status.HTTP_200_OK,
     summary="Login user in API.",
     description="Login user in API.",
-    tags=["Auth", "User"],
+    tags=["Auth"],
     responses={
         status.HTTP_200_OK: {
             "model": SAuthAccessToken,
@@ -59,7 +62,8 @@ async def register(user_data: SAuthRegister):
 async def login(response: Response, user_data: SAuthLogin):
     user = await authenticate_user(user_data.email, user_data.password)
     access_token = create_access_token({"sub": str(user.UserModel.uuid)})
-    response.set_cookie("access_token", access_token, httponly=True)
+    response.set_cookie("access_token", access_token, httponly=True,
+                        max_age=settings.ACCESS_TOKEN_EXPIRE_DAYS * 24 * 60 * 60)
     return {"access_token": access_token}
 
 
@@ -69,7 +73,7 @@ async def login(response: Response, user_data: SAuthLogin):
     status_code=status.HTTP_200_OK,
     summary="Logout.",
     description="Logout user in API.",
-    tags=["Auth", "User"],
+    tags=["Auth"],
     responses={
         status.HTTP_200_OK: {
             "model": None,
@@ -79,10 +83,3 @@ async def login(response: Response, user_data: SAuthLogin):
 )
 async def logout(response: Response):
     return response.delete_cookie("access_token")
-
-# TODO: delete this code.
-# @router.get(
-#     path="/auth",
-# )
-# async def is_logged_in(user: UserModel = Depends(get_current_user)) -> bool:
-#     return bool(user)

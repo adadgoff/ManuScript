@@ -16,15 +16,13 @@ class ImageService(BaseService):
     repository = ImageRepository
 
     @classmethod
-    async def create_one(cls, file: UploadFile, user: UserModel, **data) -> dict:
+    async def create_one(cls, file: UploadFile, user: UserModel | None = None, **data) -> dict:
         extension = file.content_type.split('/')[-1]
         if extension not in ALLOWED_EXTENSIONS:
             raise ImageIncorrectExtensionException
 
         img_uuid = uuid4()
         img_path = f"{PATH}/{img_uuid}.{extension}"
-
-        # TODO: check size.
 
         async with aiofiles.open(img_path, mode="wb+") as f:
             while chunk := await file.read(DEFAULT_CHUNK_SIZE):
@@ -33,7 +31,7 @@ class ImageService(BaseService):
         image = await cls.repository.create_one(
             uuid=img_uuid,
             extension=extension,
-            user_uuid=user.uuid,
+            user_uuid=user.uuid if user else None,
         )
 
         return image

@@ -22,15 +22,15 @@ app = FastAPI(title="ManuScriptCrossPlatform", root_path="/api", version="0.1.0"
 ################################################
 
 app.include_router(router_auth)
+app.include_router(router_user)
 
 app.include_router(router_classroom)
-app.include_router(router_lesson)
 app.include_router(router_module)
+app.include_router(router_lesson)
 app.include_router(router_step)
 app.include_router(router_user_step)
 
 app.include_router(router_image)
-app.include_router(router_user)
 
 ################################################
 

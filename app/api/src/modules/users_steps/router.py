@@ -93,7 +93,7 @@ async def answer(
     user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
     check_rights(step.StepModel, user.UserModel, is_for_students=True, is_for_teachers=True)
 
-    image = await ImageService.create_one(answer_img, user.UserModel)
+    image = await ImageService.create_one(answer_img)
 
     user_step = await UserStepService.create_or_update_one(
         user_uuid=user.UserModel.uuid,

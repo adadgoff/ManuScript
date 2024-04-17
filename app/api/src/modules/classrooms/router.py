@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import APIRouter, Body, Depends, File, UploadFile, status
 
 from src.auth.exceptions import AccessDeniedException
@@ -199,8 +197,7 @@ async def update_classroom(
 
     updated_classroom = await ClassroomService.update_classroom(classroom.ClassroomModel,
                                                                 data,
-                                                                classroom_icon,
-                                                                user.UserModel)
+                                                                classroom_icon)
     return updated_classroom
 
 

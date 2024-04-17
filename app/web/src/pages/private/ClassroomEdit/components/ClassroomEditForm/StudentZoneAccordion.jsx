@@ -1,21 +1,20 @@
 import React from "react";
-import { Accordion, Button } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
+import StudentAccordion from "../Student/StudentAccordion";
+import TeacherAccordion from "../Teacher/TeacherAccordion";
 
-const StudentZoneAccordion = () => {
+const StudentZoneAccordion = ({ classroom }) => {
   return (
     <Accordion className="border border-success rounded my-4">
       <Accordion.Item eventKey="0">
         <Accordion.Header>
-          <span className="fw-medium">Редактировать учеников</span>
+          <span className="fw-medium">Пользователи учебного класса</span>
         </Accordion.Header>
-
         <Accordion.Body>
-          <Button className="btn-success w-100">
-            Добавить ученика
-          </Button>
-          <Button className="btn-success w-100">
-            Добавить преподавателя
-          </Button>
+
+          <StudentAccordion/>
+          <TeacherAccordion/>
+
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

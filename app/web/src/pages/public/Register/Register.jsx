@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../../API/Auth/AuthService";
 import { EMAIL_ERROR, PASSWORD_ERROR, USERNAME_ERROR } from "../../../constants/Error/ErrorConstants";
+import { AuthContext } from "../../../context/Auth/AuthContext";
 import { checkEmail } from "../../../helpers/checkEmail";
 import { checkPassword } from "../../../helpers/checkPassword";
 import { checkUsername } from "../../../helpers/checkUsername";
 import RegisterForm from "./RegisterForm";
 
 const Register = () => {
+  const { token, setToken } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -48,6 +51,9 @@ const Register = () => {
         setError(loginResponse.detail);
         return;
       }
+
+      setToken(loginResponse.access_token);
+      localStorage.setItem("token", loginResponse.access_token);
       navigate("/learn", { replace: true });
     } catch (error) {
       console.error("Error:", error);

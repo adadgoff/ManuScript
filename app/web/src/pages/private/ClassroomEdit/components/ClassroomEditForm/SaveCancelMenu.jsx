@@ -30,7 +30,7 @@ const SaveCancelMenu = ({
         <Button
           variant="outline-success"
           className="w-100 fw-medium"
-          children={ "Сохранить" }
+          children={ "Сохранить учебный класс" }
           disabled={ !selectedFile && JSON.stringify(sortedClassroom) === JSON.stringify(updatedClassroom) }
           type="submit"/>
 
@@ -39,7 +39,7 @@ const SaveCancelMenu = ({
         <Button
           variant="outline-danger"
           className="w-100 fw-medium"
-          children={ "Сбросить изменения" }
+          children={ "Сбросить изменения учебного класса" }
           disabled={ !selectedFile && JSON.stringify(sortedClassroom) === JSON.stringify(updatedClassroom) }
           onClick={ () => setCancelModalShow(true) }/>
 

@@ -23,8 +23,7 @@ const ClassroomEdit = () => {
   return (
     <>
       { fetchingError || classroom.detail ? (
-        console.log(classroom.detail)
-        // navigate("/error", { replace: true })
+        navigate("/error", { replace: true })
       ) : (
         <ClassroomEditForm
           classroom={ classroom }

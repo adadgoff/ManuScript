@@ -27,8 +27,6 @@ const LessonEditForm = ({ lesson, setLesson, isLoading }) => {
     setPrevStateLesson(cloneDeep(sortedLesson));
   }, [sortedLesson]);
 
-  console.log(prevStateLesson);
-
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
     event.preventDefault();
