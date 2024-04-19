@@ -1,7 +1,6 @@
 import React from "react";
 
 const Error = () => {
-  console.log(localStorage);
   return (
     <div>
       <h1 style={ { color: "red" } }>

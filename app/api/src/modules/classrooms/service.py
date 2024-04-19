@@ -17,6 +17,10 @@ class ClassroomService(BaseService):
         return await cls.repository.read_one_or_none_with_icon_and_modules(**filter_by)
 
     @classmethod
+    async def read_one_or_none_with_students(cls, **filter_by) -> ClassroomModel:
+        return await cls.repository.read_one_or_none_with_students(**filter_by)
+
+    @classmethod
     async def read_all_with_icon(cls, ids: list[int]) -> list[ClassroomModel]:
         return await cls.repository.read_all_with_icon(ids)
 

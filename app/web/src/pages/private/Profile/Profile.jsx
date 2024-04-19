@@ -33,7 +33,7 @@ const Profile = () => {
     event.preventDefault();
 
     setToken(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
     await AuthService.logout();
 
     navigate("/login", { replace: true });
@@ -42,8 +42,7 @@ const Profile = () => {
   return (
     <>
       { fetchingError || authUser.detail ? (
-        console.log(authUser.detail)
-        // navigate("/error", { replace: true })
+        navigate("/error", { replace: true })
       ) : (
         isFetchingLoading ? (
           <Loader title={ LOADING_TEXT }/>

@@ -65,5 +65,5 @@ async def work_with_db():
 
 
 if __name__ == "__main__":
-    # asyncio.run(work_with_db())  # бывает проблема с асинхронностью, если создавать одновременно БД.
+    # asyncio.run(work_with_db())  # Asynchrony can be a problem if you create a database at the same time.
     uvicorn.run("main:app", reload=False, host="0.0.0.0", port=8000)

@@ -1,3 +1,5 @@
+import Check from "../pages/private/Check/Check";
+import CheckUserStep from "../pages/private/CheckUserStep/CheckUserStep";
 import Classroom from "../pages/private/Classroom/Classroom";
 import ClassroomEdit from "../pages/private/ClassroomEdit/ClassroomEdit";
 import Learn from "../pages/private/Learn/Learn";
@@ -18,6 +20,9 @@ export const privateRoutes = [
 
   { path: "/classroom/:id", element: <Classroom/> },
   { path: "/classroom/:id/edit", element: <ClassroomEdit/> },
+
+  { path: "/classroom/:id/check", element: <Check/> },
+  { path: "/classroom/:id/check/:id/:uuid", element: <CheckUserStep/> },
 
   { path: "/lesson/:id", element: <Lesson/> },
   { path: "/lesson/:id/edit", element: <LessonEdit/> },

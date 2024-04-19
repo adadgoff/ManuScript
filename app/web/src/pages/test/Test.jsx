@@ -17,8 +17,6 @@ const Test = () => {
         const response = await ImageService.uploadImage(blob);
         return full.replace(base64String, response.uuid);
       });
-
-      console.log(updatedContent);
     }
   };
 

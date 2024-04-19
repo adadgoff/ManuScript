@@ -1,4 +1,7 @@
-from sqlalchemy import select
+from typing import Sequence
+from uuid import UUID
+
+from sqlalchemy import RowMapping, select
 from sqlalchemy.orm import joinedload
 
 from src.core.base_repository import BaseRepository
@@ -55,3 +58,10 @@ class UserRepository(BaseRepository):
             )
             result = await session.execute(query)
             return result.unique().mappings().one_or_none()
+
+    @classmethod
+    async def read_all(cls, uuids: list[UUID]) -> list[UserModel]:
+        async with async_session_factory(expire_on_commit=False) as session:
+            query = select(UserModel).filter(UserModel.uuid.in_(uuids))
+            result = await session.execute(query)
+            return result.unique().mappings().all()

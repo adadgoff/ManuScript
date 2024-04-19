@@ -1,6 +1,7 @@
 from typing import Sequence
+from uuid import UUID
 
-from sqlalchemy import insert, select, RowMapping, literal_column, delete
+from sqlalchemy import RowMapping, delete, insert, literal_column, select
 
 from src.core.abstract_repository import AbstractRepository
 from src.db.async_session_factory import async_session_factory
@@ -52,6 +53,14 @@ class BaseRepository(AbstractRepository):
     async def delete_all_by_id(cls, ids: list[int]) -> [dict]:
         async with async_session_factory() as session:
             query = delete(cls.model).filter(cls.model.id.in_(ids)).returning(literal_column('*'))
+            result = await session.execute(query)
+            await session.commit()
+            return result.mappings().all()
+
+    @classmethod
+    async def delete_all_by_uuid(cls, uuids: list[UUID]) -> [dict]:
+        async with async_session_factory() as session:
+            query = delete(cls.model).filter(cls.model.uuid.in_(uuids)).returning(literal_column('*'))
             result = await session.execute(query)
             await session.commit()
             return result.mappings().all()

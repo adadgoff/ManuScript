@@ -7,8 +7,8 @@ export const useSortedLesson = (lesson) => {
 
   const sortedLesson = useMemo(() => {
     setIsSorting(true);
-    const sortedLesson = { ...lesson };
 
+    const sortedLesson = { ...lesson };
     sortedLesson.steps && sortedLesson.steps.sort((a, b) => a.order - b.order);
 
     setIsSorting(false);
@@ -16,7 +16,7 @@ export const useSortedLesson = (lesson) => {
   }, [lesson]);
 
   return [sortedLesson, isSorting];
-}
+};
 
 export const useUpdatedLesson = (lesson) => {
   const [sortedLesson, isSorting] = useSortedLesson(lesson);
@@ -30,4 +30,4 @@ export const useUpdatedLesson = (lesson) => {
   }, [sortedLesson]);
 
   return [updatedLesson, sortedLesson, isCopying, isSorting, setUpdatedLesson];
-}
+};

@@ -4,6 +4,7 @@ from pydantic import BaseModel, model_validator
 
 from src.modules.modules.schemas import SModuleGetOutWithLessons, SModuleUpdateIn, SModuleUpdateOut
 from src.services.images.schemas import SImageGetOut, SImageUpdateIn, SImageUpdateOut
+from src.users.schemas import SUserAddIn, SUserUpdateIn
 
 
 class SClassroomGetOut(BaseModel):
@@ -49,6 +50,26 @@ class SClassroomUpdateOut(BaseModel):
     description: str
     icon: SImageUpdateOut | None
     modules: list[SModuleUpdateOut]
+
+
+class SClassroomStudentsUpdateIn(BaseModel):
+    id: int
+    students: list[SUserUpdateIn]
+
+
+class SClassroomTeachersUpdateIn(BaseModel):
+    id: int
+    teachers: list[SUserUpdateIn]
+
+
+class SClassroomStudentAddIn(BaseModel):
+    id: int
+    student: SUserAddIn
+
+
+class SClassroomTeacherAddIn(BaseModel):
+    id: int
+    student: SUserAddIn
 
 
 class SClassroomDeleteOut(BaseModel):

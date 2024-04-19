@@ -8,8 +8,8 @@ import { IMAGE_MAX_SIZE } from "../../../../constants/Image/ImageConstants";
 import { useUpdatedClassroom } from "../../../../hooks/Classroom/useClassroom";
 import ClassroomSavingModal from "../components/ClassroomEditForm/ClassroomSavingModal";
 import DangerZoneAccordion from "../components/ClassroomEditForm/DangerZoneAccordion";
-import SaveCancelMenu from "../components/ClassroomEditForm/SaveCancelMenu";
-import StudentZoneAccordion from "../components/ClassroomEditForm/StudentZoneAccordion";
+import ClassroomSaveCancelMenu from "../components/ClassroomEditForm/ClassroomSaveCancelMenu";
+import StudentTeacherZoneAccordion from "../components/ClassroomEditForm/StudentTeacherZoneAccordion";
 import ClassroomEditInfo from "./ClassroomEditInfo";
 import ClassroomEditSyllabus from "./ClassroomEditSyllabus";
 
@@ -84,8 +84,7 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
 
   return (
     <>
-      <ClassroomSavingModal
-        show={ saveModalShow }/>
+      <ClassroomSavingModal show={ saveModalShow }/>
 
       { isLoading || isSorting || isCopying ? (
         <Loader title={
@@ -112,7 +111,7 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
             <ClassroomEditSyllabus updatedClassroom={ updatedClassroom }
                                    setUpdatedClassroom={ setUpdatedClassroom }/>
 
-            <SaveCancelMenu
+            <ClassroomSaveCancelMenu
               sortedClassroom={ sortedClassroom }
               updatedClassroom={ updatedClassroom }
               setUpdatedClassroom={ setUpdatedClassroom }
@@ -123,7 +122,7 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
 
           <div className="my-4 border border-info border-2"/>
 
-          <StudentZoneAccordion/>
+          <StudentTeacherZoneAccordion classroom={ classroom }/>
 
           <DangerZoneAccordion classroom={ updatedClassroom }/>
         </Container>

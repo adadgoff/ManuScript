@@ -6,11 +6,33 @@ from pydantic import BaseModel, EmailStr, model_validator
 from src.services.images.schemas import SImageGetOut, SImageUpdateIn, SImageUpdateOut
 
 
+class SUserGetOut(BaseModel):
+    uuid: UUID
+    email: EmailStr
+    username: str
+
+
 class SUserGetOutWithIcon(BaseModel):
     uuid: UUID
     email: EmailStr
     username: str
     icon: SImageGetOut | None
+
+
+class SUserUpdateIn(BaseModel):
+    uuid: UUID
+    email: EmailStr
+    username: str
+
+
+class SUserUpdateOut(BaseModel):
+    uuid: UUID
+    email: EmailStr
+    username: str
+
+
+class SUserAddIn(BaseModel):
+    email: EmailStr
 
 
 class SUserUpdateInWithIcon(BaseModel):

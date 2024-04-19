@@ -9,7 +9,7 @@ import { checkUsername } from "../../../helpers/checkUsername";
 import RegisterForm from "./RegisterForm";
 
 const Register = () => {
-  const { token, setToken } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -53,7 +53,7 @@ const Register = () => {
       }
 
       setToken(loginResponse.access_token);
-      localStorage.setItem("token", loginResponse.access_token);
+      localStorage.setItem("access_token", loginResponse.access_token);
       navigate("/learn", { replace: true });
     } catch (error) {
       console.error("Error:", error);

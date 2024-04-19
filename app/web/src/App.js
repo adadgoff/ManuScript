@@ -11,9 +11,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
-      // setToken(sessionStorage.getItem("access_token"));
+    if (localStorage.getItem("access_token")) {
+      setToken(localStorage.getItem("access_token"))
     }
     setIsLoading(false);
   }, []);

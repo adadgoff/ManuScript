@@ -1,4 +1,5 @@
 from typing import Sequence
+from uuid import UUID
 
 from sqlalchemy import RowMapping
 
@@ -30,5 +31,9 @@ class BaseService:
         return await cls.repository.delete_one(**filter_by)
 
     @classmethod
-    async def delete_all_by_id(cls, ids) -> dict:
+    async def delete_all_by_id(cls, ids: list[int]) -> dict:
         return await cls.repository.delete_all_by_id(ids)
+
+    @classmethod
+    async def delete_all_by_uuid(cls, uuids: list[UUID]):
+        return await cls.repository.delete_all_by_uuid(uuids)

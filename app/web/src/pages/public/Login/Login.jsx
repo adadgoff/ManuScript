@@ -8,7 +8,7 @@ import { checkPassword } from "../../../helpers/checkPassword";
 import LoginForm from "./LoginForm";
 
 const Register = () => {
-  const { token, setToken } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +42,7 @@ const Register = () => {
       }
 
       setToken(response.access_token);
-      localStorage.setItem("token", response.access_token);
+      localStorage.setItem("access_token", response.access_token);
       navigate("/learn", { replace: true });
     } catch (error) {
       console.error("Error:", error);

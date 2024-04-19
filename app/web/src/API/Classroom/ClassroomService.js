@@ -22,6 +22,26 @@ class ClassroomService {
     return response.json();
   };
 
+  static async getStudents(classroomId) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/students`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
+  static async getTeachers(classroomId) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/teachers`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
   static async getClassroom(classroomId) {
     const response = await fetch(
       `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }`, {
@@ -70,6 +90,74 @@ class ClassroomService {
         credentials: "include",
         body: formData,
         file: formData,
+      }
+    );
+    return response.json();
+  };
+
+  static async updateStudents(classroomId, updatedStudents) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/update/students`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: classroomId,
+          students: updatedStudents
+        })
+      }
+    );
+    return response.json();
+  };
+
+  static async updateTeachers(classroomId, updatedTeachers) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/update/teachers`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: classroomId,
+          teachers: updatedTeachers
+        })
+      }
+    );
+    return response.json();
+  }
+
+  static async addStudent(classroomId, email) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/add/student`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: classroomId,
+          student: { email: email }
+        })
+      }
+    );
+    return response.json();
+  };
+
+  static async addTeacher(classroomId, email) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/add/teacher`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: classroomId,
+          student: { email: email }
+        })
       }
     );
     return response.json();
