@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi import APIRouter, Body, Depends, File, UploadFile, status
 
 from src.auth.exceptions import AccessDeniedException
@@ -23,13 +25,13 @@ router = APIRouter(
     path="/{step_id}",
     response_model=SUserStepGetOut,
     status_code=status.HTTP_200_OK,
-    summary="Get info of user step.",
-    description="Get info of user step.",
+    summary="Get self user answer to step.",
+    description="Get self user answer to step.",
     tags=["UserStep"],
     responses={
         status.HTTP_200_OK: {
             "model": SUserStepGetOut,
-            "description": "UserStep found.",
+            "description": "UserStep found successfully.",
         },
         UserStepNotFoundException.status_code: {
             "model": None,
@@ -41,7 +43,7 @@ router = APIRouter(
         },
     }
 )
-async def info(step_id: int, user: UserModel = Depends(get_current_user)):
+async def get_my_answer(step_id: int, user: UserModel = Depends(get_current_user)):
     step = await StepService.read_one_or_none(id=step_id)
     user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
     check_rights(step.StepModel, user.UserModel, is_for_students=True, is_for_teachers=True)
@@ -50,6 +52,116 @@ async def info(step_id: int, user: UserModel = Depends(get_current_user)):
     if not user_step:
         raise UserStepNotFoundException
 
+    return user_step.UserStepModel
+
+
+@router.get(
+    path="/{step_id}/{user_uuid}",
+    response_model=SUserStepGetOut,
+    status_code=status.HTTP_200_OK,
+    summary="Get info user step only for teachers.",
+    description="Get info user step only for teachers.",
+    tags=["UserStep"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SUserStepGetOut,
+            "description": "UserStep found successfully.",
+        },
+        UserStepNotFoundException.status_code: {
+            "model": None,
+            "description": UserStepNotFoundException.status_code,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.status_code,
+        },
+    }
+)
+async def get_user_step_for_teachers(step_id: int, user_uuid: UUID, user: UserModel = Depends(get_current_user)):
+    step = await StepService.read_one_or_none(id=step_id)
+    user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
+    check_rights(step.StepModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=user_uuid, step_id=step_id)
+    if not user_step:
+        raise UserStepNotFoundException
+
+    return user_step.UserStepModel
+
+
+@router.get(
+    path="/{step_id}/{user_uuid}/to_correct",
+    response_model=SUserStepGetOut,
+    status_code=status.HTTP_200_OK,
+    summary="Change to correct user step task.",
+    description="Change to correct user step task only for teachers.",
+    tags=["UserStep"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SUserStepGetOut,
+            "description": "UserStep changed to correct successfully.",
+        },
+        UserStepNotFoundException.status_code: {
+            "model": None,
+            "description": UserStepNotFoundException.status_code,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.status_code,
+        },
+    }
+)
+async def change_to_correct(step_id: int, user_uuid: UUID, user: UserModel = Depends(get_current_user)):
+    step = await StepService.read_one_or_none(id=step_id)
+    user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
+    check_rights(step.StepModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=user_uuid, step_id=step_id)
+    if not user_step:
+        raise UserStepNotFoundException
+
+    await UserStepService.update_one(model=user_step.UserStepModel, step_id=step_id, user_uuid=user_uuid,
+                                     status=UserStepStatus.CORRECT)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=user_uuid, step_id=step_id)
+    return user_step.UserStepModel
+
+
+@router.get(
+    path="/{step_id}/{user_uuid}/to_incorrect",
+    response_model=SUserStepGetOut,
+    status_code=status.HTTP_200_OK,
+    summary="Change to incorrect user step task.",
+    description="Change to incorrect user step task only for teachers.",
+    tags=["UserStep"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SUserStepGetOut,
+            "description": "UserStep changed to incorrect successfully.",
+        },
+        UserStepNotFoundException.status_code: {
+            "model": None,
+            "description": UserStepNotFoundException.status_code,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.status_code,
+        },
+    }
+)
+async def change_to_incorrect(step_id: int, user_uuid: UUID, user: UserModel = Depends(get_current_user)):
+    step = await StepService.read_one_or_none(id=step_id)
+    user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
+    check_rights(step.StepModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=user_uuid, step_id=step_id)
+    if not user_step:
+        raise UserStepNotFoundException
+
+    await UserStepService.update_one(model=user_step.UserStepModel, step_id=step_id, user_uuid=user_uuid,
+                                     status=UserStepStatus.INCORRECT)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=user_uuid, step_id=step_id)
     return user_step.UserStepModel
 
 

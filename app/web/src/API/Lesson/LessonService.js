@@ -22,9 +22,19 @@ class LessonService {
     return response.json();
   };
 
+  static async getLessonTasks(lessonId) {
+    const response = await fetch(
+      `${ API_PATH }/${ LESSON_PREFIX }/${ lessonId }/tasks`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
   static async updateLesson(updatedLesson) {
     const response = await fetch(
-      `${API_PATH}/${LESSON_PREFIX}/update`, {
+      `${ API_PATH }/${ LESSON_PREFIX }/update`, {
         method: "PUT",
         credentials: "include",
         headers: {

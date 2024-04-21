@@ -24,8 +24,9 @@ const ClassroomItem = ({ children, ...props }) => {
     navigate(`/${ CLASSROOM_PREFIX }/${ props.id }/edit`);
   }
 
-  const handleStatsBtn = (event) => {
+  const handleCheckBtn = (event) => {
     event.stopPropagation();
+    navigate(`/${ CLASSROOM_PREFIX }/${ props.id }/check`);
   }
 
   return (
@@ -54,10 +55,10 @@ const ClassroomItem = ({ children, ...props }) => {
             children={ "Редактировать" }/>
 
           <Button
-            onClick={ handleStatsBtn }
+            onClick={ handleCheckBtn }
             variant="outline-primary"
             className="my-1 w-100"
-            children={ "Статистика" }/>
+            children={ "Проверка работ" }/>
         </div>
       </Stack>
     </Card>

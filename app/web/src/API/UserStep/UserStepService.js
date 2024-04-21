@@ -2,9 +2,39 @@ import { API_PATH } from "../Paths";
 import { USER_STEP_PREFIX } from "./UserStepPrefix";
 
 class UserStepService {
-  static async getUserStep(stepId) {
+  static async getMyAnswer(stepId) {
     const response = await fetch(
       `${ API_PATH }/${ USER_STEP_PREFIX }/${ stepId }`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
+  static async getUserStep(stepId, userUuid) {
+    const response = await fetch(
+      `${ API_PATH }/${ USER_STEP_PREFIX }/${ stepId }/${ userUuid }`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
+  static async toCorrectUserStep(stepId, userUuid) {
+    const response = await fetch(
+      `${ API_PATH }/${ USER_STEP_PREFIX }/${ stepId }/${ userUuid }/to_correct`, {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
+  static async toIncorrectUserStep(stepId, userUuid) {
+    const response = await fetch(
+      `${ API_PATH }/${ USER_STEP_PREFIX }/${ stepId }/${ userUuid }/to_incorrect`, {
         method: "GET",
         credentials: "include",
       }

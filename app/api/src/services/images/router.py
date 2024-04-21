@@ -16,7 +16,6 @@ router = APIRouter(
 )
 
 
-# TODO: закинуть в celery обработку фотографий.
 @router.get(
     path="/{image_uuid}",
     response_model=bytes,

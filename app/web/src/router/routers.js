@@ -6,6 +6,7 @@ import Learn from "../pages/private/Learn/Learn";
 import Lesson from "../pages/private/Lesson/Lesson";
 import LessonEdit from "../pages/private/LessonEdit/LessonEdit";
 import Profile from "../pages/private/Profile/Profile";
+import Step from "../pages/private/Step/Step";
 import Teach from "../pages/private/Teach/Teach";
 import User from "../pages/private/User/User";
 import About from "../pages/public/About/About";
@@ -26,6 +27,8 @@ export const privateRoutes = [
 
   { path: "/lesson/:id", element: <Lesson/> },
   { path: "/lesson/:id/edit", element: <LessonEdit/> },
+
+  { path: "/step/:id", element: <Step/> },
 
   { path: "/profile", element: <Profile/> },
   { path: "/user/:uuid", element: <User/> },

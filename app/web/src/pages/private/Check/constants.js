@@ -1,0 +1,1 @@
+export const UserStepNotFoundExceptionDetail = "UserStep not found (User did not provide answer to Step).";

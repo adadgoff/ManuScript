@@ -92,8 +92,7 @@ const ProfileEditForm = ({ updatedUser, setUpdatedUser, setAuthUser }) => {
 
   return (
     <>
-      <ProfileSavingModal
-        show={ saveModalShow }/>
+      <ProfileSavingModal show={ saveModalShow }/>
 
       { errorFileMessage && <ErrorFileAlert errorFileMessage={ errorFileMessage }
                                             setErrorFileMessage={ setErrorFileMessage }/> }

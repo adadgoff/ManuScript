@@ -5,9 +5,10 @@ from src.auth.helpers.token_helper import get_current_user
 from src.modules.lessons.access import check_rights
 from src.modules.lessons.exceptions import LessonNotFoundException
 from src.modules.lessons.schemas import SLessonDeleteOut, SLessonEditGetOutWithSteps, SLessonGetOutWithSteps, \
-    SLessonUpdateInForLesson, SLessonUpdateOutForLesson
+    SLessonTasksGetOutWithSteps, SLessonUpdateInForLesson, SLessonUpdateOutForLesson
 from src.modules.lessons.service import LessonService
 from src.modules.modules.service import ModuleService
+from src.modules.steps.StepType import StepType
 from src.users.model import UserModel
 from src.users.service import UserService
 
@@ -78,6 +79,41 @@ async def get_lesson_with_steps_for_teachers(lesson_id: int, user: UserModel = D
 
     user = await UserService.read_one_or_none_with_lessons(uuid=user.uuid)
     check_rights(lesson.LessonModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    return lesson.LessonModel
+
+
+@router.get(
+    path="/{lesson_id}/tasks",
+    response_model=SLessonTasksGetOutWithSteps,
+    status_code=status.HTTP_200_OK,
+    summary="Get lesson tasks with lessons only for teachers.",
+    description="Get lesson tasks with lessons only for teachers.",
+    tags=["Lesson"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SLessonTasksGetOutWithSteps,
+            "description": "Lesson found successfully.",
+        },
+        LessonNotFoundException.status_code: {
+            "model": None,
+            "description": LessonNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
+        }
+    }
+)
+async def get_lesson_with_tasks_for_teachers(lesson_id: int, user: UserModel = Depends(get_current_user)):
+    lesson = await LessonService.read_one_or_none_with_steps(id=lesson_id)
+    if not lesson:
+        raise LessonNotFoundException
+
+    user = await UserService.read_one_or_none_with_lessons(uuid=user.uuid)
+    check_rights(lesson.LessonModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    lesson.LessonModel.steps = [step for step in lesson.LessonModel.steps if step.type == StepType.TASK]
 
     return lesson.LessonModel
 

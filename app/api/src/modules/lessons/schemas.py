@@ -25,6 +25,13 @@ class SLessonEditGetOutWithSteps(BaseModel):
     steps: list[SStepGetOut]
 
 
+class SLessonTasksGetOutWithSteps(BaseModel):
+    id: int
+    order: int
+    title: str
+    steps: list[SStepGetOut]
+
+
 class SLessonPostIn(BaseModel):
     title: str
     module_id: int

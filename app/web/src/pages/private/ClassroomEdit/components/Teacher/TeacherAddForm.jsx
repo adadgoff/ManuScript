@@ -25,7 +25,6 @@ const TeacherAddForm = ({ classroom, updatedTeachers, setTeachers }) => {
         setSaveModalShow(true);
         const response = await ClassroomService.addTeacher(classroom.id, email);
         if (response.detail) {
-          console.log(response.detail);
           setErrorMessage(response.detail);
           return;
         }

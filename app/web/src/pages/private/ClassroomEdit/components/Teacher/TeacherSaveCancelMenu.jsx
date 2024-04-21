@@ -19,7 +19,6 @@ const TeacherSaveCancelMenu = ({ classroom, sortedTeachers, setTeachers, updated
       setSaveModalShow(true);
       const response = await ClassroomService.updateTeachers(classroom.id, updatedTeachers);
       if (response.detail) {
-        console.log(response.detail);
         setErrorMessage(response.detail);
         setUpdatedTeachers(sortedTeachers);
         return;

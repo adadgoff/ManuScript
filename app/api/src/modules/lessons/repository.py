@@ -4,6 +4,8 @@ from sqlalchemy.orm import joinedload
 from src.core.base_repository import BaseRepository
 from src.db.async_session_factory import async_session_factory
 from src.modules.lessons.model import LessonModel
+from src.modules.steps.StepType import StepType
+from src.modules.steps.model import StepModel
 
 
 class LessonRepository(BaseRepository):

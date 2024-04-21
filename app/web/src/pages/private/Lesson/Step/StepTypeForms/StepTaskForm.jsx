@@ -21,7 +21,7 @@ const StepTaskForm = ({ ...props }) => {
 
   const [userStep, setUserStep] = useState(null);
   const [fetchUserStep, isFetchingLoading, fetchingError] = useFetching(async () => {
-    const userStep = await UserStepService.getUserStep(props.step.id);
+    const userStep = await UserStepService.getMyAnswer(props.step.id);
     setUserStep(userStep);
     setUserAnswer(userStep.user_answer ? userStep.user_answer : "");
   });
