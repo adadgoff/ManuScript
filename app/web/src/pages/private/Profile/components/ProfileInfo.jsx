@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardImg, Form, FormGroup, Image, Stack } from "react-bootstrap";
+import { Card, CardImg, Form, FormGroup, Stack } from "react-bootstrap";
 import { IMAGE_PATH } from "../../../../API/Paths";
 import { DEFAULT_USER_ICON_PATH } from "../../../../constants/Image/ImageConstants";
 

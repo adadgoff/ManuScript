@@ -18,7 +18,7 @@ const ClassroomEditInfo = (
       <ClassroomEditTitleForm updatedClassroom={ updatedClassroom }
                               handleClassroomTitleChange={ handleClassroomTitleChange }/>
 
-      <Accordion className="border border-info rounded mt-3 mb-4">
+      <Accordion className="border border-info rounded mt-3 mb-3">
         <Accordion.Item eventKey="0">
           <Accordion.Header>Подробная информация об учебном классе</Accordion.Header>
           <Accordion.Body>

@@ -9,7 +9,7 @@ class StudentException(BaseHTTPException):
 
 class StudentAlreadyExistException(StudentException):
     status_code = status.HTTP_409_CONFLICT
-    detail = "Student already exists is classroom."
+    detail = "Student already exists in classroom."
 
 
 class AddingStudentIsCurrentTeacherException(StudentException):

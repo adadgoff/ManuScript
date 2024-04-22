@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import Check from "../pages/private/Check/Check";
 import CheckUserStep from "../pages/private/CheckUserStep/CheckUserStep";
 import Classroom from "../pages/private/Classroom/Classroom";
@@ -16,6 +17,8 @@ import Register from "../pages/public/Register/Register";
 import Test from "../pages/test/Test";
 
 export const privateRoutes = [
+  { path: "/", element: <Navigate to="/learn"/> },
+
   { path: "/learn", element: <Learn/> },
   { path: "/teach", element: <Teach/> },
 

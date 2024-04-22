@@ -6,7 +6,7 @@ from fastapi import UploadFile
 from sqlalchemy import RowMapping
 
 from src.core.base_service import BaseService
-from src.services.images.contants import ALLOWED_EXTENSIONS, DEFAULT_CHUNK_SIZE, PATH
+from src.services.images.constants import ALLOWED_EXTENSIONS, DEFAULT_CHUNK_SIZE, STATIC_PATH
 from src.services.images.exceptions import ImageIncorrectExtensionException, ImageNotFoundException
 from src.services.images.repository import ImageRepository
 from src.users.model import UserModel
@@ -22,7 +22,7 @@ class ImageService(BaseService):
             raise ImageIncorrectExtensionException
 
         img_uuid = uuid4()
-        img_path = f"{PATH}/{img_uuid}.{extension}"
+        img_path = f"{STATIC_PATH}/{img_uuid}.{extension}"
 
         async with aiofiles.open(img_path, mode="wb+") as f:
             while chunk := await file.read(DEFAULT_CHUNK_SIZE):
@@ -53,6 +53,6 @@ class ImageService(BaseService):
         if not image:
             raise ImageNotFoundException
 
-        img_path = f"{PATH}/{image.ImageModel.uuid}.{image.ImageModel.extension}"
+        img_path = f"{STATIC_PATH}/{image.ImageModel.uuid}.{image.ImageModel.extension}"
         await aiofiles.os.remove(img_path)
         return image

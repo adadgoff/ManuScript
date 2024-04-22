@@ -1,7 +1,7 @@
 import React from "react";
 import { Accordion, Button } from "react-bootstrap";
-import StepType from "../enums/StepType";
 import Steps from "../components/LessonEditSyllabus/Step/Steps";
+import StepType from "../enums/StepType";
 
 const LessonEditSyllabus = ({ updatedLesson, setUpdatedLesson }) => {
   const handleCreateStepClick = (event) => {

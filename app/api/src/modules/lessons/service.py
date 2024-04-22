@@ -5,7 +5,7 @@ from src.modules.lessons.model import LessonModel
 from src.modules.lessons.repository import LessonRepository
 from src.modules.lessons.schemas import SLessonUpdateInForLesson
 from src.modules.steps.service import StepService
-from src.services.images.contants import IMAGE_API_REGEX
+from src.services.images.constants import IMAGE_API_REGEX
 from src.services.images.service import ImageService
 
 

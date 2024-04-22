@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db.base import Base, str_100, str_50
+from src.services.invites.model import InviteModel
 
 
 class ClassroomModel(Base):
@@ -11,7 +12,7 @@ class ClassroomModel(Base):
     description: Mapped[str_100]
 
     # one to one. parent to child = classroom to image.
-    icon: Mapped["ImageModel"] = relationship(back_populates="classroom")
+    icon: Mapped["ImageModel"] = relationship(back_populates="classroom", cascade="all, delete", passive_deletes=True)
 
     # one to many. parent to child = class to modules.
     modules: Mapped[list["ModuleModel"]] = relationship(back_populates="classroom", cascade="all, delete", passive_deletes=True)
@@ -24,3 +25,6 @@ class ClassroomModel(Base):
 
     # one to many. parent to child = class to notifications.
     notifications: Mapped[list["NotificationModel"]] = relationship(back_populates="classroom")
+
+    # one to one. parent to child = classroom to invite.
+    invite: Mapped["InviteModel"] = relationship(back_populates="classroom", cascade="all, delete", passive_deletes=True)

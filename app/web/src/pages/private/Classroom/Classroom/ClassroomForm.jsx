@@ -6,6 +6,7 @@ import { useSortedClassroom } from "../../../../hooks/Classroom/useClassroom";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
 import Modules from "../Module/Modules";
 import ClassroomItem from "./ClassroomItem";
+import DangerZoneAccordion from "./DangerZoneAccordion";
 
 const ClassroomForm = ({ ...props }) => {
   const [sortedClassroom, isSorting] = useSortedClassroom(props.classroom);
@@ -30,7 +31,17 @@ const ClassroomForm = ({ ...props }) => {
           <hr className="my-4"/>
 
           <h2 className="text-center">Программа учебного класса</h2>
-          <Modules modules={ sortedClassroom.modules }/>
+          { sortedClassroom.modules && sortedClassroom.modules.length > 0 ? (
+            <Modules modules={ sortedClassroom.modules }/>
+          ) : (
+            <h5 className="text-center bg-info-subtle border border-primary-subtle border-2 rounded p-3 mt-4">
+              Модулей в учебном классе нет...
+            </h5>
+          ) }
+
+          <hr className="my-4"/>
+
+          <DangerZoneAccordion classroom={ sortedClassroom }/>
         </Container>
       ) }
     </>

@@ -163,6 +163,16 @@ class ClassroomService {
     return response.json();
   };
 
+  static async leaveClassroom(classroomId) {
+    const response = await fetch(
+      `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/leave`, {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+    return response.json();
+  };
+
   static async deleteClassroom(classroomId) {
     const response = await fetch(
       `${ API_PATH }/${ CLASSROOM_PREFIX }/${ classroomId }/delete`, {

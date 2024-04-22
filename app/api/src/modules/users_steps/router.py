@@ -10,7 +10,7 @@ from src.modules.steps.exceptions import StepIncorrectTypeException, StepNotFoun
 from src.modules.steps.service import StepService
 from src.modules.users_steps.UserStepStatus import UserStepStatus
 from src.modules.users_steps.exceptions import UserStepNotFoundException
-from src.modules.users_steps.schemas import SUserStepGetOut, SUserStepPostIn, SUserStepPostOut
+from src.modules.users_steps.schemas import SUserStepCommentPostIn, SUserStepGetOut, SUserStepPostIn, SUserStepPostOut
 from src.modules.users_steps.service import UserStepService
 from src.services.images.service import ImageService
 from src.users.model import UserModel
@@ -216,3 +216,41 @@ async def answer(
     )
 
     return user_step
+
+
+@router.post(
+    path="/teacher/add_comment",
+    response_model=SUserStepPostOut,
+    status_code=status.HTTP_201_CREATED,
+    summary="Add a comment from teacher.",
+    description="Add a comment from teacher.",
+    tags=["UserStep"],
+    responses={
+        status.HTTP_201_CREATED: {
+            "model": SUserStepPostOut,
+            "description": "Comment added to UserStep successfully",
+        },
+        UserStepNotFoundException.status_code: {
+            "model": None,
+            "description": UserStepNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
+        },
+    }
+)
+async def add_teacher_comment(data: SUserStepCommentPostIn, user: UserModel = Depends(get_current_user)):
+    step = await StepService.read_one_or_none(id=data.step_id)
+    user = await UserService.read_one_or_none_with_steps(uuid=user.uuid)
+    check_rights(step.StepModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=data.user_uuid, step_id=data.step_id)
+    if not user_step:
+        raise UserStepNotFoundException
+
+    await UserStepService.update_one(model=user_step.UserStepModel, step_id=data.step_id, user_uuid=data.user_uuid,
+                                     teacher_comment=data.teacher_comment)
+
+    user_step = await UserStepService.read_one_or_none(user_uuid=data.user_uuid, step_id=data.step_id)
+    return user_step.UserStepModel

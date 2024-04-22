@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Accordion, Button } from "react-bootstrap";
-import ModuleCreateModal from "../components/Module/ModuleCreateModal";
 import Modules from "../components/ClassroomEditSyllabus/Module/Modules";
+import ModuleCreateModal from "../components/Module/ModuleCreateModal";
 
 const ClassroomEditSyllabus = ({ updatedClassroom, setUpdatedClassroom }) => {
   const [modalShow, setModalShow] = useState(false);

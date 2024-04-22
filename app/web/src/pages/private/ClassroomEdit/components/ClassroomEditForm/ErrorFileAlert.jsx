@@ -10,7 +10,7 @@ const ErrorFileAlert = ({ errorFileMessage, setErrorFileMessage }) => {
       className="my-3"
     >
       <Alert.Heading>Ошибка с файлом!</Alert.Heading>
-      <p>{ errorFileMessage }</p>
+      <p className="mb-0">{ errorFileMessage }</p>
     </Alert>
   );
 };

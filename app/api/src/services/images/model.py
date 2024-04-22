@@ -21,4 +21,5 @@ class ImageModel(Base):
     classroom: Mapped["ClassroomModel"] = relationship(back_populates="icon")
 
     # one to one. child to parent = image to user_step.
-    user_step: Mapped["UserStepModel"] = relationship("UserStepModel", back_populates="user_image")
+    # user_step: Mapped["UserStepModel"] = relationship("UserStepModel", back_populates="user_image")
+    user_step: Mapped["UserStepModel"] = relationship(back_populates="user_image")

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Body, Depends, File, UploadFile, status
 from src.auth.exceptions import AccessDeniedException
 from src.auth.helpers.token_helper import get_current_user
 from src.modules.classrooms.access import check_rights
-from src.modules.classrooms.exceptions import ClassroomNotFoundException
+from src.modules.classrooms.exceptions import ClassroomNotFoundException, ClassroomWithoutTeachersException
 from src.modules.classrooms.schemas import SClassroomDeleteOut, SClassroomGetOut, \
     SClassroomGetOutWithModules, SClassroomPostIn, SClassroomPostOut, SClassroomStudentAddIn, \
     SClassroomStudentsUpdateIn, \
@@ -377,7 +377,7 @@ async def update_teachers(data: SClassroomTeachersUpdateIn, user: UserModel = De
         AccessDeniedException.status_code: {
             "model": None,
             "description": AccessDeniedException.detail,
-        }
+        },
     }
 )
 async def add_student(data: SClassroomStudentAddIn, user: UserModel = Depends(get_current_user)):
@@ -431,6 +431,57 @@ async def add_teacher(data: SClassroomTeacherAddIn, user: UserModel = Depends(ge
 
     await TeacherService.add_teacher(data)
     return (await UserService.read_one_or_none(email=data.student.email)).UserModel
+
+
+@router.delete(
+    path="/{classroom_id}/leave",
+    response_model=SUserGetOut,
+    status_code=status.HTTP_200_OK,
+    summary="User leave from the classroom.",
+    description="User leave from the classroom.",
+    tags=["Classroom"],
+    responses={
+        status.HTTP_200_OK: {
+            "model": SUserGetOut,
+            "description": "User left from classroom successfully.",
+        },
+        ClassroomNotFoundException.status_code: {
+            "model": None,
+            "description": ClassroomNotFoundException.detail,
+        },
+        UserNotFoundException.status_code: {
+            "model": None,
+            "description": UserNotFoundException.detail,
+        },
+        AccessDeniedException.status_code: {
+            "model": None,
+            "description": AccessDeniedException.detail,
+        },
+    }
+)
+async def leave_classroom(classroom_id: int, user: UserModel = Depends(get_current_user)):
+    classroom = await ClassroomService.read_one_or_none(id=classroom_id)
+    if not classroom:
+        raise ClassroomNotFoundException
+
+    student_uuids = [student.uuid for student in
+                     await StudentService.read_classroom_students(classroom_id=classroom_id)]
+    teacher_uuids = [teacher.uuid for teacher in
+                     await TeacherService.read_classroom_teachers(classroom_id=classroom_id)]
+
+    if user.uuid in teacher_uuids and len(teacher_uuids) == 1:
+        raise ClassroomWithoutTeachersException
+
+    result = None
+    if user.uuid in student_uuids:
+        result = await StudentService.delete_one(classroom_id=classroom_id, user_uuid=user.uuid)
+    elif user.uuid in teacher_uuids:
+        result = await TeacherService.delete_one(classroom_id=classroom_id, user_uuid=user.uuid)
+
+    if not result:
+        raise UserNotFoundException
+
+    return (await UserService.read_one_or_none(uuid=user.uuid)).UserModel
 
 
 @router.delete(

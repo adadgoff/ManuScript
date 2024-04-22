@@ -1,10 +1,13 @@
 # dependencies
-app/client/node_modules
+app/api/.idea
+app/api/.venv
+app/api/venv
 
-# Expo
-app/client/.expo/
-app/client/dist/
-app/client/web-build/
+app/web/.idea
+app/web/node_modules
+
+node_modules
+pgdata
 
 # Native
 *.orig.*

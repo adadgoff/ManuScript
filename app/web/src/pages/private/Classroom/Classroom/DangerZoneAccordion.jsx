@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Accordion, Button } from "react-bootstrap";
-import ClassroomDeleteModal from "./ClassroomDeleteModal";
-import ClassroomQuitModal from "./ClassroomQuitModal";
-import ErrorQuitAlert from "./ErrorQuitAlert";
+import ClassroomQuitModal from "../../ClassroomEdit/components/ClassroomEditForm/ClassroomQuitModal";
+import ErrorQuitAlert from "../../ClassroomEdit/components/ClassroomEditForm/ErrorQuitAlert";
 
 const DangerZoneAccordion = ({ classroom }) => {
   const [modalQuitShow, setModalQuitShow] = useState(false);
-  const [modalDeleteShow, setModalDeleteShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   return (
@@ -15,10 +13,6 @@ const DangerZoneAccordion = ({ classroom }) => {
                           show={ modalQuitShow }
                           onHide={ () => setModalQuitShow(false) }
                           setErrorMessage={ setErrorMessage }/>
-
-      <ClassroomDeleteModal classroom={ classroom }
-                            show={ modalDeleteShow }
-                            onHide={ () => setModalDeleteShow(false) }/>
 
       <ErrorQuitAlert errorMessage={ errorMessage }
                       setErrorMessage={ setErrorMessage }
@@ -31,14 +25,9 @@ const DangerZoneAccordion = ({ classroom }) => {
           </Accordion.Header>
 
           <Accordion.Body>
-            <Button className="btn-danger w-100 mb-3"
+            <Button className="btn-danger w-100"
                     onClick={ () => setModalQuitShow(true) }>
               Покинуть учебный класс
-            </Button>
-
-            <Button className="btn-danger w-100"
-                    onClick={ () => setModalDeleteShow(true) }>
-              Удалить учебный класс
             </Button>
           </Accordion.Body>
         </Accordion.Item>

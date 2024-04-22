@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Alert, Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/UI/Loader/Loader";
@@ -9,7 +9,6 @@ import {
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH
 } from "../../../constants/Auth/AuthConstants";
-import { AuthContext } from "../../../context/Auth/AuthContext";
 
 const LoginForm = ({ ...props }) => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, UploadFile, status
 from fastapi.responses import FileResponse
 
 from src.auth.helpers.token_helper import get_current_user
-from src.services.images.contants import PATH
+from src.services.images.constants import STATIC_PATH
 from src.services.images.exceptions import ImageIncorrectExtensionException, ImageNotFoundException
 from src.services.images.schemas import SImageDeleteOut, SImagePostOut
 from src.services.images.service import ImageService
@@ -38,7 +38,7 @@ async def get_image_by_uuid(image_uuid: UUID, user: UserModel = Depends(get_curr
     image = await ImageService.read_one_or_none(uuid=image_uuid)
     if not image:
         raise ImageNotFoundException
-    return FileResponse(f"{PATH}/{image_uuid}.{image.ImageModel.extension}")
+    return FileResponse(f"{STATIC_PATH}/{image_uuid}.{image.ImageModel.extension}")
 
 
 @router.post(

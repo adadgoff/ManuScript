@@ -14,7 +14,7 @@ class TeacherCountInClassroomException(TeacherException):
 
 class TeacherAlreadyExistException(TeacherException):
     status_code = status.HTTP_409_CONFLICT
-    detail = "Teacher already exists is classroom."
+    detail = "Teacher already exists in classroom."
 
 
 class TeacherSelfDowngradeException(TeacherException):
@@ -29,4 +29,4 @@ class TeacherSelfRemoveException(TeacherException):
 
 class AddingTeacherIsCurrentStudentException(TeacherException):
     status_code = status.HTTP_409_CONFLICT
-    detail = "Adding teacher is current teacher. At first remove user from students."
+    detail = "Adding teacher is current student. At first remove user from students."

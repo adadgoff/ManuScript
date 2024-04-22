@@ -23,6 +23,7 @@ const Learn = () => {
       title={ LEARN_TITLE }
       classrooms={ classrooms }
       isLoading={ isFetchingLoading }
+      fetchClassrooms={fetchClassrooms}
     />
   );
 };

@@ -14,6 +14,7 @@ from modules.modules.router import router as router_module
 from modules.steps.router import router as router_step
 from modules.users_steps.router import router as router_user_step
 from services.images.router import router as router_image
+from services.invites.router import router as router_invite
 from users.router import router as router_user
 
 app = FastAPI(title="ManuScriptCrossPlatform", root_path="/api", version="0.1.0")
@@ -31,6 +32,7 @@ app.include_router(router_step)
 app.include_router(router_user_step)
 
 app.include_router(router_image)
+app.include_router(router_invite)
 
 ################################################
 

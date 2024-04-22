@@ -61,6 +61,24 @@ class UserStepService {
 
     return response.json();
   };
+
+  static async addTeacherComment(stepId, userUuid, teacherComment) {
+    const response = await fetch(
+      `${ API_PATH }/${ USER_STEP_PREFIX }/teacher/add_comment`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          step_id: stepId,
+          user_uuid: userUuid,
+          teacher_comment: teacherComment,
+        }),
+      }
+    );
+    return response.json();
+  };
 }
 
 export default UserStepService;

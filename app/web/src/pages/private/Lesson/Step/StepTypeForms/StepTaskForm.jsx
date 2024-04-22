@@ -12,6 +12,7 @@ import ImageAccordion from "../components/ImageAccordion";
 import StatusAlert from "../components/StatusAlert";
 import StepText from "../components/StepText";
 import StepType from "../components/StepType";
+import TeacherComment from "../components/TeacherComment";
 
 const StepTaskForm = ({ ...props }) => {
   const [userAnswer, setUserAnswer] = useState("");
@@ -57,23 +58,22 @@ const StepTaskForm = ({ ...props }) => {
     }
   };
 
+  console.log(userStep);
+
   return (
-    <Form onSubmit={ handleFormSubmit }>
-      <StepType step={ props.step }/>
-      <StepText step={ props.step }/>
+    isFetchingLoading || isSubmitting ? (
+      <Loader title={ LOADING_TEXT }/>
+    ) : (
+      <>
+        <Form onSubmit={ handleFormSubmit }>
+          <StepType step={ props.step }/>
+          <StepText step={ props.step }/>
 
-      { errorFileMessage && <ErrorFileAlert errorFileMessage={ errorFileMessage }
-                                            setErrorFileMessage={ setErrorFileMessage }/> }
+          { errorFileMessage &&
+            <ErrorFileAlert errorFileMessage={ errorFileMessage } setErrorFileMessage={ setErrorFileMessage }/> }
 
-      { isFetchingLoading || isSubmitting ? (
-        <Loader title={ LOADING_TEXT }/>
-      ) : (
-        <>
           <StatusAlert userStep={ userStep }/>
-          <Form.Group
-            controlId="formFile"
-            className="my-3 border border-info rounded p-3"
-          >
+          <Form.Group controlId="formFile" className="my-3 border border-info rounded p-3">
             <Form.Label>Прикрепите файл (макс. 5 MB)</Form.Label>
             <Form.Control
               type="file"
@@ -103,10 +103,12 @@ const StepTaskForm = ({ ...props }) => {
 
             { !userStep.detail && <ImageAccordion userStep={ userStep }/> }
           </Form.Group>
-        </>
-      ) }
+        </Form>
 
-    </Form>
+        { userStep.teacher_comment &&
+          <TeacherComment userStep={ userStep }/> }
+      </>
+    )
   );
 };
 

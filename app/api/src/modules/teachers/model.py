@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.db.base import Base
+from src.db.base import Base, str_320
 
 
 class TeacherModel(Base):

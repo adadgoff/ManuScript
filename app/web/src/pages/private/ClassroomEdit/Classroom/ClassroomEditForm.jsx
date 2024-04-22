@@ -6,10 +6,11 @@ import { COPYING_TEXT, LOADING_TEXT, SORTING_TEXT } from "../../../../components
 import { IMAGE_EXTENSION_ERROR, IMAGE_SIZE_ERROR } from "../../../../constants/Error/ErrorConstants";
 import { IMAGE_MAX_SIZE } from "../../../../constants/Image/ImageConstants";
 import { useUpdatedClassroom } from "../../../../hooks/Classroom/useClassroom";
+import ClassroomSaveCancelMenu from "../components/ClassroomEditForm/ClassroomSaveCancelMenu";
 import ClassroomSavingModal from "../components/ClassroomEditForm/ClassroomSavingModal";
 import DangerZoneAccordion from "../components/ClassroomEditForm/DangerZoneAccordion";
-import ClassroomSaveCancelMenu from "../components/ClassroomEditForm/ClassroomSaveCancelMenu";
 import StudentTeacherZoneAccordion from "../components/ClassroomEditForm/StudentTeacherZoneAccordion";
+import ClassroomInvitePanel from "../components/ClassroomInvitePanel/ClassroomInvitePanel";
 import ClassroomEditInfo from "./ClassroomEditInfo";
 import ClassroomEditSyllabus from "./ClassroomEditSyllabus";
 
@@ -107,6 +108,8 @@ const ClassroomEditForm = ({ classroom, setClassroom, isLoading }) => {
               handleClassroomFileChange={ handleClassroomFileChange }
               handleClassroomDescriptionChange={ handleClassroomDescriptionChange }
               handleClassroomTitleChange={ handleClassroomTitleChange }/>
+
+            <ClassroomInvitePanel classroom={ classroom }/>
 
             <ClassroomEditSyllabus updatedClassroom={ updatedClassroom }
                                    setUpdatedClassroom={ setUpdatedClassroom }/>
