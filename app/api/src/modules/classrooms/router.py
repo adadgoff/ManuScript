@@ -143,7 +143,7 @@ async def get_teachers(classroom_id: int, user: UserModel = Depends(get_current_
         raise ClassroomNotFoundException
 
     user = await UserService.read_one_or_none_with_classrooms(uuid=user.uuid)
-    check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=False, is_for_teachers=True)
+    check_rights(classroom.ClassroomModel, user.UserModel, is_for_students=True, is_for_teachers=True)
 
     return await TeacherService.read_classroom_teachers(classroom_id=classroom_id)
 

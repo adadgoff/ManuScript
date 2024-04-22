@@ -19,7 +19,7 @@ const StudentTeacherZoneAccordion = ({ classroom }) => {
     }
   );
 
-  const [teachers, setTeachers] = useState([]);  // For "GET" and "POST" requests.
+  const [teachers, setTeachers] = useState([]);
   const [fetchTeachers, isFetchingTeachersLoading, fetchingTeachersError] = useFetching(
     async () => {
       const teachers = await ClassroomService.getTeachers(classroom.id);

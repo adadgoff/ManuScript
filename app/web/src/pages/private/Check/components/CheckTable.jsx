@@ -47,8 +47,7 @@ const CheckTable = ({ lesson, students, lessonTasks, classroom }) => {
                             classroom={ classroom }/>
           ) }
         </tr>
-      )
-      }
+      ) }
       </tbody>
     </Table>
   );

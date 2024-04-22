@@ -6,6 +6,7 @@ import { useSortedClassroom } from "../../../../hooks/Classroom/useClassroom";
 import { TITLE_CLASS_NAME } from "../../../../styles/Classroom/ClassroomStyles";
 import Modules from "../Module/Modules";
 import ClassroomItem from "./ClassroomItem";
+import ClassroomTeachersInfo from "./ClassroomTeachersInfo";
 import DangerZoneAccordion from "./DangerZoneAccordion";
 
 const ClassroomForm = ({ ...props }) => {
@@ -27,6 +28,8 @@ const ClassroomForm = ({ ...props }) => {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+
+          <ClassroomTeachersInfo classroom={ props.classroom }/>
 
           <hr className="my-4"/>
 

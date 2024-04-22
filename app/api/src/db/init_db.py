@@ -81,21 +81,21 @@ async def input_example_data():
 
         ################################################################################################################
 
-        classroomD = ClassroomModel(title="Учебный класс с максимальным по длине названием777",
-                                    description="Учебный класс с максимальным по длине описанием ещё надо 50 символов так что пишу что придет вголову")
-
-        classroomD.teachers = [userA]
-        classroomD.students = [userK, userL]
-        session.add_all([classroomD])
-
-        moduleD1 = ModuleModel(title="Уже модуль сссс максимальным по длине названием777",
-                               description="Модуль сссссссс максимальным по длине описанием ещё надо 50 символов так что пишу что придет вголову",
-                               order=1)
-        classroomD.modules = [moduleD1]
-        session.add_all([moduleD1])
-
-        moduleD1_lesson = LessonModel(title="Уже уроккк сссс максимальным по длине названием777", order=1)
-        moduleD1.lessons = [moduleD1_lesson]
-        session.add_all([moduleD1_lesson])
+        # classroomD = ClassroomModel(title="Учебный класс с максимальным по длине названием777",
+        #                             description="Учебный класс с максимальным по длине описанием ещё надо 50 символов так что пишу что придет вголову")
+        #
+        # classroomD.teachers = [userA]
+        # classroomD.students = [userK, userL]
+        # session.add_all([classroomD])
+        #
+        # moduleD1 = ModuleModel(title="Уже модуль сссс максимальным по длине названием777",
+        #                        description="Модуль сссссссс максимальным по длине описанием ещё надо 50 символов так что пишу что придет вголову",
+        #                        order=1)
+        # classroomD.modules = [moduleD1]
+        # session.add_all([moduleD1])
+        #
+        # moduleD1_lesson = LessonModel(title="Уже уроккк сссс максимальным по длине названием777", order=1)
+        # moduleD1.lessons = [moduleD1_lesson]
+        # session.add_all([moduleD1_lesson])
 
         await session.commit()
