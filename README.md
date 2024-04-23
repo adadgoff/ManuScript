@@ -15,7 +15,7 @@ https://github.com/zhanymkanov/fastapi-best-practices?tab=readme-ov-file#1-proje
 ```
 
 ```
-См. docs/Дадыков_Артемий_Текст_Программы.docs
+См. docs/Дадыков_Артемий_Текст_Программы.docx
 ```
 
 # Запуск
